@@ -100,35 +100,66 @@ function initEventListeners() {
   }
 }
 
-// 2. Fetch Data from API
+// 2. Fetch Data from API (with Static Hosting / GitHub Pages fallback)
 async function loadData() {
   try {
     const res = await fetch(`${API_BASE}/api/data`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const json = await res.json();
     if (json.status === 'success') {
       appData = json.data;
       renderAll();
+      return;
     }
   } catch (err) {
-    console.error('Failed to load data:', err);
-    showToast('Failed to load database. Running offline cache.', 'error');
+    console.log('API endpoint not reachable, loading static stock_data.json:', err.message);
+    try {
+      const staticRes = await fetch('./stock_data.json');
+      if (staticRes.ok) {
+        const staticData = await staticRes.json();
+        appData = staticData;
+        renderAll();
+        return;
+      }
+    } catch (staticErr) {
+      console.error('Failed to load static fallback data:', staticErr);
+      showToast('Failed to load database. Running offline cache.', 'error');
+    }
   }
 }
 
 async function loadConfig() {
   try {
     const res = await fetch(`${API_BASE}/api/config`);
-    const json = await res.json();
-    if (json.status === 'success' && json.config) {
-      if (json.config.google_apps_script_url) {
-        document.getElementById('cfg-gas-url').value = json.config.google_apps_script_url;
-      }
-      if (json.config.last_synced) {
-        document.getElementById('cfg-last-synced').innerText = json.config.last_synced;
+    if (res.ok) {
+      const json = await res.json();
+      if (json.status === 'success' && json.config) {
+        if (json.config.google_apps_script_url) {
+          document.getElementById('cfg-gas-url').value = json.config.google_apps_script_url;
+        }
+        if (json.config.last_synced) {
+          document.getElementById('cfg-last-synced').innerText = json.config.last_synced;
+        }
+        return;
       }
     }
   } catch (err) {
-    console.error('Config load error:', err);
+    console.log('API config not reachable, loading config.json fallback');
+  }
+
+  try {
+    const staticCfgRes = await fetch('./config.json');
+    if (staticCfgRes.ok) {
+      const cfg = await staticCfgRes.json();
+      if (cfg.google_apps_script_url) {
+        document.getElementById('cfg-gas-url').value = cfg.google_apps_script_url;
+      }
+      if (cfg.last_synced) {
+        document.getElementById('cfg-last-synced').innerText = cfg.last_synced;
+      }
+    }
+  } catch (e) {
+    console.log('Config fallback notice:', e);
   }
 }
 
