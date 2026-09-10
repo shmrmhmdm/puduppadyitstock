@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Puthuppadi GP - IT Stock Register & Asset Management Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="theme-dark">
+    <!-- Mobile Backdrop -->
+    <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="main-sidebar">
+      <div class="sidebar-header">
+        <div class="logo-box">
+          <i class="fa-solid fa-server-shield logo-icon"></i>
+          <div class="logo-text">
+            <h2>PGP IT REG</h2>
+            <span>Puthuppadi Grama Panchayath</span>
+          </div>
+        </div>
+        <button id="sidebar-close-btn" class="icon-btn mobile-only sidebar-close-btn" title="Close Menu">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <nav class="sidebar-menu">
+        <div class="menu-section">Main Menu</div>
+        <button class="nav-item active" data-view="dashboard">
+          <i class="fa-solid fa-chart-pie"></i> <span>Dashboard</span>
+        </button>
+
+        <div class="menu-section">Hardware Registers</div>
+        <button class="nav-item" data-view="pcs">
+          <i class="fa-solid fa-desktop"></i> <span>Computers & Servers</span>
+          <span class="badge" id="badge-pcs">36</span>
+        </button>
+        <button class="nav-item" data-view="monitors">
+          <i class="fa-solid fa-display"></i> <span>Monitors</span>
+          <span class="badge" id="badge-monitors">30</span>
+        </button>
+        <button class="nav-item" data-view="peripherals">
+          <i class="fa-solid fa-keyboard"></i> <span>Keyboards & Mice</span>
+          <span class="badge" id="badge-peripherals">54</span>
+        </button>
+        <button class="nav-item" data-view="printers">
+          <i class="fa-solid fa-print"></i> <span>Printers & Scanners</span>
+          <span class="badge" id="badge-printers">14</span>
+        </button>
+        <button class="nav-item" data-view="other_equipments">
+          <i class="fa-solid fa-plug-circle-bolt"></i> <span>Power & Network</span>
+          <span class="badge" id="badge-oe">18</span>
+        </button>
+
+        <div class="menu-section">Operations & Handover</div>
+        <button class="nav-item" data-view="complaints">
+          <i class="fa-solid fa-screwdriver-wrench"></i> <span>Complaint Desk</span>
+          <span class="badge badge-warning" id="badge-complaints">2</span>
+        </button>
+        <button class="nav-item" data-view="handover">
+          <i class="fa-solid fa-file-signature"></i> <span>Asset Handover (RT)</span>
+        </button>
+        <button class="nav-item" data-view="ip_map">
+          <i class="fa-solid fa-network-wired"></i> <span>IP Address Map</span>
+        </button>
+        <button class="nav-item" data-view="employees">
+          <i class="fa-solid fa-users"></i> <span>Staff & Seats</span>
+        </button>
+        <button class="nav-item" data-view="purchases_gen">
+          <i class="fa-solid fa-file-invoice-dollar"></i> <span>Purchases & Generator</span>
+        </button>
+
+        <div class="menu-section">System</div>
+        <button class="nav-item" data-view="sync_settings">
+          <i class="fa-solid fa-cloud-arrow-up"></i> <span>Google Sheet Sync</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-pill">
+          <div class="user-avatar"><i class="fa-solid fa-user-shield"></i></div>
+          <div class="user-info">
+            <span class="user-name">IT Administrator</span>
+            <span class="user-role">Puthuppadi GP</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Top Navigation Header -->
+      <header class="top-header">
+        <div class="header-left">
+          <button id="mobile-menu-btn" class="icon-btn mobile-only"><i class="fa-solid fa-bars"></i></button>
+          <div class="global-search-wrapper">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="global-search" placeholder="Search by Asset ID, Serial No, Employee, IP, Model..." autocomplete="off">
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <button class="btn btn-outline" id="quick-sync-btn" title="Sync with Google Sheets">
+            <i class="fa-solid fa-arrows-rotate"></i> <span>Sync</span>
+          </button>
+          <button class="btn btn-primary" id="btn-open-add-modal">
+            <i class="fa-solid fa-plus"></i> <span>Add New Stock</span>
+          </button>
+          <button class="icon-btn theme-toggle-btn" id="theme-toggle" title="Toggle Theme">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- View Container -->
+      <div class="views-wrapper">
+        
+        <!-- 1. DASHBOARD VIEW -->
+        <section id="view-dashboard" class="view-panel active">
+          <div class="view-header">
+            <div>
+              <h1 class="view-title">Executive Dashboard</h1>
+              <p class="view-subtitle">Live hardware inventory, maintenance coverage, and system health status</p>
+            </div>
+            <div class="header-controls">
+              <span class="status-indicator live"><i class="fa-solid fa-circle"></i> Live Local DB</span>
+              <button class="btn btn-sm btn-secondary" onclick="exportCurrentView('pcs')"><i class="fa-solid fa-download"></i> Export Data</button>
+            </div>
+          </div>
+
+          <!-- KPI Metric Cards -->
+          <div class="stats-grid">
+            <div class="stat-card" style="--accent: var(--primary);">
+              <div class="stat-icon"><i class="fa-solid fa-desktop"></i></div>
+              <div class="stat-info">
+                <span class="stat-label">Total Computers</span>
+                <h3 class="stat-value" id="kpi-total-pcs">36</h3>
+                <span class="stat-desc">29 Desktops, 5 Laptops, 2 Servers</span>
+              </div>
+            </div>
+
+            <div class="stat-card" style="--accent: var(--success);">
+              <div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div>
+              <div class="stat-info">
+                <span class="stat-label">Working Systems</span>
+                <h3 class="stat-value text-success" id="kpi-working-pcs">34</h3>
+                <span class="stat-desc">94.4% operational uptime</span>
+              </div>
+            </div>
+
+            <div class="stat-card" style="--accent: var(--danger);">
+              <div class="stat-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+              <div class="stat-info">
+                <span class="stat-label">Under Complaint</span>
+                <h3 class="stat-value text-danger" id="kpi-complaint-pcs">2</h3>
+                <span class="stat-desc">Require Keltron / OEM Service</span>
+              </div>
+            </div>
+
+            <div class="stat-card" style="--accent: var(--info);">
+              <div class="stat-icon"><i class="fa-solid fa-shield-halved"></i></div>
+              <div class="stat-info">
+                <span class="stat-label">Keltron AMC</span>
+                <h3 class="stat-value" id="kpi-amc-count">17</h3>
+                <span class="stat-desc">12 Warranty, 6 Non-AMC</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Secondary Metric Grid -->
+          <div class="grid-2-col">
+            <!-- Asset Breakdown Chart / Cards -->
+            <div class="card">
+              <div class="card-header">
+                <h3><i class="fa-solid fa-cubes"></i> Peripherals & Infrastructure</h3>
+              </div>
+              <div class="card-body">
+                <div class="mini-stats-grid">
+                  <div class="mini-stat-item">
+                    <span class="mini-label">🖥️ Monitors</span>
+                    <span class="mini-value" id="dash-monitors">30</span>
+                  </div>
+                  <div class="mini-stat-item">
+                    <span class="mini-label">⌨️ Keyboards & Mice</span>
+                    <span class="mini-value" id="dash-km">54</span>
+                  </div>
+                  <div class="mini-stat-item">
+                    <span class="mini-label">🖨️ Printers & Scanners</span>
+                    <span class="mini-value" id="dash-ptr">14</span>
+                  </div>
+                  <div class="mini-stat-item">
+                    <span class="mini-label">⚡ UPS & Batteries</span>
+                    <span class="mini-value" id="dash-oe">18</span>
+                  </div>
+                  <div class="mini-stat-item">
+                    <span class="mini-label">👥 Staff Members</span>
+                    <span class="mini-value" id="dash-emp">34</span>
+                  </div>
+                  <div class="mini-stat-item">
+                    <span class="mini-label">🌐 Assigned IP Addresses</span>
+                    <span class="mini-value" id="dash-ips">29 / 254</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Service Desk Tickets -->
+            <div class="card">
+              <div class="card-header">
+                <h3><i class="fa-solid fa-list-check"></i> Recent Complaints & Tickets</h3>
+                <button class="btn btn-sm btn-outline" onclick="switchView('complaints')">View All</button>
+              </div>
+              <div class="card-body p-0">
+                <div class="table-responsive">
+                  <table class="data-table">
+                    <thead>
+                      <tr>
+                        <th>Ticket / Date</th>
+                        <th>Asset ID</th>
+                        <th>Section</th>
+                        <th>Issue</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="dash-recent-complaints">
+                      <!-- Rendered by app.js -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section Allocation Summary -->
+          <div class="card mt-4">
+            <div class="card-header">
+              <h3><i class="fa-solid fa-building-user"></i> Department & Section Distribution</h3>
+            </div>
+            <div class="card-body">
+              <div class="section-pills-grid" id="dash-section-pills">
+                <!-- Rendered by app.js -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. REGISTER-PC VIEW -->
+        <section id="view-pcs" class="view-panel">
+          <div class="view-header">
+            <div>
+              <h1 class="view-title">Computers & Servers Register</h1>
+              <p class="view-subtitle">Master list of all 36 desktops, laptops, and servers with specifications and assignments</p>
+            </div>
+            <div class="header-controls">
+              <button class="btn btn-primary" onclick="openAddModal('pcs')"><i class="fa-solid fa-plus"></i> Add PC / Laptop</button>
+              <button class="btn btn-secondary" onclick="exportData('pcs')"><i class="fa-solid fa-file-csv"></i> Export CSV</button>
+            </div>
+          </div>
+
+          <!-- Filters bar -->
+          <div class="filter-bar">
+            <div class="filter-group">
+              <label><i class="fa-solid fa-filter"></i> Category:</label>
+              <select id="filter-pc-category" onchange="filterPcs()">
+                <option value="">All Categories</option>
+                <option value="Desktop">Desktop</option>
+                <option value="Laptop">Laptop</option>
+                <option value="Server">Server</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label>Status:</label>
+              <select id="filter-pc-status" onchange="filterPcs()">
+                <option value="">All Statuses</option>
+                <option value="Working">Working</option>
+                <option value="Complaint">Complaint</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label>Maintenance / AMC:</label>
+              <select id="filter-pc-amc" onchange="filterPcs()">
+                <option value="">All Coverage</option>
+                <option value="AMC">Keltron AMC</option>
+                <option value="Warranty">Acer Warranty</option>
+                <option value="NA">No Service / Other</option>
+              </select>
+            </div>
+            <div class="filter-group flex-1">
+              <label>Search in Table:</label>
+              <input type="text" id="filter-pc-search" placeholder="Type processor, RAM, seat, or name..." oninput="filterPcs()">
+            </div>
+          </div>
+
+          <!-- PC Data Table -->
+          <div class="card p-0">
+            <div class="table-responsive">
+              <table class="data-table" id="pc-table">
+                <thead>
+                  <tr>
+                    <th>Asset ID</th>
+                    <th>Type & Model</th>
+                    <th>Hardware Specs</th>
+                    <th>OS & IP</th>
+                    <th>Assigned To</th>
+                    <th>Office Section</th>
+                    <th>Status</th>
+                    <th>AMC / Warranty</th>
+                    <th class="text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="pc-table-body">
+                  <!-- Rendered by app.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. REGISTER-MONITOR VIEW -->
+        <section id="view-monitors" class="view-panel">
+          <div class="view-header">
+            <div>
+              <h1 class="view-title">Monitors Register</h1>
+              <p class="view-subtitle">Display units mapped to user workstations and connected PC Asset IDs</p>
+            </div>
+            <div class="header-controls">
+              <button class="btn btn-primary" onclick="openAddModal('monitors')"><i class="fa-solid fa-plus"></i> Add Monitor</button>
+              <button class="btn btn-secondary" onclick="exportData('monitors')"><i class="fa-solid fa-file-csv"></i> Export CSV</button>
+            </div>
+          </div>
+
+          <div class="card p-0">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Asset ID</th>
+                    <th>Brand & Model</th>
+                    <th>Serial Number</th>
+                    <th>Specifications</th>
+                    <th>Assigned Seat</th>
+                    <th>Employee</th>
+                    <th>Connected PC</th>
+                    <th>Status</th>
+                    <th class="text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="monitors-table-body">
+                  <!-- Rendered by app.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. REGISTER-K&M VIEW -->
+        <section id="view-peripherals" class="view-panel">
+          <div class="view-header">
+            <div>
+              <h1 class="view-title">Keyboards & Mice Register</h1>
+              <p class="view-subtitle">Input peripherals, models, serial numbers, and employee desk mapping</p>
+            </div>
+            <div class="header-controls">
+              <button class="btn btn-primary" onclick="openAddModal('peripherals')"><i class="fa-solid fa-plus"></i> Add Device</button>
+              <button class="btn btn-secondary" onclick="exportData('peripherals')"><i class="fa-solid fa-file-csv"></i> Export CSV</button>
+            </div>
+          </div>
+
+          <div class="card p-0">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Asset ID</th>
+                    <th>Item Type</th>
+                    <th>Brand & Model</th>
+                    <th>Serial Number</th>
+                    <th>Assigned Seat</th>
+                    <th>Employee Name</th>
+                    <th>Connected PC</th>
+                    <th>Status</th>
+                    <th class="text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="peripherals-table-body">
+                  <!-- Rendered by app.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5. REGISTER-PTR VIEW -->
+        <section id="view-printers" class="view-panel">
+          <div class="view-header">
+            <div>
+              <h1 class="view-title">Printers, Scanners & Photocopiers</h1>
+              <p class="view-subtitle">Document devices, toner/cartridge specifications, and connected systems</p>
+            </div>
+            <div class="header-controls">
+              <button class="btn btn-primary" onclick="openAddModal('printers')"><i class="fa-solid fa-plus"></i> Add Printer / Copier</button>
+              <button class="btn btn-secondary" onclick="exportData('printers')"><i class="fa-solid fa-file-csv"></i> Export CSV</button>
+            </div>
+          </div>
+
+          <div class="card p-0">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Asset ID</th>
+                    <th>Type & Brand</th>
+                    <th>Model & Serial No</th>
+                    <th>Cartridge / Ink Required</th>
+                    <th>Assigned Seat</th>
+                    <th>Host PC</th>
+                    <th>Status</th>
+                    <th class="text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="printers-table-body">
+                  <!-- Rendered by app.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6. OTHER EQUIPMENTS VIEW -->
+        <section id="view-other_equipments" class="view-panel">
+          <div class="view-header">
+            <div>
+              <h1 class="view-title">Power & Network Infrastructure</h1>
+              <p class="view-subtitle">UPS systems, 160Ah battery banks, modems, stabilizers, and switches</p>
+            </div>
+            <div class="header-controls">
+              <button class="btn btn-primary" onclick="openAddModal('other_equipments')"><i class="fa-solid fa-plus"></i> Add Equipment</button>
+              <button class="btn btn-secondary" onclick="exportData('other_equipments')"><i class="fa-solid fa-file-csv"></i> Export CSV</button>
+            </div>
+          </div>
+
+          <div class="card p-0">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Asset ID</th>
+                    <th>Item Name</th>
+                    <th>Brand & Model</th>
+                    <th>Serial Number</th>
+                    <th>Details / Rating</th>
+                    <th>Location / Section</th>
+                    <th>Status</th>
+                    <th class="text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="oe-table-body">
+                  <!-- Rendered by app.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7. COMPLAINT & TICKETING MANAGEMENT VIEW -->
+        <section id="view-complaints" class="view-panel">
+          <div class="view-header">
+            <div>
+              <h1 class="view-title">IT Service Desk & Ticketing Management</h1>
+              <p class="view-subtitle">Lifecycle tracking for hardware faults, Keltron CSP tickets, technician job cards, and spare parts</p>
+            </div>
+            <div class="header-controls">
+              <button class="btn btn-primary" onclick="openTicketModal()"><i class="fa-solid fa-plus"></i> Create New Ticket</button>
+              <button class="btn btn-secondary" onclick="exportData('tickets')"><i class="fa-solid fa-file-csv"></i> Export Tickets</button>
+            </div>
+          </div>
+
+          <!-- Ticket KPI Metrics Grid -->
+          <div class="stats-grid mb-4">
+            <div class="stat-card" style="--accent: var(--primary);">
+              <div class="stat-icon"><i class="fa-solid fa-ticket"></i></div>
+              <div class="stat-info">
+                <span class="stat-label">Total Tickets</span>
+                <h3 class="stat-value" id="tkt-stat-total">5</h3>
+                <span class="stat-desc">All time service calls</span>
+              </div>
+            </div>
+
+            <div class="stat-card" style="--accent: var(--danger);">
+              <div class="stat-icon"><i class="fa-solid fa-clock"></i></div>
+              <div class="stat-info">
+                <span class="stat-label">Active Open</span>
+                <h3 class="stat-value text-danger" id="tkt-stat-open">2</h3>
+                <span class="stat-desc">Requiring vendor attention</span>
+              </div>
+            </div>
+
+            <div class="stat-card" style="--accent: var(--warning);">
+              <div class="stat-icon"><i class="fa-solid fa-gears"></i></div>
+              <div class="stat-info">
+                <span class="stat-label">Parts Pending</span>
+                <h3 class="stat-value text-warning" id="tkt-stat-parts">1</h3>
+                <span class="stat-desc">Awaiting spare delivery</span>
+              </div>
+            </div>
+
+            <div class="stat-card" style="--accent: var(--success);">
+              <div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div>
+              <div class="stat-info">
+                <span class="stat-label">Resolved / Closed</span>
+                <h3 class="stat-value text-success" id="tkt-stat-closed">3</h3>
+                <span class="stat-desc">Completed repairs</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Filter bar for Tickets -->
+          <div class="filter-bar">
+            <div class="filter-group">
+              <label><i class="fa-solid fa-filter"></i> Status:</label>
+              <select id="filter-tkt-status" onchange="filterTickets()">
+                <option value="">All Statuses</option>
+                <option value="Open">Open (Pending)</option>
+                <option value="Vendor Assigned">Vendor Assigned</option>
+                <option value="Parts Pending">Parts Pending</option>
+                <option value="Closed">Resolved & Closed</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label>Priority:</label>
+              <select id="filter-tkt-priority" onchange="filterTickets()">
+                <option value="">All Priorities</option>
+                <option value="Critical">Critical</option>
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label>Provider:</label>
+              <select id="filter-tkt-provider" onchange="filterTickets()">
+                <option value="">All Providers</option>
+                <option value="Keltron">Keltron AMC</option>
+                <option value="Acer">Acer Warranty</option>
+                <option value="Other">Other / In-House</option>
+              </select>
+            </div>
+            <div class="filter-group flex-1">
+              <label>Search Tickets:</label>
+              <input type="text" id="filter-tkt-search" placeholder="Type Ticket ID, CSP No, Asset ID, Technician or issue..." oninput="filterTickets()">
+            </div>
+          </div>
+
+          <!-- Tickets Data Table -->
+          <div class="card p-0">
+            <div class="table-responsive">
+              <table class="data-table" id="tickets-table">
+                <thead>
+                  <tr>
+                    <th>Ticket & Date</th>
+                    <th>Asset & Section</th>
+                    <th>Priority</th>
+                    <th>Issue Description</th>
+                    <th>Vendor / CSP Ref</th>
+                    <th>Technician & Contact</th>
+                    <th>Parts & Resolution</th>
+                    <th>Status</th>
+                    <th class="text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="complaints-table-body">
+                  <!-- Rendered by app.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 8. ASSET HANDOVER (RT-SECTION) VIEW -->
+        <section id="view-handover" class="view-panel">
+          <div class="view-header">
+            <div>
+              <h1 class="view-title">Asset Allocation Handover Certificate</h1>
+              <p class="view-subtitle">Generate official printable IT equipment allocation certificates with legal employee undertaking</p>
+            </div>
+            <div class="header-controls">
+              <button class="btn btn-primary" onclick="window.print()"><i class="fa-solid fa-print"></i> Print Certificate</button>
+            </div>
+          </div>
+
+          <div class="handover-controls card mb-4">
+            <div class="row-flex">
+              <div class="form-group flex-1">
+                <label>Select System / PC Asset ID:</label>
+                <select id="handover-pc-select" onchange="populateHandoverSheet(this.value)">
+                  <!-- Populated dynamically -->
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Printable Certificate Document -->
+          <div class="handover-certificate-card" id="printable-handover-area">
+            <div class="cert-header">
+              <div class="gov-badge">
+                <i class="fa-solid fa-landmark"></i>
+              </div>
+              <h2>PUTHUPPADY GRAMA PANCHAYATH</h2>
+              <h3>SYSTEM ASSET REPORT & ALLOCATION CERTIFICATE</h3>
+              <p class="cert-sub">Office of the Secretary, Puthuppadi Grama Panchayath, Kozhikode</p>
+            </div>
+
+            <hr class="cert-divider">
+
+            <div class="cert-section-info">
+              <div class="info-row">
+                <span class="lbl">Asset ID:</span> <strong id="cert-asset-id" class="val">PGP-SYS-PC001</strong>
+                <span class="lbl">Section Code:</span> <strong id="cert-seat" class="val">TA</strong>
+                <span class="lbl">Assigned Employee:</span> <strong id="cert-employee" class="val">SHAMEER M</strong>
+              </div>
+              <div class="info-row">
+                <span class="lbl">Office Section:</span> <span id="cert-office" class="val">PGP OFFICE</span>
+                <span class="lbl">Device Type:</span> <span id="cert-type" class="val">Desktop (Acer Veriton M200-H81)</span>
+                <span class="lbl">System S/N:</span> <span id="cert-serial" class="val">UXVJKSI703H1399074</span>
+              </div>
+            </div>
+
+            <h4 class="cert-subheading">1. Hardware & Network Specifications</h4>
+            <table class="cert-table">
+              <tr>
+                <th>Processor</th>
+                <td id="cert-processor">Intel Core i3</td>
+                <th>RAM / Memory</th>
+                <td id="cert-ram">8 GB</td>
+              </tr>
+              <tr>
+                <th>Storage</th>
+                <td id="cert-storage">1 TB HDD</td>
+                <th>Operating System</th>
+                <td id="cert-os">Windows 10 Pro</td>
+              </tr>
+              <tr>
+                <th>Static IP Address</th>
+                <td id="cert-ip">192.168.0.35</td>
+                <th>Maintenance Agency</th>
+                <td id="cert-amc">Keltron (AMC)</td>
+              </tr>
+            </table>
+
+            <h4 class="cert-subheading">2. Connected Workstation Accessories</h4>
+            <table class="cert-table">
+              <thead>
+                <tr>
+                  <th>Peripheral</th>
+                  <th>Asset ID</th>
+                  <th>Brand & Model</th>
+                  <th>Serial Number</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Monitor</strong></td>
+                  <td id="cert-mon-id">PGP-SYS-MTR001</td>
+                  <td id="cert-mon-model">Acer KA222Q (22" LED)</td>
+                  <td id="cert-mon-sn">MMTKSSI0064350B7733W01</td>
+                </tr>
+                <tr>
+                  <td><strong>Keyboard & Mouse</strong></td>
+                  <td id="cert-km-id">PGP-SYS-KM001 / KM002</td>
+                  <td id="cert-km-model">Logitech K120 / Lapcare L50</td>
+                  <td id="cert-km-sn">2445MR10CHV8</td>
+                </tr>
+                <tr>
+                  <td><strong>Printer / Scanner</strong></td>
+                  <td id="cert-ptr-id">PGP-SYS-PTR001</td>
+                  <td id="cert-ptr-model">HP Smart Tank 750 (Color MFP)</td>
+                  <td id="cert-ptr-sn">TH57F9B1Z</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="undertaking-box">
+              <h4>Undertaking for Asset Allocation & Custody</h4>
+              <p>
+                "I, the undersigned, hereby acknowledge receipt of the computer system and associated accessories specified above for my official duties at Puthuppadi Grama Panchayath.
+                I solemnly affirm that I shall use the assigned hardware with utmost care, responsibility, and diligence. I understand that I am responsible for the physical safety and proper maintenance of these assets. I further agree that I shall be held personally liable for any damages or losses caused due to negligence, improper handling, or unauthorized use. I also undertake to use this system strictly for official purposes and adhere to all IT security guidelines."
+              </p>
+            </div>
+
+            <div class="cert-signatures">
+              <div class="sig-col">
+                <div class="sig-line"></div>
+                <p><strong>Employee Signature</strong></p>
+                <p id="cert-sig-emp">SHAMEER M (Technical Assistant)</p>
+              </div>
+              <div class="sig-col">
+                <div class="sig-line"></div>
+                <p><strong>IT Nodal Officer / In-Charge</strong></p>
+                <p>Puthuppadi Grama Panchayath</p>
+              </div>
+              <div class="sig-col">
+                <div class="sig-line"></div>
+                <p><strong>Secretary / Head of Office</strong></p>
+                <p>Puthuppadi Grama Panchayath</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 9. IP ADDRESS MAP VIEW -->
+        <section id="view-ip_map" class="view-panel">
+          <div class="view-header">
+            <div>
+              <h1 class="view-title">Network & IP Address Manager</h1>
+              <p class="view-subtitle">Interactive visual matrix of the 192.168.0.0/24 office subnet to prevent IP conflicts</p>
+            </div>
+            <div class="header-controls">
+              <div class="ip-legend">
+                <span class="legend-item"><span class="color-box used"></span> Allocated</span>
+                <span class="legend-item"><span class="color-box free"></span> Available / Free</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="ip-grid" id="ip-grid-container">
+              <!-- Rendered by app.js (1 to 254) -->
+            </div>
+          </div>
+        </section>
+
+        <!-- 10. EMPLOYEE & SEATS DIRECTORY -->
+        <section id="view-employees" class="view-panel">
+          <div class="view-header">
+            <div>
+              <h1 class="view-title">Staff & Seat Directory</h1>
+              <p class="view-subtitle">Department staff, seat allocations, and designations</p>
+            </div>
+            <div class="header-controls">
+              <button class="btn btn-primary" onclick="openEmployeeModal()"><i class="fa-solid fa-user-plus"></i> Add Employee / Seat</button>
+            </div>
+          </div>
+
+          <div class="card p-0">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Sl.No</th>
+                    <th>Seat Code</th>
+                    <th>Employee Name</th>
+                    <th>Designation</th>
+                    <th>Office Branch</th>
+                    <th>Assigned PC</th>
+                    <th class="text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="employees-table-body">
+                  <!-- Rendered by app.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 11. PURCHASES & GENERATOR VIEW -->
+        <section id="view-purchases_gen" class="view-panel">
+          <div class="view-header">
+            <div>
+              <h1 class="view-title">Purchases & Mahindra Generator</h1>
+              <p class="view-subtitle">Consumables procurement, toner expenses, and 25 KVA generator maintenance logs</p>
+            </div>
+          </div>
+
+          <div class="grid-2-col">
+            <!-- Purchases Card -->
+            <div class="card">
+              <div class="card-header">
+                <h3><i class="fa-solid fa-cart-shopping"></i> Purchases & Consumables</h3>
+                <button class="btn btn-sm btn-primary" onclick="openPurchaseModal()"><i class="fa-solid fa-plus"></i> Add Purchase</button>
+              </div>
+              <div class="card-body p-0">
+                <div class="table-responsive">
+                  <table class="data-table">
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Item Details</th>
+                        <th>Amount</th>
+                        <th>Vendor</th>
+                        <th>File No</th>
+                      </tr>
+                    </thead>
+                    <tbody id="purchases-table-body">
+                      <!-- Rendered by app.js -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Generator Card -->
+            <div class="card">
+              <div class="card-header">
+                <h3><i class="fa-solid fa-bolt"></i> Generator (Mahindra 25 KVA)</h3>
+                <button class="btn btn-sm btn-primary" onclick="openGeneratorModal()"><i class="fa-solid fa-plus"></i> Add Log</button>
+              </div>
+              <div class="card-body">
+                <div class="gen-info-box">
+                  <div><strong>Make:</strong> Mahindra</div>
+                  <div><strong>Engine SL:</strong> N3B24XL29998</div>
+                  <div><strong>Capacity:</strong> 25 KVA</div>
+                </div>
+                <div class="table-responsive mt-3">
+                  <table class="data-table">
+                    <thead>
+                      <tr>
+                        <th>Call Date</th>
+                        <th>Service Done</th>
+                        <th>Run Hours</th>
+                        <th>Cost</th>
+                      </tr>
+                    </thead>
+                    <tbody id="generator-table-body">
+                      <!-- Rendered by app.js -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 12. GOOGLE SHEET SYNC SETTINGS -->
+        <section id="view-sync_settings" class="view-panel">
+          <div class="view-header">
+            <div>
+              <h1 class="view-title">Google Sheets Sync & Settings</h1>
+              <p class="view-subtitle">Connect your Google Sheet for 2-way cloud synchronization</p>
+            </div>
+          </div>
+
+          <div class="grid-2-col">
+            <div class="card">
+              <div class="card-header">
+                <h3><i class="fa-solid fa-link"></i> Google Apps Script Configuration</h3>
+              </div>
+              <div class="card-body">
+                <form id="config-form" onsubmit="saveConfig(event)">
+                  <div class="form-group">
+                    <label>Google Sheet URL:</label>
+                    <input type="text" id="cfg-sheet-url" value="https://docs.google.com/spreadsheets/d/1TU8KfFDau1e5A9WdNQ7qG8d5Jt4_9th-dbJjya70YoE/edit" readonly class="input-readonly">
+                  </div>
+
+                  <div class="form-group">
+                    <label>Google Apps Script Web App URL:</label>
+                    <input type="text" id="cfg-gas-url" placeholder="https://script.google.com/macros/s/.../exec">
+                    <small class="text-muted">Paste your deployed Web App URL here.</small>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Last Synced:</label>
+                    <div id="cfg-last-synced" class="text-muted">Not synced yet</div>
+                  </div>
+
+                  <div class="form-actions mt-3">
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Save Settings</button>
+                    <button type="button" class="btn btn-secondary" onclick="testSync()"><i class="fa-solid fa-arrows-rotate"></i> Test Sync Now</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h3><i class="fa-solid fa-book-open"></i> How to connect your Google Sheet</h3>
+              </div>
+              <div class="card-body text-sm guide-box">
+                <ol>
+                  <li>Open your Google Sheet: <a href="https://docs.google.com/spreadsheets/d/1TU8KfFDau1e5A9WdNQ7qG8d5Jt4_9th-dbJjya70YoE/edit" target="_blank" class="text-primary">Click here</a>.</li>
+                  <li>Click <strong>Extensions &gt; Apps Script</strong> in the Google Sheet menu.</li>
+                  <li>Paste the contents of <code>google_apps_script.js</code> (created in this project).</li>
+                  <li>Click <strong>Deploy &gt; New deployment &gt; Web app</strong>.</li>
+                  <li>Set <em>Execute as</em>: <strong>Me</strong> and <em>Who has access</em>: <strong>Anyone</strong>.</li>
+                  <li>Copy the resulting Web App URL and paste it in the box on the left!</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- MODAL: ADD / EDIT HARDWARE STOCK -->
+  <div class="modal-overlay" id="stock-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="stock-modal-title"><i class="fa-solid fa-pen-to-square"></i> Stock Record</h3>
+        <button class="icon-btn" onclick="closeModal('stock-modal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="stock-form" onsubmit="handleStockSubmit(event)">
+        <div class="modal-body" id="stock-modal-fields">
+          <!-- Dynamic Form Fields based on Category -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('stock-modal')">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btn-save-stock"><i class="fa-solid fa-check"></i> Save Record</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD / EDIT TICKET (LIFECYCLE MANAGEMENT) -->
+  <div class="modal-overlay" id="complaint-modal">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <h3 id="complaint-modal-title"><i class="fa-solid fa-ticket"></i> Service Ticket Record</h3>
+        <button class="icon-btn" onclick="closeModal('complaint-modal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="complaint-form" onsubmit="handleComplaintSubmit(event)">
+        <div class="modal-body">
+          <input type="hidden" id="comp-id">
+          
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label>Ticket ID (Auto-assigned):</label>
+              <input type="text" id="comp-tkt-id" placeholder="TKT-2026-..." readonly class="input-readonly">
+            </div>
+            <div class="form-group flex-1">
+              <label>Select Affected Asset ID *:</label>
+              <select id="comp-pc-select" required onchange="onComplaintPcSelect(this.value)">
+                <!-- populated dynamically -->
+              </select>
+            </div>
+            <div class="form-group flex-1">
+              <label>Priority Level *:</label>
+              <select id="comp-priority" required>
+                <option value="Critical">🔴 Critical (System Down / Blocked)</option>
+                <option value="High" selected>🟠 High (Urgent Office Work)</option>
+                <option value="Medium">🔵 Medium (Normal Priority)</option>
+                <option value="Low">⚪ Low (Minor / Aesthetic)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label>Item Name / Model:</label>
+              <input type="text" id="comp-item-name" placeholder="Desktop / Printer / UPS">
+            </div>
+            <div class="form-group flex-1">
+              <label>Office Section & Seat:</label>
+              <input type="text" id="comp-section" placeholder="e.g. Front Office / Overseer-2">
+            </div>
+            <div class="form-group flex-1">
+              <label>Reported By / User:</label>
+              <input type="text" id="comp-reported-by" placeholder="Staff Name">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label>Issue Category *:</label>
+              <select id="comp-category" required>
+                <option value="Hardware Fault">Hardware Fault (RAM, SSD/HDD, SMPS, Motherboard)</option>
+                <option value="Software / OS">Software / OS Crash / ERP / Portal Issue</option>
+                <option value="Printer / Scanner">Printer / Scanner / Cartridge Issue</option>
+                <option value="Network / Internet">Network / LAN / Internet Modem</option>
+                <option value="Power / UPS">Power / UPS / Inverter Battery</option>
+                <option value="Other">Other Maintenance</option>
+              </select>
+            </div>
+            <div class="form-group flex-1">
+              <label>Date Logged *:</label>
+              <input type="date" id="comp-date" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Fault / Complaint Symptom Details *:</label>
+            <textarea id="comp-details" rows="2" required placeholder="Describe the symptom (e.g. HDD not detected, Blue screen error, Not powering on)..."></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label>Service Provider / Agency:</label>
+              <input type="text" id="comp-amc" placeholder="Keltron AMC / Acer Warranty">
+            </div>
+            <div class="form-group flex-1">
+              <label>Vendor Call No / CSP Ticket:</label>
+              <input type="text" id="comp-ticket" placeholder="e.g. CSP/20260704/99667">
+            </div>
+            <div class="form-group flex-1">
+              <label>Vendor Call Date:</label>
+              <input type="date" id="comp-vendor-date">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label>Service Attended Date:</label>
+              <input type="date" id="comp-attended-date">
+            </div>
+            <div class="form-group flex-1">
+              <label>Technician Name:</label>
+              <input type="text" id="comp-tech-name" placeholder="Engineer Name">
+            </div>
+            <div class="form-group flex-1">
+              <label>Technician Contact No:</label>
+              <input type="text" id="comp-tech-phone" placeholder="Phone number">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label>Parts / Spares Replaced:</label>
+              <input type="text" id="comp-parts" placeholder="e.g. 500GB HDD replaced with SSD, RAM re-seated">
+            </div>
+            <div class="form-group flex-1">
+              <label>Ticket Status *:</label>
+              <select id="comp-status" required>
+                <option value="Open">🔴 Open (Pending Vendor Call)</option>
+                <option value="Vendor Assigned">🟡 Vendor Assigned (Call Logged)</option>
+                <option value="Parts Pending">🟠 Parts Pending (Waiting for Spares)</option>
+                <option value="Resolved">🟢 Resolved (Work Complete)</option>
+                <option value="Closed">✔️ Closed (Verified & Operational)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Service Resolution Work Done / Remarks:</label>
+            <textarea id="comp-solution" rows="2" placeholder="Details of diagnosis and solution provided by technician..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('complaint-modal')">Cancel</button>
+          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Save & Sync Ticket</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: PRINTABLE SERVICE JOB CARD -->
+  <div class="modal-overlay" id="job-card-modal">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-print"></i> Service Call Slip / Job Card</h3>
+        <button class="icon-btn" onclick="closeModal('job-card-modal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="job-card-printable" id="printable-job-card">
+          <div class="job-card-header">
+            <h3>PUTHUPPADY GRAMA PANCHAYATH</h3>
+            <h4>IT SERVICE CALL SLIP / TECHNICIAN JOB CARD</h4>
+            <p>Office of the Secretary, Puthuppadi GP, Kozhikode</p>
+          </div>
+          <hr class="cert-divider">
+          <table class="cert-table">
+            <tr>
+              <th>Ticket ID</th>
+              <td id="jc-ticket-id"><strong>TKT-2026-001</strong></td>
+              <th>Date Logged</th>
+              <td id="jc-date">2026-08-10</td>
+            </tr>
+            <tr>
+              <th>Asset ID</th>
+              <td id="jc-asset-id">PGP-SYS-PC033</td>
+              <th>Priority</th>
+              <td id="jc-priority"><span class="priority-tag high">High</span></td>
+            </tr>
+            <tr>
+              <th>Item & Specs</th>
+              <td id="jc-item" colspan="3">Acer Veriton M200-H81 Desktop (Intel i3 / 8GB / 1TB)</td>
+            </tr>
+            <tr>
+              <th>Section / User</th>
+              <td id="jc-section">Front Office (FO)</td>
+              <th>Reported By</th>
+              <td id="jc-reported-by">Front Office Staff</td>
+            </tr>
+            <tr>
+              <th>Service Agency</th>
+              <td id="jc-provider">Keltron AMC</td>
+              <th>Vendor CSP Ref</th>
+              <td id="jc-vendor-ref">CSP/20260810/10452</td>
+            </tr>
+          </table>
+
+          <div class="undertaking-box mt-3">
+            <h4>Reported Fault / Problem Details:</h4>
+            <p id="jc-fault-details" style="font-size: 13px; color: #1e293b; font-style: normal; font-weight: 500;">
+              Automatic restarting repeatedly during public token generation.
+            </p>
+          </div>
+
+          <div class="job-card-tech-section mt-3">
+            <h4>Technician Work Done & Spares Report (To be filled by Service Engineer):</h4>
+            <div class="tech-fill-box">
+              <div class="tech-fill-line"><strong>Diagnostics / Work Done:</strong> <span id="jc-work-done"></span></div>
+              <div class="tech-fill-line"><strong>Parts Replaced / RMA:</strong> <span id="jc-parts"></span></div>
+              <div class="tech-fill-line"><strong>Technician Name & Sign:</strong> <span id="jc-tech"></span></div>
+            </div>
+          </div>
+
+          <div class="cert-signatures mt-4">
+            <div class="sig-col">
+              <div class="sig-line"></div>
+              <p><strong>Section User Sign</strong></p>
+            </div>
+            <div class="sig-col">
+              <div class="sig-line"></div>
+              <p><strong>Service Engineer Sign</strong></p>
+            </div>
+            <div class="sig-col">
+              <div class="sig-line"></div>
+              <p><strong>IT In-Charge / Secretary</strong></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" onclick="closeModal('job-card-modal')">Close</button>
+        <button type="button" class="btn btn-primary" onclick="printJobCard()"><i class="fa-solid fa-print"></i> Print Job Card</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD PURCHASE RECORD -->
+  <div class="modal-overlay" id="purchase-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-cart-shopping"></i> Add Purchase / Consumable</h3>
+        <button class="icon-btn" onclick="closeModal('purchase-modal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="purchase-form" onsubmit="handlePurchaseSubmit(event)">
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label>Purchase Date *:</label>
+              <input type="date" id="pur-date" required>
+            </div>
+            <div class="form-group flex-1">
+              <label>Amount (₹) *:</label>
+              <input type="number" step="any" id="pur-amount" placeholder="e.g. 1980" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Item Description / Specification *:</label>
+            <textarea id="pur-item" rows="3" required placeholder="e.g. Epson 005 Ink Bottles (2 Nos), Canon 278A Toner"></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label>Vendor / Supplier Name *:</label>
+              <input type="text" id="pur-vendor" placeholder="e.g. VOXX Engapuzha" required>
+            </div>
+            <div class="form-group flex-1">
+              <label>File / Invoice Number:</label>
+              <input type="text" id="pur-file" placeholder="e.g. 5026081-2026">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('purchase-modal')">Cancel</button>
+          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Save Purchase</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD GENERATOR SERVICE LOG -->
+  <div class="modal-overlay" id="generator-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-bolt"></i> Add Mahindra Generator Log</h3>
+        <button class="icon-btn" onclick="closeModal('generator-modal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="generator-form" onsubmit="handleGeneratorSubmit(event)">
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label>Service / Call Date *:</label>
+              <input type="date" id="gen-date" required>
+            </div>
+            <div class="form-group flex-1">
+              <label>Machine Running Hours:</label>
+              <input type="number" step="any" id="gen-hours" placeholder="e.g. 117">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Service Details / Work Done *:</label>
+            <textarea id="gen-service" rows="2" required placeholder="e.g. Engine Oil & Filter Changed, Coolant top-up, Battery check"></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label>Service Cost / Amount (₹):</label>
+              <input type="number" step="any" id="gen-amount" placeholder="e.g. 2866">
+            </div>
+            <div class="form-group flex-1">
+              <label>Remarks / Next Service Due:</label>
+              <input type="text" id="gen-remarks" placeholder="Routine quarterly maintenance">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('generator-modal')">Cancel</button>
+          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Save Log</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD / EDIT EMPLOYEE -->
+  <div class="modal-overlay" id="employee-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="emp-modal-title"><i class="fa-solid fa-user-plus"></i> Staff Member / Seat</h3>
+        <button class="icon-btn" onclick="closeModal('employee-modal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="employee-form" onsubmit="handleEmployeeSubmit(event)">
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label>Seat Code *:</label>
+              <input type="text" id="emp-seat" placeholder="e.g. SEC, AS, JC1, FO" required>
+            </div>
+            <div class="form-group flex-1">
+              <label>Employee Name *:</label>
+              <input type="text" id="emp-name" placeholder="Staff Name" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label>Designation *:</label>
+              <input type="text" id="emp-desig" placeholder="e.g. Senior Clerk, Overseer" required>
+            </div>
+            <div class="form-group flex-1">
+              <label>Office Branch / Section *:</label>
+              <input type="text" id="emp-office" placeholder="PGP OFFICE / AE OFFICE / NREGS" required>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('employee-modal')">Cancel</button>
+          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Save Staff Member</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="toast">
+    <i class="toast-icon fa-solid fa-circle-check"></i>
+    <span id="toast-message">Success</span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

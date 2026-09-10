@@ -1,0 +1,360 @@
+==============================================================================
+SHEET: Complaint_Register (Total rows in XML: 993, Non-empty rows: 6)
+==============================================================================
+Row 1: A1: Complaint System
+From Register-PC | B1: Choose PC Asset ID from List | C1: Section Name | D1: Date | E1: Complaint Details | F1: Complaint ID | G1: Complaint
+ Assisted 
+Date | H1: Solution Provided | I1: Status | J1: Warranty / AMC Details | K1: Complaint Closed Date
+Row 2: A2: PGP-SYS-PC029 | B2: PGP-SYS-PC032 | C2: Principal | D2: 14/05/2026 | E2: Not powering On | G2: 15/05/2026 | H2: RAM re fixed  | I2: Closed | J2: Acer Warranty | K2: 15/05/2026
+Row 3: A3: PGP-SYS-PC033 | B3: PGP-SYS-PC005 | C3: JC5 | D3: 20/05/2026 | E3: System Slow | G3: 18/05/2026 | H3: OS Formatted | I3: Closed | J3: Keltron | K3: 18/05/2026
+Row 4: B4: PGP-SYS-PC025 | C4: VEO-2 | D4: 17/06/2025 | E4: printer complaint | F4: CSP/20260704/99667. | G4: 46119.0 | I4: Open | J4: Keltron
+Row 5: B5: PGP-SYS-PC029 | C5: Overseer-2 | D5: 24/07/2026 | E5: Booting Device Not Detected | F5: NIL | G5: 25/07/2026 | H5: HDD TAKEN  | I5: Closed | J5: Keltron
+Row 6: B6: PGP-SYS-PC033 | C6: FO | D6: 46274.0 | E6: AUTOMATIC RESTARTING , STUCK SOME TIME | J6: Keltron
+
+
+==============================================================================
+SHEET: Dashboard (Total rows in XML: 1000, Non-empty rows: 7)
+==============================================================================
+Row 2: B2: DASH BOARD OF COMPUTER AND PERIFERALS DETAILS IN PUTHUPPADI GP
+Row 4: B4: 🖥️
+Total PC's | C4: 36 | E4: 💻
+Working PC's  | F4: 34 | H4: 🔧🖥️
+Complaint PC's | I4: 2
+Row 5: B5: Server | C5: 2 | E5: PGP OFFICE | F5: 21 | H5: AMC Agency: | I5: Keltron
+Row 7: B7: Monitor | C7: 30 | E7: System Under AMC | F7: 17
+Row 9: B9: Keyboard | C9: 28 | E9: System Under Warranty | F9: 12
+Row 11: B11: E-waste Item | C11: 0 | E11: System Under 
+No Warranty /No AMC | F11: 6
+Row 13: B13: Ink Tank Printer | C13: 9 | E13: Other Equipments | F13: 18 | H13: Modem | I13: 5
+
+
+==============================================================================
+SHEET: E-waste (Total rows in XML: 1000, Non-empty rows: 1)
+==============================================================================
+Row 1: A1: S-No | B1: Item | C1: Brand Name | D1: Serial Number /any other details | E1: Product Description
+
+
+==============================================================================
+SHEET: Employee_list (Total rows in XML: 1000, Non-empty rows: 35)
+==============================================================================
+Row 1: A1: SlNo | B1: Seat | C1: Employee_Name | D1: Designation | E1: OFFICE
+Row 2: A2: 1 | B2: SEC | C2: SHANAVAS | D2: Secretary | E2: PGP OFFICE
+Row 3: A3: 2.0 | B3: AS | C3: AJITH P S | D3: Asst.Secretary | E3: PGP OFFICE
+Row 4: A4: 3.0 | B4: JS | C4: DILEEPKUMAR | D4: Junior Superintendant | E4: PGP OFFICE
+Row 5: A5: 4.0 | B5: AO | C5: MANEESH DEVASSIA | D5: Accountant | E5: PGP OFFICE
+Row 6: A6: 5.0 | B6: SC1 | C6: GIYAS | D6: Sr.Clerk | E6: PGP OFFICE
+Row 7: A7: 6.0 | B7: SC2 | C7: RAJI KV | D7: Sr.Clerk | E7: PGP OFFICE
+Row 8: A8: 7.0 | B8: SC3 | C8: LAJI | D8: Sr.Clerk | E8: PGP OFFICE
+Row 9: A9: 8.0 | B9: SC4 | C9: RAJ MOHAN CHACKO | D9: Sr.Clerk | E9: PGP OFFICE
+Row 10: A10: 9.0 | B10: SC5 | C10: PRABHILA E | D10: Sr.Clerk | E10: PGP OFFICE
+Row 11: A11: 10.0 | B11: JC1 | C11: RAJEESH K G | D11: Clerk | E11: PGP OFFICE
+Row 12: A12: 11.0 | B12: JC2 | C12: ANEESH K | D12: Clerk | E12: PGP OFFICE
+Row 13: A13: 12.0 | B13: JC3 | C13: ASOKAN T | D13: Clerk | E13: PGP OFFICE
+Row 14: A14: 13.0 | B14: JC4 | C14: SHA P H | D14: Clerk | E14: PGP OFFICE
+Row 15: A15: 14.0 | B15: JC5 | C15: AMALRAJ K V | D15: Clerk | E15: PGP OFFICE
+Row 16: A16: 15.0 | B16: TA | C16: SHAMEER M | D16: Technical Assistant | E16: PGP OFFICE
+Row 17: A17: 16.0 | B17: PA | C17: SHYAMILI E | D17: Project Assistant | E17: PGP OFFICE
+Row 18: A18: 17.0 | B18: HI | C18: HYRUNNISSA | D18: Health Inspector | E18: PGP OFFICE
+Row 19: A19: 18.0 | B19: AE | C19: Ashraf Kalladayil | D19: Asst.Engineer | E19: AE OFFICE
+Row 20: A20: 19.0 | B20: Overseer-1 | C20: Swapna | D20: Overseer | E20: AE OFFICE
+Row 21: A21: 20.0 | B21: Overseer-2 | C21: Vineetha | D21: Overseer | E21: AE OFFICE
+Row 22: A22: 21.0 | B22: AE Nregs | C22: Archana | D22: Accredited Engineer | E22: NREGS OFFICE
+Row 23: A23: 22.0 | B23: Overseer NREGS-1 | C23: Remya | D23: Overseer | E23: NREGS OFFICE
+Row 24: A24: 23.0 | B24: Overseer NREGS-2 | C24: Praseeda | D24: Overseer | E24: NREGS OFFICE
+Row 25: A25: 24.0 | B25: AITA-1 | C25: Biju Levi | D25: AITA | E25: NREGS OFFICE
+Row 26: A26: 25.0 | B26: AITA-2 | C26: Reshma | D26: AITA | E26: NREGS OFFICE
+Row 27: A27: 26.0 | B27: DEO | C27: FASNA | D27: DEO | E27: AE OFFICE
+Row 28: A28: 27.0 | B28: ICDS | C28: Subaida | D28: ICDS Supervisor | E28: ICDS OFFICE
+Row 29: A29: 28.0 | B29: MO FHC | C29: Dr JAMAL | D29: MO | E29: FHC PUTHUPPADY
+Row 30: A30: 29.0 | B30: MO AYUR | C30: Dr SUMAYYA | D30: MO | E30: AYURVEDA HOSPITAL
+... and 5 more non-empty rows
+
+
+==============================================================================
+SHEET: Generator (Total rows in XML: 1003, Non-empty rows: 6)
+==============================================================================
+Row 1: B1: Generator Name | D1: Mahindra
+Row 2: B2: Engine SL Number | D2: N3B24XL29998
+Row 3: B3: Capacity | D3: 25 KVA
+Row 5: B5: Date of call Logging | C5: Service Details | D5: Machine Running Hours | E5: Date of Service Attended | F5: Amount | G5: Remarks
+Row 6: B6: 45639.0 | C6: Oil and Filter Changed | D6: 117.0 | E6: 45639.0 | F6: 2866.0
+Row 7: B7: 46153.0
+
+
+==============================================================================
+SHEET: Item-Sort (Total rows in XML: 999, Non-empty rows: 14)
+==============================================================================
+Row 1: B1: 8 GB | D1: intel i5 | F1: Win 10 | I1: Laptop
+Row 2: B2: TA | C2: SHAMEER M | D2: SC1 | E2: GIYAS | F2: TA | G2: SHAMEER M | I2: ICDS | J2: Subaida
+Row 3: B3: AO | C3: MANEESH DEVASSIA | D3: JC4 | E3: SHA P H | F3: JC5 | G3: AMALRAJ K V | I3: VEO-1 | J3: PRADEEP KUMAR
+Row 4: B4: JC5 | C4: AMALRAJ K V | D4: AS | E4: AJITH P S | F4: JC3 | G4: ASOKAN T | I4: AE | J4: Ashraf Kalladayil
+Row 5: B5: AS | C5: AJITH P S | D5: SC2 | E5: RAJI KV | F5: HI | G5: HYRUNNISSA | I5: Pre | J5: Biju Thannikkakuzhi
+Row 6: B6: SC4 | C6: RAJ MOHAN CHACKO | D6: SC3 | E6: LAJI | F6: FO | G6: Front office | I6: SEC | J6: SHANAVAS
+Row 7: B7: ICDS | C7: Subaida | D7: JC1 | E7: RAJEESH K G | F7: PA | G7: SHYAMILI E
+Row 8: B8: VEO-2 | C8: Vacant | D8: SC5 | E8: PRABHILA E | F8: AE Nregs | G8: Archana
+Row 9: B9: VEO-1 | C9: PRADEEP KUMAR | F9: Overseer NREGS-1 | G9: Remya
+Row 10: B10: Overseer-1 | C10: Swapna | F10: DEO | G10: FASNA
+Row 11: B11: AE | C11: Ashraf Kalladayil | F11: Overseer-2 | G11: Vineetha
+Row 12: B12: Pre | C12: Biju Thannikkakuzhi | F12: FO | G12: Front office
+Row 13: B13: FO | C13: Front office
+Row 16: B16: SEC | C16: SHANAVAS
+
+
+==============================================================================
+SHEET: Other_Equipments (Total rows in XML: 1000, Non-empty rows: 19)
+==============================================================================
+Row 1: A1: ASSET ID | B1: ITEM NAME | C1: BRAND | D1: MODEL | E1: SERIAL NUMBER | F1: Details | G1: SECTION | H1: STATUS
+Row 2: A2: PGP-SYS-OE001 | B2: Stabilizer | C2: Digi Guard | D2: DIGIGUARD | E2: 2301319.0 | F2: 600va | G2: PGP OFFICE GF | H2: Working
+Row 3: A3: PGP-SYS-OE002 | B3: UPS | C3: IGA TECH | D3: IGOL5KR | E3: T22880115 | F3: 5KAV | G3: PGP OFFICE SF | H3: Working
+Row 4: A4: PGP-SYS-OE003 | B4: UPS | C4: IGA TECH | D4: IGA SATURN | E4: M11170513 | F4: 3 KVA | G4: PGP OFFICE SF | H4: Complaint
+Row 5: A5: PGP-SYS-OE004 | B5: Modem | C5: SCOPUS | D5: SC5520GWV | E5: FCCD2FA923E0 | F5: Kerala Vision Modem | G5: PGP OFFICE GF | H5: Complaint
+Row 6: A6: PGP-SYS-OE005 | B6: Modem | C6: Net Link | D6: HG323RGW | E6: 8CC7C3814177 | F6: 4.952235229E9 | G6: PGP OFFICE GF | H6: Working
+Row 7: A7: PGP-SYS-OE006 | B7: Modem | C7: TP Link | D7: TLWR841N | E7: 30B5C2361CF8 | F7: WIFI Splitter | G7: PGP OFFICE GF | H7: Working
+Row 8: A8: PGP-SYS-OE007 | B8: Modem | C8: Net Link | D8: HG323RGW | E8: GPON00912622 | G8: NREGS OFFICE | H8: Working
+Row 9: A9: PGP-SYS-OE008 | B9: Modem | C9: Alphion | D9: 9067176840FE | E9: APHN124E1070 | F9: BBNL | G9: PGP OFFICE GF | H9: Working
+Row 10: A10: PGP-SYS-OE009 | B10: Battery | C10: Triotec | D10: IM-IT 1600T | E10: RHB1600E20297 | F10: IGA TEC 5 KVA UPS BATTERY 160 AH C20 | G10: PGP OFFICE SF | H10: Working
+Row 11: A11: PGP-SYS-OE010 | B11: Battery | C11: Triotec | D11: IM-IT 1600T | E11: RHB1600E20298 | F11: IGA TEC 5 KVA UPS BATTERY 160 AH C21 | G11: PGP OFFICE SF | H11: Working
+Row 12: A12: PGP-SYS-OE011 | B12: Battery | C12: Triotec | D12: IM-IT 1600T | E12: RHB1600E20299 | F12: IGA TEC 5 KVA UPS BATTERY 160 AH C22 | G12: PGP OFFICE SF | H12: Working
+Row 13: A13: PGP-SYS-OE012 | B13: Battery | C13: Triotec | D13: IM-IT 1600T | E13: RHB1600E20300 | F13: IGA TEC 5 KVA UPS BATTERY 160 AH C23 | G13: PGP OFFICE SF | H13: Working
+Row 14: A14: PGP-SYS-OE013 | B14: Battery | C14: Triotec | D14: IM-IT 1600T | E14: RHB1600E20304 | F14: IGA TEC 5 KVA UPS BATTERY 160 AH C24 | G14: PGP OFFICE SF | H14: Working
+Row 15: A15: PGP-SYS-OE014 | B15: Battery | C15: Triotec | D15: IM-IT 1600T | E15: RHB1600E20305 | F15: IGA TEC 5 KVA UPS BATTERY 160 AH C25 | G15: PGP OFFICE SF | H15: Working
+Row 16: A16: PGP-SYS-OE015 | B16: Battery | C16: Triotec | D16: IM-IT 1600T | E16: RHB1600E20308 | F16: IGA TEC 5 KVA UPS BATTERY 160 AH C26 | G16: PGP OFFICE SF | H16: Working
+Row 17: A17: PGP-SYS-OE016 | B17: Battery | C17: Triotec | D17: IM-IT 1600T | E17: RHB1600E20309 | F17: IGA TEC 5 KVA UPS BATTERY 160 AH C27 | G17: PGP OFFICE SF | H17: Working
+Row 18: A18: PGP-SYS-OE017 | B18: Battery | C18: SF | D18: FSPO-TT60S150 | E18: A1D4E650330JD42 | F18: IGA TEC 5 KVA UPS BATTERY | G18: PGP OFFICE SF | H18: Working
+Row 19: A19: PGP-SYS-OE018 | B19: Battery | C19: SF | D19: FSPO-TT60S150 | E19: A1D4E646810JD42 | F19: IGA TEC 5 KVA UPS BATTERY | G19: PGP OFFICE SF | H19: Working
+
+
+==============================================================================
+SHEET: Purchases (Total rows in XML: 1000, Non-empty rows: 3)
+==============================================================================
+Row 1: A1: Sl.No | B1: Date | C1: Item | D1: Amount | E1: Vendor | F1: File Number
+Row 2: A2: 1.0 | B2: 20/06/2026 | C2: Toner Catridges
+ink epson 005
+278 A Laser Toer | D2: 1980.0 | E2: VOXX Engapuzha | F2: 5026081-2026
+Row 3: A3: 2.0 | B3: 24/06/2026 | C3: PHOTOCOPIER HEAR ROLL REPLACEMENT | F3: 3879541-2026
+
+
+==============================================================================
+SHEET: RT-Section (Total rows in XML: 1000, Non-empty rows: 15)
+==============================================================================
+Row 2: C2: SYSTEM ASSET REPORT
+Section wise
+Row 3: I3: Search By PC Asset ID: | J3: PGP-SYS-pc005
+Row 4: C4: SECTION | D4: FO | E4: Front office | F4: PGP OFFICE | I4: Section Code  | J4: JC5
+Row 5: C5: Asset ID | D5: PGP-SYS-PC016 | E5: FO | F5: FO | I5: Employee Name | J5: AMALRAJ K V
+Row 6: C6: Product | D6: Desktop | E6: Working
+Row 8: C8: Serial Number | D8: UXVJKSI703H1399058
+Row 10: C10: Specifications
+Row 11: C11: Processor/RAM/Storage | D11: intel i3 | E11: 4 GB | F11: 1 TB HDD
+Row 12: C12: OS/IPaddress | D12: Win 10 | E12: 192.168.0.23
+Row 13: C13: Monitor | D13: PGP-SYS-MTR015 | E13: Acer | F13: MMLY65501213818F23853K
+Row 14: C14: KB & PTR | D14: PGP-SYS-KM029 | E14: Lenovo
+Row 15: D15: PGP-SYS-PTR005 | E15: Epson | F15: M2170
+Row 17: C17: Undertaking for Asset Allocation
+Row 18: C18: "I, the undersigned, hereby acknowledge the receipt of the computer system and associated accessories as specified below for my official duties at this office.
+I solemnly affirm that I shall use the assigned hardware and accessories with the utmost care, responsibility, and diligence. I understand that I am responsible for the physical safety and proper maintenance of these assets. I further agree that I shall be held personally liable for any damages or losses caused to the equipment due to my negligence, improper handling, or unauthorized use.
+I also undertake to use this system strictly for official purposes and will not install any unauthorized software or engage in activities that violate the office IT policy.
+Row 23: E23: Front office , (FO), FO
+
+
+==============================================================================
+SHEET: Register-K&M (Total rows in XML: 992, Non-empty rows: 55)
+==============================================================================
+Row 1: A1: Asset ID | B1: Item Category | C1: Brand  | D1: Model | E1: Serial Number | F1: Assigned to | G1: Employee_Name | H1: Purchase Date | I1: Warranty/AMC Expiry | J1: Connected PC Asset ID | K1: Status
+Row 2: A2: PGP-SYS-KM001 | B2: Keyboard | C2: Logitech | D2: K120 | E2: 2445MR10CHV8 | F2: TA | G2: SHAMEER M | J2: PGP-SYS-PC001
+Row 3: A3: PGP-SYS-KM002 | B3: Mouse | C3: Lapcare | D3: L50 | F3: TA | G3: SHAMEER M | J3: PGP-SYS-PC001
+Row 4: A4: PGP-SYS-KM003 | B4: Mouse | C4: Zebronics | D4: NA | E4: NA | F4: AO | G4: MANEESH DEVASSIA | J4: PGP-SYS-PC004
+Row 5: A5: PGP-SYS-KM004 | B5: Keyboard | C5: Foxin | D5: FKB102PLUS | E5: FKBKLDX112525019 | F5: AO | G5: MANEESH DEVASSIA | J5: PGP-SYS-PC004
+Row 6: A6: PGP-SYS-KM005 | B6: Mouse | C6: Zebronics | D6: NA | E6: NA | F6: SC1 | G6: GIYAS | J6: PGP-SYS-PC003
+Row 7: A7: PGP-SYS-KM006 | B7: Keyboard | C7: Acer | D7: DKS0B1B0HL | E7: 444011E1K801 | F7: SC1 | G7: GIYAS | J7: PGP-SYS-PC003
+Row 8: A8: PGP-SYS-KM007 | B8: Mouse | C8: Rapoo | D8: NA | E8: NA | F8: JC5 | G8: AMALRAJ K V | J8: PGP-SYS-PC005
+Row 9: A9: PGP-SYS-KM008 | B9: Keyboard | C9: Foxin | D9: FKB-102PLUS | E9: FKB102032332890 | F9: JC5 | G9: AMALRAJ K V | J9: PGP-SYS-PC005
+Row 10: A10: PGP-SYS-KM009 | B10: Mouse | C10: Acer | D10: NA | E10: 4500FA4EK701 | F10: JC4 | G10: SHA P H | J10: PGP-SYS-PC006
+Row 11: A11: PGP-SYS-KM010 | B11: Keyboard | C11: Acer | D11: ACER HD KBD | E11: WBYBJA004690 | F11: JC4 | G11: SHA P H | J11: PGP-SYS-PC006
+Row 12: A12: PGP-SYS-KM011 | B12: Mouse | C12: Dell | E12: CN-009NK2-73826-6B1-06AQ | F12: JC2 | G12: ANEESH K | J12: PGP-SYS-PC007
+Row 13: A13: PGP-SYS-KM012 | B13: Keyboard | C13: Acer | D13: DKUSB1P03L | E13: 65182F51K701 | F13: JC2 | G13: ANEESH K | J13: PGP-SYS-PC007
+Row 14: A14: PGP-SYS-KM013 | B14: Mouse | C14: Rapoo | E14: 1903A4QXXX9 | F14: JC3 | G14: ASOKAN T | J14: PGP-SYS-PC008
+Row 15: A15: PGP-SYS-KM014 | B15: Keyboard | C15: Acer | D15: DKUSB1P03L | E15: 44702B87K701 | F15: JC3 | G15: ASOKAN T | J15: PGP-SYS-PC008
+Row 16: A16: PGP-SYS-KM015 | B16: Mouse | C16: Zebronics | F16: AS | G16: AJITH P S | J16: PGP-SYS-PC009
+Row 17: A17: PGP-SYS-KM016 | B17: Keyboard | C17: Acer | D17: ACER HD KBD | E17: WBYBJA004318 | F17: AS | G17: AJITH P S | J17: PGP-SYS-PC009
+Row 18: A18: PGP-SYS-KM017 | B18: Mouse | C18: Acer | D18: DC11211021 | E18: 55204475K700 | F18: SEC | G18: SHANAVAS | J18: PGP-SYS-PC010
+Row 19: A19: PGP-SYS-KM018 | B19: Keyboard | C19: Acer | D19: DKUSB1B0HL | E19: 54101BD8K801 | F19: SEC | G19: SHANAVAS | J19: PGP-SYS-PC010
+Row 20: A20: PGP-SYS-KM019 | B20: Mouse | C20: Acer | F20: SC4 | G20: RAJ MOHAN CHACKO | J20: PGP-SYS-PC018
+Row 21: A21: PGP-SYS-KM020 | B21: Keyboard | C21: Acer | D21: DKUSB1B0DT | E21: 737008B3K801 | F21: SC4 | G21: RAJ MOHAN CHACKO | J21: PGP-SYS-PC018
+Row 22: A22: PGP-SYS-KM021 | B22: Mouse | C22: Acer | D22: ACER COMBO MOUSE | E22: WBYBJA004685 | F22: SC2 | G22: RAJI KV | J22: PGP-SYS-PC012
+Row 23: A23: PGP-SYS-KM022 | B23: Keyboard | C23: Acer | D23: ACER HD KBD | E23: WBYBJA004995 | F23: SC2 | G23: RAJI KV | J23: PGP-SYS-PC012
+Row 24: A24: PGP-SYS-KM023 | B24: Mouse | C24: Acer | F24: SC3 | G24: LAJI | J24: PGP-SYS-PC013
+Row 25: A25: PGP-SYS-KM024 | B25: Keyboard | C25: Acer | D25: ACER HD-KBD | E25: WBYBJA004312 | F25: SC3 | G25: LAJI | J25: PGP-SYS-PC013
+Row 26: A26: PGP-SYS-KM025 | B26: Mouse | C26: Acer | D26: DC11211021 | E26: 43702DA3K700 | F26: JC1 | G26: RAJEESH K G | J26: PGP-SYS-PC014
+Row 27: A27: PGP-SYS-KM026 | B27: Keyboard | C27: Rapoo | E27: 18802NK2513524 | F27: JC1 | G27: RAJEESH K G | J27: PGP-SYS-PC014
+Row 28: A28: PGP-SYS-KM027 | B28: Mouse | C28: Acer | D28: ACER COMBO MOUSE | E28: WBOBJA000180 | F28: SC5 | G28: PRABHILA E | J28: PGP-SYS-PC015
+Row 29: A29: PGP-SYS-KM028 | B29: Keyboard | C29: Acer | D29: ACER HD KBD | E29: WBOBJA000239 | F29: SC5 | G29: PRABHILA E | J29: PGP-SYS-PC015
+Row 30: A30: PGP-SYS-KM029 | B30: Mouse | C30: Lenovo | D30: 120.0 | E30: 1SGY51L52636214G4YPV | F30: FO | G30: Front office | J30: PGP-SYS-PC016
+... and 25 more non-empty rows
+
+
+==============================================================================
+SHEET: Register-Monitor (Total rows in XML: 991, Non-empty rows: 31)
+==============================================================================
+Row 1: A1: Asset ID* | B1: Item Category | C1: Brand  | D1: Model | E1: Serial Number | F1: Specifications | G1: Assigned to | H1: Employee_Name | I1: Purchase Date | J1: Warranty/AMC Expiry | K1: Connected PC Asset ID | L1: Status
+Row 2: A2: PGP-SYS-MTR001 | B2: Monitor | C2: Acer | D2: KA222Q | E2: MMTKSSI0064350B7733W01 | F2: LED 22inch | G2: TA | H2: SHAMEER M | K2: PGP-SYS-PC001
+Row 3: A3: PGP-SYS-MTR002 | B3: Monitor | C3: Acer | D3: EK220Q | E3: MMTJDSI00560910E383W01 | F3: LED 22inch | G3: JS | H3: DILEEPKUMAR | K3: PGP-SYS-PC002
+Row 4: A4: PGP-SYS-MTR003 | B4: Monitor | C4: Zebronics | D4: ZEB-EA122 | E4: ZBW05ET00710 | G4: AO | H4: MANEESH DEVASSIA | K4: PGP-SYS-PC004
+Row 5: A5: PGP-SYS-MTR004 | B5: Monitor | C5: Acer | D5: EK240Y | E5: MMTJESI0044290324E3W01 | G5: SC1 | H5: GIYAS | K5: PGP-SYS-PC003
+Row 6: A6: PGP-SYS-MTR005 | B6: Monitor | C6: Zebronics | D6: ZEB-EA122 | E6: ZBW0SET00711 | G6: JC5 | H6: AMALRAJ K V | K6: PGP-SYS-PC005
+Row 7: A7: PGP-SYS-MTR006 | B7: Monitor | C7: Zebronics | D7: ZEB-EA123 | E7: ZBW0SET00712
+Row 8: A8: PGP-SYS-MTR007 | B8: Monitor | C8: Acer | D8: EB192Q | E8: MMT6MSS00162801C053E00 | G8: JC3 | H8: ASOKAN T | K8: PGP-SYS-PC008
+Row 9: A9: PGP-SYS-MTR008 | B9: Monitor | C9: Acer | D9: K202Q | E9: MMV0CSI00152B034A74HA1 | G9: JC2 | H9: ANEESH K | K9: PGP-SYS-PC007
+Row 10: A10: PGP-SYS-MTR009 | B10: Monitor | C10: Acer | D10: EK240Y | E10: MMTJESI003347053BB3W01 | G10: AS | H10: AJITH P S | K10: PGP-SYS-PC009
+Row 11: A11: PGP-SYS-MTR010 | B11: Monitor | C11: Acer | D11: K202Q | E11: MMV0CSI001508002FF4HAI | G11: SC4 | H11: RAJ MOHAN CHACKO | K11: PGP-SYS-PC018
+Row 12: A12: PGP-SYS-MTR011 | B12: Monitor | C12: Acer | D12: EK240Y | E12: MMTJESI00334705A263W01 | G12: SC2 | H12: RAJI KV | K12: PGP-SYS-PC012
+Row 13: A13: PGP-SYS-MTR012 | B13: Monitor | C13: Acer | D13: EK240Y | E13: MMTJESI00334705A363W01 | G13: SC3 | H13: LAJI | K13: PGP-SYS-PC013
+Row 14: A14: PGP-SYS-MTR013 | B14: Monitor | C14: Acer | D14: EK240Y | E14: MMTJESI003347052D53W01 | G14: JC1 | H14: RAJEESH K G | K14: PGP-SYS-PC014
+Row 15: A15: PGP-SYS-MTR014 | B15: Monitor | C15: Acer | D15: EK240Y | E15: MMTJESI003347053753W01 | G15: SC5 | H15: PRABHILA E | K15: PGP-SYS-PC015
+Row 16: A16: PGP-SYS-MTR015 | B16: Monitor | C16: Acer | D16: V206HQL | E16: MMLY65501213818F23853K | G16: FO | H16: Front office | K16: PGP-SYS-PC016
+Row 17: A17: PGP-SYS-MTR016 | B17: Monitor | C17: Acer | D17: V193HQL | E17: MMLKESS00723801A558503 | G17: PA | H17: SHYAMILI E | K17: PGP-SYS-PC017
+Row 18: A18: PGP-SYS-MTR017 | B18: Monitor | C18: Acer | D18: EK220Q | E18: MMTJDSI0056091114D3W01 | G18: SEC | H18: SHANAVAS | K18: PGP-SYS-PC010
+Row 19: A19: PGP-SYS-MTR018 | B19: Monitor | C19: Acer | D19: V196HQL | E19: MMLY0SS0047090633E8507 | G19: HI | H19: HYRUNNISSA | K19: PGP-SYS-PC011
+Row 20: A20: PGP-SYS-MTR019 | B20: Monitor | C20: Acer | D20: V206WQL | E20: MMT3LSI00100400DB12472 | G20: AITA-2 | H20: Reshma | K20: PGP-SYS-PC019
+Row 21: A21: PGP-SYS-MTR020 | B21: Monitor | C21: Acer | D21: EK240Y | E21: MMT7ESI0033470539B3W01 | G21: AITA-1 | H21: Biju Levi | K21: PGP-SYS-PC020
+Row 22: A22: PGP-SYS-MTR021 | B22: Monitor | C22: Acer | D22: V206WQL | E22: MMT3LSI00100400DB42472 | G22: AE Nregs | H22: Archana | K22: PGP-SYS-PC021
+Row 23: A23: PGP-SYS-MTR022 | B23: Monitor | C23: Acer | D23: EK240Y | E23: MMTJESI0033470538C3W01 | G23: Overseer NREGS-2 | H23: Praseeda | K23: PGP-SYS-PC022
+Row 24: A24: PGP-SYS-MTR023 | B24: Monitor | C24: Acer | D24: V196HQL | E24: MMLY0SS004709063D68507 | G24: Overseer NREGS-1 | H24: Remya | K24: PGP-SYS-PC023
+Row 25: A25: PGP-SYS-MTR024 | B25: Monitor | C25: Dell | D25: A03 | E25: CN-OCXZTG | G25: VEO-2 | H25: Vacant | K25: PGP-SYS-PC025
+Row 26: A26: PGP-SYS-MTR025 | B26: Monitor | C26: Acer | D26: V196HQL | E26: MMLY0SS004842011318507 | G26: DEO | H26: FASNA | K26: PGP-SYS-PC027
+Row 27: A27: PGP-SYS-MTR026 | B27: Monitor | C27: Acer | D27: V196HQL | E27: MMLXNSS0027330A4734212 | G27: Overseer-1 | H27: Swapna | K27: PGP-SYS-PC028
+Row 28: A28: PGP-SYS-MTR027 | B28: Monitor | C28: Dell | D28: NA | E28: CN-09YKU7-72872-684-AUYD-A00 | G28: Overseer-2 | H28: Vineetha | K28: PGP-SYS-PC029
+Row 29: A29: PGP-SYS-MTR028 | B29: Monitor | C29: Acer | D29: EK220Q | E29: MMTJDSI005609111693W01 | G29: Principal | H29: Haseena | K29: PGP-SYS-PC032
+Row 30: A30: PGP-SYS-MTR029 | B30: Monitor | C30: Acer | D30: V196HQL | E30: MMLY0SS004709068988507 | G30: FO | H30: Front office | K30: PGP-SYS-PC016
+... and 1 more non-empty rows
+
+
+==============================================================================
+SHEET: Register-PC (Total rows in XML: 981, Non-empty rows: 100)
+==============================================================================
+Row 1: A1: Asset ID * | B1: Item Category | C1: Brand  | D1: Model | E1: Serial Number | F1: Processor | G1: RAM | H1: STORAGE | I1: OS | J1: IP address Assigned | K1: Assigned to | L1: Employee_Name | M1: Office Section | N1: Purchase Date | O1: Warranty/AMC Expiry | P1: Is Working | Q1: Present Status | R1: Is Complaint | S1: Device Status | T1: AMC/WARRANTY | U1: amc/warranty
+agency
+Row 2: A2: PGP-SYS-PC001 | B2: Desktop | C2: Acer | D2: Veriton M200-H81 | E2: UXVJKSI703H1399074 | F2: intel i3 | G2: 8 GB | H2: 1 TB HDD | I2: Win 10 | J2: 192.168.0.35 | K2: TA | L2: SHAMEER M | M2: PGP OFFICE | P2: 1 | Q2: Working | R2: 0 | T2: AMC | U2: Keltron
+Row 3: A3: PGP-SYS-PC002 | B3: Desktop | C3: Acer | D3: Veriton M200-P500 | E3: UD30SSI0FR61213AA60700 | F3: AMD Ryzon 5 | G3: 16 GB | H3: 500 SSD | I3: Win 11 | J3: 192.168.0.65 | K3: JS | L3: DILEEPKUMAR | M3: PGP OFFICE | P3: 1 | Q3: Working | R3: 0 | T3: Warranty | U3: Acer Warranty
+Row 4: A4: PGP-SYS-PC003 | B4: Desktop | C4: Acer | D4: Veriton M200-H610 | E4: UD30KSI0FB45103B870700 | F4: intel i5 | G4: 16 GB | H4: 500 SSD | I4: Win 11 | J4: 192.168.0.5 | K4: SC1 | L4: GIYAS | M4: PGP OFFICE | P4: 1 | Q4: Working | R4: 0 | T4: Warranty | U4: Acer Warranty
+Row 5: A5: PGP-SYS-PC004 | B5: Desktop | C5: Acer | D5: Veriton M200-H81 | E5: UXVJSSID71F0502021 | F5: intel i3 | G5: 8 GB | H5: 500 HDD | I5: Win 8 | J5: 192.168.0.26 | K5: AO | L5: MANEESH DEVASSIA | M5: PGP OFFICE | P5: 1 | Q5: Working | R5: 0 | T5: AMC | U5: Keltron
+Row 6: A6: PGP-SYS-PC005 | B6: Desktop | C6: Acer | D6: Veriton M200-H81 | E6: UXVJKSI703H1399053 | F6: intel i3 | G6: 8 GB | H6: 1 TB HDD | I6: Win 10 | J6: 192.168.0.99 | K6: JC5 | L6: AMALRAJ K V | M6: PGP OFFICE | P6: 1 | Q6: Working | R6: 0 | T6: AMC | U6: Keltron
+Row 7: A7: PGP-SYS-PC006 | B7: Desktop | C7: Acer | D7: Veriton M200-H610 | E7: UD30FSI00640301CFD0700 | F7: intel i5 | G7: 16 GB | H7: 500 SSD | I7: Win 11 | J7: 192.168.0.13 | K7: JC4 | L7: SHA P H | M7: PGP OFFICE | P7: 1 | Q7: Working | R7: 0 | T7: Warranty | U7: Acer Warranty
+Row 8: A8: PGP-SYS-PC007 | B8: Desktop | C8: Acer | D8: G41 BOARD | E8: G41 ZEBRONICS | F8: Intel pentium | G8: 2 GB | H8: 500 HDD | I8: Win 7 | J8: 192.168.0.56 | K8: JC2 | L8: ANEESH K | M8: PGP OFFICE | P8: 1 | Q8: Working | R8: 0 | T8: AMC | U8: Keltron
+Row 9: A9: PGP-SYS-PC008 | B9: Desktop | C9: Acer | D9: Veriton M2640G | E9: UXB1JKSIK68H4383861 | F9: intel i3 | G9: 4 GB | H9: 1 TB HDD | I9: Win 10 | J9: 192.168.0.89 | K9: JC3 | L9: ASOKAN T | M9: PGP OFFICE | P9: 1 | Q9: Working | R9: 0 | T9: AMC | U9: Keltron
+Row 10: A10: PGP-SYS-PC009 | B10: Desktop | C10: Acer | D10: Veriton M200-H610 | E10: UD30FSI00640301CDC0700 | F10: intel i5 | G10: 8 GB | H10: 500 SSD | I10: Win 11 | J10: 192.168.0.2 | K10: AS | L10: AJITH P S | M10: PGP OFFICE | P10: 1 | Q10: Working | R10: 0 | T10: Warranty | U10: Acer Warranty
+Row 11: A11: PGP-SYS-PC010 | B11: Desktop | C11: Acer | D11: Veriton M200-P500 | E11: UD305SI0FR61213B580700 | F11: AMD Ryzon 5 | G11: 16 GB | H11: 500 SSD | I11: Win 11 | J11: 192.168.0.63 | K11: SEC | L11: SHANAVAS | M11: PGP OFFICE | P11: 1 | Q11: Working | R11: 0 | T11: Warranty | U11: Acer Warranty
+Row 12: A12: PGP-SYS-PC011 | B12: Desktop | C12: Acer | D12: Intel H61 | E12: NA | F12: intel i3 | G12: 4 GB | H12: 500 HDD | I12: Win 10 | J12: 192.168.0.8 | K12: HI | L12: HYRUNNISSA | M12: PGP OFFICE | P12: 1 | Q12: Working | R12: 0 | T12: AMC | U12: Keltron
+Row 13: A13: PGP-SYS-PC012 | B13: Desktop | C13: Acer | D13: Veriton M200-H610 | E13: UD30FSI00640301D970700 | F13: intel i5 | G13: 16 GB | H13: 500 SSD | I13: Win 11 | J13: 192.168.0.6 | K13: SC2 | L13: RAJI KV | M13: PGP OFFICE | P13: 1 | Q13: Working | R13: 0 | T13: Warranty | U13: Acer Warranty
+Row 14: A14: PGP-SYS-PC013 | B14: Desktop | C14: Acer | D14: Veriton M200-H610 | E14: UD30FSI00640301D4E0700 | F14: intel i5 | G14: 16 GB | H14: 500 SSD | I14: Win 11 | J14: 192.168.0.7 | K14: SC3 | L14: LAJI | M14: PGP OFFICE | P14: 1 | Q14: Working | R14: 0 | T14: Warranty | U14: Acer Warranty
+Row 15: A15: PGP-SYS-PC014 | B15: Desktop | C15: Acer | D15: Veriton M200-H610 | E15: UD30FSI00640301D450700 | F15: intel i5 | G15: 16 GB | H15: 500 SSD | I15: Win 11 | J15: 192.168.0.10 | K15: JC1 | L15: RAJEESH K G | M15: PGP OFFICE | P15: 1 | Q15: Working | R15: 0 | T15: Warranty | U15: Acer Warranty
+Row 16: A16: PGP-SYS-PC015 | B16: Desktop | C16: Acer | D16: Veriton M200-H610 | E16: UD30FSI00640301CED6700 | F16: intel i5 | G16: 16 GB | H16: 500 SSD | I16: Win 11 | J16: 192.168.0.9 | K16: SC5 | L16: PRABHILA E | M16: PGP OFFICE | P16: 1 | Q16: Working | R16: 0 | T16: Warranty | U16: Acer Warranty
+Row 17: A17: PGP-SYS-PC016 | B17: Desktop | C17: Acer | D17: Veriton M200-H81 | E17: UXVJKSI703H1399058 | F17: intel i3 | G17: 4 GB | H17: 1 TB HDD | I17: Win 10 | J17: 192.168.0.23 | K17: FO | L17: Front office | M17: PGP OFFICE | P17: 1 | Q17: Working | R17: 0 | T17: AMC | U17: Keltron
+Row 18: A18: PGP-SYS-PC017 | B18: Desktop | C18: Acer | D18: Veriton M200-H81 | E18: UXVJKSI703H1399067 | F18: intel i3 | G18: 4 GB | H18: 1 TB HDD | I18: Win 10 | J18: 192.168.0.61 | K18: PA | L18: SHYAMILI E | M18: PGP OFFICE | P18: 1 | Q18: Working | R18: 0 | T18: AMC | U18: Keltron
+Row 19: A19: PGP-SYS-PC018 | B19: Desktop | C19: Acer | D19: Veriton S2670G | E19: UXBGVSI006L4842979 | F19: intel i3 | G19: 8 GB | H19: 1 TB SSD | I19: Win 11 | J19: 192.168.0.66 | K19: SC4 | L19: RAJ MOHAN CHACKO | M19: PGP OFFICE | P19: 1 | Q19: Working | R19: 0 | T19: AMC | U19: Keltron
+Row 20: A20: PGP-SYS-PC019 | B20: Desktop | C20: Acer | D20: Veriton M-466G | E20: UXVQSI857K2802966 | F20: intel i3 | G20: 4 GB | H20: 1 TB HDD | I20: Win 11 | J20: Direct internet | K20: AITA-2 | L20: Reshma | M20: NREGS OFFICE | P20: 1 | Q20: Working | R20: 0 | T20: AMC | U20: Keltron
+Row 21: A21: PGP-SYS-PC020 | B21: Desktop | C21: Acer | D21: Veriton M200-H610 | E21: UD30KSI024408089A70700 | F21: intel i3 | G21: 16 GB | H21: 500 SSD | I21: Win 11 | J21: Direct internet | K21: AITA-1 | L21: Biju Levi | M21: NREGS OFFICE | P21: 1 | Q21: Working | R21: 0 | T21: Warranty | U21: Acer Warranty
+Row 22: A22: PGP-SYS-PC021 | B22: Desktop | C22: Acer | D22: Veriton M-660G | E22: UXVQVSI857K2802979 | F22: intel i3 | G22: 4 GB | H22: 1 TB HDD | I22: Win 10 | J22: 192.168.0.24 | K22: AE Nregs | L22: Archana | M22: NREGS OFFICE | P22: 1 | Q22: Working | R22: 0 | T22: AMC | U22: Keltron
+Row 23: A23: PGP-SYS-PC022 | B23: Desktop | C23: Acer | D23: Veriton M200-H610 | E23: UD30KSI0244080896E0700 | F23: intel i3 | G23: 16 GB | H23: 500 SSD | I23: Win 11 | J23: 192.168.0.170 | K23: Overseer NREGS-2 | L23: Praseeda | M23: NREGS OFFICE | P23: 1 | Q23: Working | R23: 0 | T23: Warranty | U23: Acer Warranty
+Row 24: A24: PGP-SYS-PC023 | B24: Desktop | C24: Acer | D24: Veriton M200-H81 | E24: UXVJKSI703H1399048 | F24: intel i3 | G24: 4 GB | H24: 1 TB HDD | I24: Win 10 | J24: 192.168.0.158 | K24: Overseer NREGS-1 | L24: Remya | M24: NREGS OFFICE | P24: 1 | Q24: Working | R24: 0 | T24: AMC | U24: Keltron
+Row 25: A25: PGP-SYS-PC024 | B25: Laptop | C25: HP | D25: HP 240G8 | E25: SCG141BBRW | F25: intel i3 | G25: 8 GB | H25: 500 SSD | I25: Win 11 | J25: 192.168.0.110 | K25: ICDS | L25: Subaida | M25: ICDS OFFICE | P25: 1 | Q25: Working | R25: 0 | T25: NA | U25: No Service
+Row 26: A26: PGP-SYS-PC025 | B26: Desktop | C26: Dell | D26: Vostro 3470 | E26: F5V18Q2 | F26: intel i3 | G26: 8 GB | H26: 250 SSD | I26: Win 11 | J26: 192.168.0.17 | K26: VEO-2 | L26: Vacant | M26: VEO OFFICE | P26: 1 | Q26: Working | R26: 0 | T26: AMC | U26: Keltron
+Row 27: A27: PGP-SYS-PC026 | B27: Laptop | C27: HP | D27: HP 240G8 | E27: SCG1414FG8 | F27: intel i3 | G27: 8 GB | H27: 500 SSD | I27: Win 11 | J27: 192.168.0.125 | K27: VEO-1 | L27: PRADEEP KUMAR | M27: VEO OFFICE | P27: 1 | Q27: Working | R27: 0 | T27: NA | U27: No Service
+Row 28: A28: PGP-SYS-PC027 | B28: Desktop | C28: Acer | D28: Veriton M200-H110 | E28: H110M-SI02 / UXVDNSI63514679798 | F28: intel i3 | G28: 4 GB | H28: 1 TB HDD | I28: Win 10 | J28: 192.168.0.164 | K28: DEO | L28: FASNA | M28: AE OFFICE | P28: 1 | Q28: Working | R28: 0 | T28: AMC | U28: Keltron
+Row 29: A29: PGP-SYS-PC028 | B29: Desktop | C29: Acer | D29: Veritin M200-H310 | E29: NA | F29: intel i3 | G29: 8 GB | H29: 250 SSD | I29: Win 11 | J29: 192.168.0.49 | K29: Overseer-1 | L29: Swapna | M29: AE OFFICE | P29: 1 | Q29: Working | R29: 0 | T29: AMC | U29: Keltron
+Row 30: A30: PGP-SYS-PC029 | B30: Desktop | C30: Dell | D30: Inspiron 3250 | E30: FTRFXH2 | F30: intel i3 | G30: 4 GB | H30: 500 HDD | I30: Win 10 | J30: 192.168.0.165 | K30: Overseer-2 | L30: Vineetha | M30: AE OFFICE | P30: 0 | R30: 1 | S30: Complaint | T30: AMC | U30: Keltron
+... and 70 more non-empty rows
+
+
+==============================================================================
+SHEET: Register-PTR (Total rows in XML: 996, Non-empty rows: 15)
+==============================================================================
+Row 1: A1: Asset ID | B1: Item Category | C1: Brand  | D1: Model | E1: Serial Number | F1: Specifications | G1: Toner Catridge Details | H1: Assigned to | I1: Employee_Name | J1: Purchase Date | K1: Warranty/AMC Expiry | L1: Printed Connected System ID | M1: Device Status
+Row 2: A2: PGP-SYS-PTR001 | B2: Ink Tank Printer | C2: HP | D2: Smart Tank 750 | E2: TH57F9B1Z | F2: Ink Tank , MFP , Color | G2: GT 52 , GT53 , GT53XL | H2: SC1 | I2: GIYAS | L2: PGP-SYS-PC003 | M2: Working
+Row 3: A3: PGP-SYS-PTR002 | B3: Ink Tank Printer | C3: Epson | D3: M11170 | E3: X68K070973 | F3: Ink Tank, Mono | G3: BK 005 , 005S | H3: JC4 | I3: SHA P H | L3: PGP-SYS-PC006 | M3: Working
+Row 4: A4: PGP-SYS-PTR003 | B4: Ink Tank Printer | C4: Epson | D4: M3170 | E4: X5TW073486 | F4: Ink Tank ,MFP , Mono | G4: BK 005 , 005S | H4: SC3 | I4: LAJI | L4: PGP-SYS-PC013 | M4: Working
+Row 5: A5: PGP-SYS-PTR004 | B5: Ink Tank Printer | C5: Epson | D5: M3170 | E5: X5TW072819 | F5: Ink Tank ,MFP , Mono | G5: BK 005 , 005S | H5: JC1 | I5: RAJEESH K G | L5: PGP-SYS-PC014 | M5: Working
+Row 6: A6: PGP-SYS-PTR005 | B6: Ink Tank Printer | C6: Epson | D6: M2170 | E6: X687022228 | F6: Ink Tank ,MFP , Mono | G6: BK 005 , 005S | H6: FO | I6: Front office | L6: PGP-SYS-PC016 | M6: Working
+Row 7: A7: PGP-SYS-PTR006 | B7: Scanner | C7: Canon | D7: DR-M1060II | E7: KGU00127 | F7: HIGH SPEED | H7: FO | I7: Front office | L7: PGP-SYS-PC016 | M7: Working
+Row 8: A8: PGP-SYS-PTR007 | B8: Photocopier | C8: Sharp | D8: BP30M28 | E8: 2.3005141E7 | F8: Photocopier Machine ,ADF | H8: FO | I8: Front office | L8: PGP-SYS-PC016 | M8: Working
+Row 9: A9: PGP-SYS-PTR008 | B9: Ink Tank Printer | C9: Epson | D9: M1170 | E9: X68K070904 | F9: Ink Tank MONO | G9: BK 005 / 005S | H9: AE Nregs | I9: Archana | L9: PGP-SYS-PC021 | M9: Working
+Row 10: A10: PGP-SYS-PTR009 | B10: Laser printer | C10: Canon | D10: MF4820D | E10: QYR58750 | F10: laserjet MFP | G10: 278.0 | H10: AITA-1 | I10: Biju Levi | L10: PGP-SYS-PC020 | M10: Working
+Row 11: A11: PGP-SYS-PTR010 | B11: Ink Tank Printer | C11: Epson | D11: M2170 | E11: Q687024211 | F11: Ink Tank MFP | G11: BK 005 / 005S | H11: ICDS | I11: Subaida | L11: PGP-SYS-PC024 | M11: Working
+Row 12: A12: PGP-SYS-PTR011 | B12: Ink Tank Printer | C12: Canon | D12: GM4070 | E12: KNVV30597 | F12: Ink Tank, Mono | G12: BK G1-70 | H12: VEO-2 | I12: Vacant | L12: PGP-SYS-PC025 | M12: Working
+Row 13: A13: PGP-SYS-PTR012 | B13: Photocopier | C13: Canon | D13: IR 2006N | E13: (21)2FG37315 / F193302 | F13: Photocopier Machine  | H13: AE | I13: Ashraf Kalladayil | L13: PGP-SYS-PC030 | M13: Working
+Row 14: A14: PGP-SYS-PTR013 | B14: Scanner | C14: Epson | D14: V3911 | E14: XC23061970 | F14: Flatbed Scanner | H14: AE | I14: Ashraf Kalladayil | L14: PGP-SYS-PC030 | M14: Working
+Row 15: A15: PGP-SYS-PTR014 | B15: Ink Tank Printer | C15: HP | D15: Smart Tank 750 | E15: THSAI9B0Z8 | F15: INK TANK COLOR MFP | G15: GT 52 , GT 53,GT53XL | H15: Principal | I15: Haseena | L15: PGP-SYS-PC032 | M15: Working
+
+
+==============================================================================
+SHEET: Sheet9 (Total rows in XML: 50, Non-empty rows: 50)
+==============================================================================
+Row 1: A1: PGP-SYS-PC001 | B1: SHAMEER M | C1: PGP-SYS-MTR001 | D1: SHAMEER M | E1: PGP-SYS-KM001 | F1: SHAMEER M | G1: PGP-SYS-PTR001 | H1: GIYAS
+Row 2: A2: PGP-SYS-PC002 | B2: DILEEPKUMAR | C2: PGP-SYS-MTR002 | D2: DILEEPKUMAR | E2: PGP-SYS-KM002 | F2: SHAMEER M | G2: PGP-SYS-PTR002 | H2: SHA P H
+Row 3: A3: PGP-SYS-PC003 | B3: GIYAS | C3: PGP-SYS-MTR003 | D3: MANEESH DEVASSIA | E3: PGP-SYS-KM003 | F3: MANEESH DEVASSIA | G3: PGP-SYS-PTR003 | H3: LAJI
+Row 4: A4: PGP-SYS-PC004 | B4: MANEESH DEVASSIA | C4: PGP-SYS-MTR004 | D4: GIYAS | E4: PGP-SYS-KM004 | F4: MANEESH DEVASSIA | G4: PGP-SYS-PTR004 | H4: RAJEESH K G
+Row 5: A5: PGP-SYS-PC005 | B5: AMALRAJ K V | C5: PGP-SYS-MTR005 | D5: AMALRAJ K V | E5: PGP-SYS-KM005 | F5: GIYAS | G5: PGP-SYS-PTR005 | H5: Front office
+Row 6: A6: PGP-SYS-PC006 | B6: SHA P H | C6: PGP-SYS-MTR006 | D6: SHA P H | E6: PGP-SYS-KM006 | F6: GIYAS | G6: PGP-SYS-PTR006 | H6: Front office
+Row 7: A7: PGP-SYS-PC007 | B7: ANEESH K | C7: PGP-SYS-MTR007 | D7: ASOKAN T | E7: PGP-SYS-KM007 | F7: AMALRAJ K V | G7: PGP-SYS-PTR007 | H7: Front office
+Row 8: A8: PGP-SYS-PC008 | B8: ASOKAN T | C8: PGP-SYS-MTR008 | D8: ANEESH K | E8: PGP-SYS-KM008 | F8: AMALRAJ K V | G8: PGP-SYS-PTR008 | H8: Archana
+Row 9: A9: PGP-SYS-PC009 | B9: AJITH P S | C9: PGP-SYS-MTR009 | D9: AJITH P S | E9: PGP-SYS-KM009 | F9: SHA P H | G9: PGP-SYS-PTR009 | H9: Biju Levi
+Row 10: A10: PGP-SYS-PC010 | B10: SHANAVAS | C10: PGP-SYS-MTR010 | D10: RAJ MOHAN CHACKO | E10: PGP-SYS-KM010 | F10: SHA P H | G10: PGP-SYS-PTR010 | H10: Subaida
+Row 11: A11: PGP-SYS-PC011 | B11: RAJ MOHAN CHACKO | C11: PGP-SYS-MTR011 | D11: RAJI KV | E11: PGP-SYS-KM011 | F11: ANEESH K | G11: PGP-SYS-PTR011 | H11: Vacant
+Row 12: A12: PGP-SYS-PC012 | B12: RAJI KV | C12: PGP-SYS-MTR012 | D12: LAJI | E12: PGP-SYS-KM012 | F12: ANEESH K | G12: PGP-SYS-PTR012 | H12: Ashraf Kalladayil
+Row 13: A13: PGP-SYS-PC013 | B13: LAJI | C13: PGP-SYS-MTR013 | D13: RAJEESH K G | E13: PGP-SYS-KM013 | F13: ASOKAN T | G13: PGP-SYS-PTR013 | H13: Ashraf Kalladayil
+Row 14: A14: PGP-SYS-PC014 | B14: RAJEESH K G | C14: PGP-SYS-MTR014 | D14: PRABHILA E | E14: PGP-SYS-KM014 | F14: ASOKAN T
+Row 15: A15: PGP-SYS-PC015 | B15: PRABHILA E | C15: PGP-SYS-MTR015 | D15: Front office | E15: PGP-SYS-KM015 | F15: AJITH P S
+Row 16: A16: PGP-SYS-PC016 | B16: Front office | C16: PGP-SYS-MTR016 | D16: SHYAMILI E | E16: PGP-SYS-KM016 | F16: AJITH P S
+Row 17: A17: PGP-SYS-PC017 | B17: SHYAMILI E | C17: PGP-SYS-MTR017 | D17: SHANAVAS | E17: PGP-SYS-KM017 | F17: SHANAVAS
+Row 18: A18: PGP-SYS-PC018 | B18: HYRUNNISSA | C18: PGP-SYS-MTR018 | D18: HYRUNNISSA | E18: PGP-SYS-KM018 | F18: SHANAVAS
+Row 19: A19: PGP-SYS-PC019 | B19: Reshma | C19: PGP-SYS-MTR019 | D19: Reshma | E19: PGP-SYS-KM019 | F19: RAJ MOHAN CHACKO
+Row 20: A20: PGP-SYS-PC020 | B20: Biju Levi | C20: PGP-SYS-MTR020 | D20: Biju Levi | E20: PGP-SYS-KM020 | F20: RAJ MOHAN CHACKO
+Row 21: A21: PGP-SYS-PC021 | B21: Archana | C21: PGP-SYS-MTR021 | D21: Archana | E21: PGP-SYS-KM021 | F21: RAJI KV
+Row 22: A22: PGP-SYS-PC022 | B22: Praseeda | C22: PGP-SYS-MTR022 | D22: Praseeda | E22: PGP-SYS-KM022 | F22: RAJI KV
+Row 23: A23: PGP-SYS-PC023 | B23: Remya | C23: PGP-SYS-MTR023 | D23: Remya | E23: PGP-SYS-KM023 | F23: LAJI
+Row 24: A24: PGP-SYS-PC024 | B24: Subaida | C24: PGP-SYS-MTR024 | D24: Vacant | E24: PGP-SYS-KM024 | F24: LAJI
+Row 25: A25: PGP-SYS-PC025 | B25: Vacant | C25: PGP-SYS-MTR025 | D25: FASNA | E25: PGP-SYS-KM025 | F25: RAJEESH K G
+Row 26: A26: PGP-SYS-PC026 | B26: PRADEEP KUMAR | C26: PGP-SYS-MTR026 | D26: Swapna | E26: PGP-SYS-KM026 | F26: RAJEESH K G
+Row 27: A27: PGP-SYS-PC027 | B27: FASNA | C27: PGP-SYS-MTR027 | D27: Vineetha | E27: PGP-SYS-KM027 | F27: PRABHILA E
+Row 28: A28: PGP-SYS-PC028 | B28: Swapna | E28: PGP-SYS-KM028 | F28: PRABHILA E
+Row 29: A29: PGP-SYS-PC029 | B29: Vineetha | E29: PGP-SYS-KM029 | F29: Front office
+Row 30: A30: PGP-SYS-PC030 | B30: Ashraf Kalladayil | E30: PGP-SYS-KM030 | F30: DILEEPKUMAR
+... and 20 more non-empty rows
+
+
+==============================================================================
+SHEET: ip_address (Total rows in XML: 1000, Non-empty rows: 165)
+==============================================================================
+Row 1: B1: IP Address Assigned List | J1: Missing Ip Address
+Row 2: B2: 192.168.0.35 | C2: NA | D2: NA | H2: 2 | I2: 1 | J2: 192.168.0.1
+Row 3: B3: 192.168.0.65 | C3: NA | D3: NA | H3: 3.0 | I3: 4 | J3: 192.168.0.4
+Row 4: B4: 192.168.0.5 | C4: NA | D4: NA | H4: 5.0 | I4: 11 | J4: 192.168.0.11
+Row 5: B5: 192.168.0.26 | C5: Direct internet | D5: Direct internet | H5: 6.0 | I5: 12 | J5: 192.168.0.12
+Row 6: B6: 192.168.0.99 | C6: Direct internet | D6: Direct internet | H6: 7.0 | I6: 14 | J6: 192.168.0.14
+Row 7: B7: 192.168.0.13 | C7: 192.168.0.99 | D7: 192 | E7: 168 | F7: 0 | G7: 99 | H7: 8.0 | I7: 15 | J7: 192.168.0.15
+Row 8: B8: 192.168.0.56 | C8: 192.168.0.9 | D8: 192 | E8: 168 | F8: 0 | G8: 9 | H8: 9.0 | I8: 16 | J8: 192.168.0.16
+Row 9: B9: 192.168.0.89 | C9: 192.168.0.89 | D9: 192 | E9: 168 | F9: 0 | G9: 89 | H9: 10.0 | I9: 18 | J9: 192.168.0.18
+Row 10: B10: 192.168.0.2 | C10: 192.168.0.8 | D10: 192 | E10: 168 | F10: 0 | G10: 8 | H10: 13.0 | I10: 19 | J10: 192.168.0.19
+Row 11: B11: 192.168.0.63 | C11: 192.168.0.7 | D11: 192 | E11: 168 | F11: 0 | G11: 7 | H11: 17.0 | I11: 20 | J11: 192.168.0.20
+Row 12: B12: 192.168.0.8 | C12: 192.168.0.66 | D12: 192 | E12: 168 | F12: 0 | G12: 66 | H12: 23.0 | I12: 21 | J12: 192.168.0.21
+Row 13: B13: 192.168.0.6 | C13: 192.168.0.65 | D13: 192 | E13: 168 | F13: 0 | G13: 65 | H13: 24.0 | I13: 22 | J13: 192.168.0.22
+Row 14: B14: 192.168.0.7 | C14: 192.168.0.63 | D14: 192 | E14: 168 | F14: 0 | G14: 63 | H14: 26.0 | I14: 25 | J14: 192.168.0.25
+Row 15: B15: 192.168.0.10 | C15: 192.168.0.61 | D15: 192 | E15: 168 | F15: 0 | G15: 61 | H15: 35.0 | I15: 27 | J15: 192.168.0.27
+Row 16: B16: 192.168.0.9 | C16: 192.168.0.6 | D16: 192 | E16: 168 | F16: 0 | G16: 6 | H16: 49.0 | I16: 28 | J16: 192.168.0.28
+Row 17: B17: 192.168.0.23 | C17: 192.168.0.56 | D17: 192 | E17: 168 | F17: 0 | G17: 56 | H17: 56.0 | I17: 29 | J17: 192.168.0.29
+Row 18: B18: 192.168.0.61 | C18: 192.168.0.5 | D18: 192 | E18: 168 | F18: 0 | G18: 5 | H18: 61.0 | I18: 30 | J18: 192.168.0.30
+Row 19: B19: 192.168.0.66 | C19: 192.168.0.49 | D19: 192 | E19: 168 | F19: 0 | G19: 49 | H19: 63.0 | I19: 31 | J19: 192.168.0.31
+Row 20: B20: Direct internet | C20: 192.168.0.35 | D20: 192 | E20: 168 | F20: 0 | G20: 35 | H20: 65.0 | I20: 32 | J20: 192.168.0.32
+Row 21: B21: Direct internet | C21: 192.168.0.3 | D21: 192 | E21: 168 | F21: 0 | G21: 3 | H21: 66.0 | I21: 33 | J21: 192.168.0.33
+Row 22: B22: 192.168.0.24 | C22: 192.168.0.26 | D22: 192 | E22: 168 | F22: 0 | G22: 26 | H22: 89.0 | I22: 34 | J22: 192.168.0.34
+Row 23: B23: 192.168.0.170 | C23: 192.168.0.24 | D23: 192 | E23: 168 | F23: 0 | G23: 24 | H23: 99.0 | I23: 36 | J23: 192.168.0.36
+Row 24: B24: 192.168.0.158 | C24: 192.168.0.23 | D24: 192 | E24: 168 | F24: 0 | G24: 23 | H24: 100.0 | I24: 37 | J24: 192.168.0.37
+Row 25: B25: 192.168.0.110 | C25: 192.168.0.2 | D25: 192 | E25: 168 | F25: 0 | G25: 2 | H25: 101.0 | I25: 38 | J25: 192.168.0.38
+Row 26: B26: 192.168.0.17 | C26: 192.168.0.170 | D26: 192 | E26: 168 | F26: 0 | G26: 170 | H26: 110.0 | I26: 39 | J26: 192.168.0.39
+Row 27: B27: 192.168.0.125 | C27: 192.168.0.17 | D27: 192 | E27: 168 | F27: 0 | G27: 17 | H27: 111.0 | I27: 40 | J27: 192.168.0.40
+Row 28: B28: 192.168.0.164 | C28: 192.168.0.165 | D28: 192 | E28: 168 | F28: 0 | G28: 165 | H28: 125.0 | I28: 41 | J28: 192.168.0.41
+Row 29: B29: 192.168.0.49 | C29: 192.168.0.164 | D29: 192 | E29: 168 | F29: 0 | G29: 164 | H29: 158.0 | I29: 42 | J29: 192.168.0.42
+Row 30: B30: 192.168.0.165 | C30: 192.168.0.158 | D30: 192 | E30: 168 | F30: 0 | G30: 158 | H30: 164.0 | I30: 43 | J30: 192.168.0.43
+... and 135 more non-empty rows
+
+

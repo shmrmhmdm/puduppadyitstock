@@ -1,0 +1,3930 @@
+{
+  "pcs": [
+    {
+      "asset_id": "PGP-SYS-PC001",
+      "category": "Desktop",
+      "brand": "Acer",
+      "model": "Veriton M200-H81",
+      "serial_number": "UXVJKSI703H1399074",
+      "processor": "intel i3",
+      "ram": "8 GB",
+      "storage": "1 TB HDD",
+      "os": "Win 10",
+      "ip_address": "192.168.0.35",
+      "seat": "TA",
+      "employee_name": "SHAMEER M",
+      "office_section": "PGP OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "AMC",
+      "amc_agency": "Keltron"
+    },
+    {
+      "asset_id": "PGP-SYS-PC002",
+      "category": "Desktop",
+      "brand": "Acer",
+      "model": "Veriton M200-P500",
+      "serial_number": "UD30SSI0FR61213AA60700",
+      "processor": "AMD Ryzon 5",
+      "ram": "16 GB",
+      "storage": "500 SSD",
+      "os": "Win 11",
+      "ip_address": "192.168.0.65",
+      "seat": "JS",
+      "employee_name": "DILEEPKUMAR",
+      "office_section": "PGP OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "Warranty",
+      "amc_agency": "Acer Warranty"
+    },
+    {
+      "asset_id": "PGP-SYS-PC003",
+      "category": "Desktop",
+      "brand": "Acer",
+      "model": "Veriton M200-H610",
+      "serial_number": "UD30KSI0FB45103B870700",
+      "processor": "intel i5",
+      "ram": "16 GB",
+      "storage": "500 SSD",
+      "os": "Win 11",
+      "ip_address": "192.168.0.5",
+      "seat": "SC1",
+      "employee_name": "GIYAS",
+      "office_section": "PGP OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "Warranty",
+      "amc_agency": "Acer Warranty"
+    },
+    {
+      "asset_id": "PGP-SYS-PC004",
+      "category": "Desktop",
+      "brand": "Acer",
+      "model": "Veriton M200-H81",
+      "serial_number": "UXVJSSID71F0502021",
+      "processor": "intel i3",
+      "ram": "8 GB",
+      "storage": "500 HDD",
+      "os": "Win 8",
+      "ip_address": "192.168.0.26",
+      "seat": "AO",
+      "employee_name": "MANEESH DEVASSIA",
+      "office_section": "PGP OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "AMC",
+      "amc_agency": "Keltron"
+    },
+    {
+      "asset_id": "PGP-SYS-PC005",
+      "category": "Desktop",
+      "brand": "Acer",
+      "model": "Veriton M200-H81",
+      "serial_number": "UXVJKSI703H1399053",
+      "processor": "intel i3",
+      "ram": "8 GB",
+      "storage": "1 TB HDD",
+      "os": "Win 10",
+      "ip_address": "192.168.0.99",
+      "seat": "JC5",
+      "employee_name": "AMALRAJ K V",
+      "office_section": "PGP OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "AMC",
+      "amc_agency": "Keltron"
+    },
+    {
+      "asset_id": "PGP-SYS-PC006",
+      "category": "Desktop",
+      "brand": "Acer",
+      "model": "Veriton M200-H610",
+      "serial_number": "UD30FSI00640301CFD0700",
+      "processor": "intel i5",
+      "ram": "16 GB",
+      "storage": "500 SSD",
+      "os": "Win 11",
+      "ip_address": "192.168.0.13",
+      "seat": "JC4",
+      "employee_name": "SHA P H",
+      "office_section": "PGP OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "Warranty",
+      "amc_agency": "Acer Warranty"
+    },
+    {
+      "asset_id": "PGP-SYS-PC007",
+      "category": "Desktop",
+      "brand": "Acer",
+      "model": "G41 BOARD",
+      "serial_number": "G41 ZEBRONICS",
+      "processor": "Intel pentium",
+      "ram": "2 GB",
+      "storage": "500 HDD",
+      "os": "Win 7",
+      "ip_address": "192.168.0.56",
+      "seat": "JC2",
+      "employee_name": "ANEESH K",
+      "office_section": "PGP OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "AMC",
+      "amc_agency": "Keltron"
+    },
+    {
+      "asset_id": "PGP-SYS-PC008",
+      "category": "Desktop",
+      "brand": "Acer",
+      "model": "Veriton M2640G",
+      "serial_number": "UXB1JKSIK68H4383861",
+      "processor": "intel i3",
+      "ram": "4 GB",
+      "storage": "1 TB HDD",
+      "os": "Win 10",
+      "ip_address": "192.168.0.89",
+      "seat": "JC3",
+      "employee_name": "ASOKAN T",
+      "office_section": "PGP OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "AMC",
+      "amc_agency": "Keltron"
+    },
+    {
+      "asset_id": "PGP-SYS-PC009",
+      "category": "Desktop",
+      "brand": "Acer",
+      "model": "Veriton M200-H610",
+      "serial_number": "UD30FSI00640301CDC0700",
+      "processor": "intel i5",
+      "ram": "8 GB",
+      "storage": "500 SSD",
+      "os": "Win 11",
+      "ip_address": "192.168.0.2",
+      "seat": "AS",
+      "employee_name": "RANJINI",
+      "office_section": "PGP OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "Warranty",
+      "amc_agency": "Acer Warranty"
+    },
+    {
+      "asset_id": "PGP-SYS-PC010",
+      "category": "Desktop",
+      "brand": "Acer",
+      "model": "Veriton M200-P500",
+      "serial_number": "UD305SI0FR61213B580700",
+      "processor": "AMD Ryzon 5",
+      "ram": "16 GB",
+      "storage": "500 SSD",
+      "os": "Win 11",
+      "ip_address": "192.168.0.63",
+      "seat": "SEC",
+      "employee_name": "SHANAVAS",
+      "office_section": "PGP OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "Warranty",
+      "amc_agency": "Acer Warranty"
+    },
+    {
+      "asset_id": "PGP-SYS-PC011",
+      "category": "Desktop",
+      "brand": "Acer",
+      "model": "Intel H61",
+      "serial_number": "NA",
+      "processor": "intel i3",
+      "ram": "4 GB",
+      "storage": "500 HDD",
+      "os": "Win 10",
+      "ip_address": "192.168.0.8",
+      "seat": "HI",
+      "employee_name": "HYRUNNISSA",
+      "office_section": "PGP OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "AMC",
+      "amc_agency": "Keltron"
+    },
+    {
+      "asset_id": "PGP-SYS-PC012",
+      "category": "Desktop",
+      "brand": "Acer",
+      "model": "Veriton M200-H610",
+      "serial_number": "UD30FSI00640301D970700",
+      "processor": "intel i5",
+      "ram": "16 GB",
+      "storage": "500 SSD",
+      "os": "Win 11",
+      "ip_address": "192.168.0.6",
+      "seat": "SC2",
+      "employee_name": "RAJI KV",
+      "office_section": "PGP OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "Warranty",
+      "amc_agency": "Acer Warranty"
+    },
+    {
+      "asset_id": "PGP-SYS-PC013",
+      "category": "Desktop",
+      "brand": "Acer",
+      "model": "Veriton M200-H610",
+      "serial_number": "UD30FSI00640301D4E0700",
+      "processor": "intel i5",
+      "ram": "16 GB",
+      "storage": "500 SSD",
+      "os": "Win 11",
+      "ip_address": "192.168.0.7",
+      "seat": "SC3",
+      "employee_name": "LAJI",
+      "office_section": "PGP OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "Warranty",
+      "amc_agency": "Acer Warranty"
+    },
+    {
+      "asset_id": "PGP-SYS-PC014",
+      "category": "Desktop",
+      "brand": "Acer",
+      "model": "Veriton M200-H610",
+      "serial_number": "UD30FSI00640301D450700",
+      "processor": "intel i5",
+      "ram": "16 GB",
+      "storage": "500 SSD",
+      "os": "Win 11",
+      "ip_address": "192.168.0.10",
+      "seat": "JC1",
+      "employee_name": "RAJEESH K G",
+      "office_section": "PGP OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "Warranty",
+      "amc_agency": "Acer Warranty"
+    },
+    {
+      "asset_id": "PGP-SYS-PC015",
+      "category": "Desktop",
+      "brand": "Acer",
+      "model": "Veriton M200-H610",
+      "serial_number": "UD30FSI00640301CED6700",
+      "processor": "intel i5",
+      "ram": "16 GB",
+      "storage": "500 SSD",
+      "os": "Win 11",
+      "ip_address": "192.168.0.9",
+      "seat": "SC5",
+      "employee_name": "PRABHILA E",
+      "office_section": "PGP OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "Warranty",
+      "amc_agency": "Acer Warranty"
+    },
+    {
+      "asset_id": "PGP-SYS-PC016",
+      "category": "Desktop",
+      "brand": "Acer",
+      "model": "Veriton M200-H81",
+      "serial_number": "UXVJKSI703H1399058",
+      "processor": "intel i3",
+      "ram": "4 GB",
+      "storage": "1 TB HDD",
+      "os": "Win 10",
+      "ip_address": "192.168.0.23",
+      "seat": "FO",
+      "employee_name": "Front office",
+      "office_section": "PGP OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "AMC",
+      "amc_agency": "Keltron"
+    },
+    {
+      "asset_id": "PGP-SYS-PC017",
+      "category": "Desktop",
+      "brand": "Acer",
+      "model": "Veriton M200-H81",
+      "serial_number": "UXVJKSI703H1399067",
+      "processor": "intel i3",
+      "ram": "4 GB",
+      "storage": "1 TB HDD",
+      "os": "Win 10",
+      "ip_address": "192.168.0.61",
+      "seat": "PA",
+      "employee_name": "SHYAMILI E",
+      "office_section": "PGP OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "AMC",
+      "amc_agency": "Keltron"
+    },
+    {
+      "asset_id": "PGP-SYS-PC018",
+      "category": "Desktop",
+      "brand": "Acer",
+      "model": "Veriton S2670G",
+      "serial_number": "UXBGVSI006L4842979",
+      "processor": "intel i3",
+      "ram": "8 GB",
+      "storage": "1 TB SSD",
+      "os": "Win 11",
+      "ip_address": "192.168.0.66",
+      "seat": "SC4",
+      "employee_name": "RAJ MOHAN CHACKO",
+      "office_section": "PGP OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "AMC",
+      "amc_agency": "Keltron"
+    },
+    {
+      "asset_id": "PGP-SYS-PC019",
+      "category": "Desktop",
+      "brand": "Acer",
+      "model": "Veriton M-466G",
+      "serial_number": "UXVQSI857K2802966",
+      "processor": "intel i3",
+      "ram": "4 GB",
+      "storage": "1 TB HDD",
+      "os": "Win 11",
+      "ip_address": "Direct internet",
+      "seat": "AITA-2",
+      "employee_name": "Reshma",
+      "office_section": "NREGS OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "AMC",
+      "amc_agency": "Keltron"
+    },
+    {
+      "asset_id": "PGP-SYS-PC020",
+      "category": "Desktop",
+      "brand": "Acer",
+      "model": "Veriton M200-H610",
+      "serial_number": "UD30KSI024408089A70700",
+      "processor": "intel i3",
+      "ram": "16 GB",
+      "storage": "500 SSD",
+      "os": "Win 11",
+      "ip_address": "Direct internet",
+      "seat": "AITA-1",
+      "employee_name": "Biju Levi",
+      "office_section": "NREGS OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "Warranty",
+      "amc_agency": "Acer Warranty"
+    },
+    {
+      "asset_id": "PGP-SYS-PC021",
+      "category": "Desktop",
+      "brand": "Acer",
+      "model": "Veriton M-660G",
+      "serial_number": "UXVQVSI857K2802979",
+      "processor": "intel i3",
+      "ram": "4 GB",
+      "storage": "1 TB HDD",
+      "os": "Win 10",
+      "ip_address": "192.168.0.24",
+      "seat": "AE Nregs",
+      "employee_name": "Archana",
+      "office_section": "NREGS OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "AMC",
+      "amc_agency": "Keltron"
+    },
+    {
+      "asset_id": "PGP-SYS-PC022",
+      "category": "Desktop",
+      "brand": "Acer",
+      "model": "Veriton M200-H610",
+      "serial_number": "UD30KSI0244080896E0700",
+      "processor": "intel i3",
+      "ram": "16 GB",
+      "storage": "500 SSD",
+      "os": "Win 11",
+      "ip_address": "192.168.0.170",
+      "seat": "Overseer NREGS-2",
+      "employee_name": "Praseeda",
+      "office_section": "NREGS OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "Warranty",
+      "amc_agency": "Acer Warranty"
+    },
+    {
+      "asset_id": "PGP-SYS-PC023",
+      "category": "Desktop",
+      "brand": "Acer",
+      "model": "Veriton M200-H81",
+      "serial_number": "UXVJKSI703H1399048",
+      "processor": "intel i3",
+      "ram": "4 GB",
+      "storage": "1 TB HDD",
+      "os": "Win 10",
+      "ip_address": "192.168.0.158",
+      "seat": "Overseer NREGS-1",
+      "employee_name": "Remya",
+      "office_section": "NREGS OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "AMC",
+      "amc_agency": "Keltron"
+    },
+    {
+      "asset_id": "PGP-SYS-PC024",
+      "category": "Laptop",
+      "brand": "HP",
+      "model": "HP 240G8",
+      "serial_number": "SCG141BBRW",
+      "processor": "intel i3",
+      "ram": "8 GB",
+      "storage": "500 SSD",
+      "os": "Win 11",
+      "ip_address": "192.168.0.110",
+      "seat": "ICDS",
+      "employee_name": "Subaida",
+      "office_section": "ICDS OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "NA",
+      "amc_agency": "No Service"
+    },
+    {
+      "asset_id": "PGP-SYS-PC025",
+      "category": "Desktop",
+      "brand": "Dell",
+      "model": "Vostro 3470",
+      "serial_number": "F5V18Q2",
+      "processor": "intel i3",
+      "ram": "8 GB",
+      "storage": "250 SSD",
+      "os": "Win 11",
+      "ip_address": "192.168.0.17",
+      "seat": "VEO-2",
+      "employee_name": "Vacant",
+      "office_section": "VEO OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "AMC",
+      "amc_agency": "Keltron"
+    },
+    {
+      "asset_id": "PGP-SYS-PC026",
+      "category": "Laptop",
+      "brand": "HP",
+      "model": "HP 240G8",
+      "serial_number": "SCG1414FG8",
+      "processor": "intel i3",
+      "ram": "8 GB",
+      "storage": "500 SSD",
+      "os": "Win 11",
+      "ip_address": "192.168.0.125",
+      "seat": "VEO-1",
+      "employee_name": "PRADEEP KUMAR",
+      "office_section": "VEO OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "NA",
+      "amc_agency": "No Service"
+    },
+    {
+      "asset_id": "PGP-SYS-PC027",
+      "category": "Desktop",
+      "brand": "Acer",
+      "model": "Veriton M200-H110",
+      "serial_number": "H110M-SI02 / UXVDNSI63514679798",
+      "processor": "intel i3",
+      "ram": "4 GB",
+      "storage": "1 TB HDD",
+      "os": "Win 10",
+      "ip_address": "192.168.0.164",
+      "seat": "DEO",
+      "employee_name": "FASNA",
+      "office_section": "AE OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "AMC",
+      "amc_agency": "Keltron"
+    },
+    {
+      "asset_id": "PGP-SYS-PC028",
+      "category": "Desktop",
+      "brand": "Acer",
+      "model": "Veritin M200-H310",
+      "serial_number": "NA",
+      "processor": "intel i3",
+      "ram": "8 GB",
+      "storage": "250 SSD",
+      "os": "Win 11",
+      "ip_address": "192.168.0.49",
+      "seat": "Overseer-1",
+      "employee_name": "Swapna",
+      "office_section": "AE OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "AMC",
+      "amc_agency": "Keltron"
+    },
+    {
+      "asset_id": "PGP-SYS-PC029",
+      "category": "Desktop",
+      "brand": "Dell",
+      "model": "Inspiron 3250",
+      "serial_number": "FTRFXH2",
+      "processor": "intel i3",
+      "ram": "4 GB",
+      "storage": "500 HDD",
+      "os": "Win 10",
+      "ip_address": "192.168.0.165",
+      "seat": "Overseer-2",
+      "employee_name": "Vineetha",
+      "office_section": "AE OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": false,
+      "status": "Complaint",
+      "is_complaint": true,
+      "device_status": "Complaint",
+      "amc_type": "AMC",
+      "amc_agency": "Keltron"
+    },
+    {
+      "asset_id": "PGP-SYS-PC030",
+      "category": "Laptop",
+      "brand": "HP",
+      "model": "HP 240G8",
+      "serial_number": "SCG1418Q1V",
+      "processor": "intel i3",
+      "ram": "8 GB",
+      "storage": "500 SSD",
+      "os": "Win 11",
+      "ip_address": "192.168.0.111",
+      "seat": "AE",
+      "employee_name": "Ashraf Kalladayil",
+      "office_section": "AE OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "NA",
+      "amc_agency": "No Service"
+    },
+    {
+      "asset_id": "PGP-SYS-PC031",
+      "category": "Laptop",
+      "brand": "HP",
+      "model": "HP 240G8",
+      "serial_number": "5CG1417KHR",
+      "processor": "intel i3",
+      "ram": "8 GB",
+      "storage": "500 SSD",
+      "os": "Win 11",
+      "ip_address": "NA",
+      "seat": "Pre",
+      "employee_name": "Biju Thannikkakuzhi",
+      "office_section": "PGP OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "NA",
+      "amc_agency": "No Service"
+    },
+    {
+      "asset_id": "PGP-SYS-PC032",
+      "category": "Desktop",
+      "brand": "Acer",
+      "model": "Veriton M200-P500",
+      "serial_number": "UD305SI0FR61213AF20700",
+      "processor": "AMD Ryzon 5",
+      "ram": "16 GB",
+      "storage": "500 SSD",
+      "os": "Win 11",
+      "ip_address": "NA",
+      "seat": "Principal",
+      "employee_name": "Haseena",
+      "office_section": "Buds School",
+      "purchase_date": "2026-05-14T07:00:00.000Z",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "Warranty",
+      "amc_agency": "Acer Warranty"
+    },
+    {
+      "asset_id": "PGP-SYS-PC033",
+      "category": "Desktop",
+      "brand": "Acer",
+      "model": "Veriton M200-H81",
+      "serial_number": "UXVJKSI703H1399017",
+      "processor": "intel i3",
+      "ram": "8 GB",
+      "storage": "1 TB HDD",
+      "os": "Win 10",
+      "ip_address": "192.168.0.3",
+      "seat": "FO",
+      "employee_name": "Front office",
+      "office_section": "PGP OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": false,
+      "status": "Complaint",
+      "is_complaint": true,
+      "device_status": "Complaint",
+      "amc_type": "AMC",
+      "amc_agency": "Keltron"
+    },
+    {
+      "asset_id": "PGP-SYS-PC034",
+      "category": "Server",
+      "brand": "HP",
+      "model": "HP Proliant ML310e",
+      "serial_number": "SGH502Y9ML",
+      "processor": "Intel Xeon",
+      "ram": "8 GB",
+      "storage": "1 TB HDD",
+      "os": "Win Ser 2003",
+      "ip_address": "192.168.0.100",
+      "seat": "",
+      "employee_name": "",
+      "office_section": "#N/A",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "NA",
+      "amc_agency": "No Service"
+    },
+    {
+      "asset_id": "PGP-SYS-PC035",
+      "category": "Server",
+      "brand": "HP",
+      "model": "",
+      "serial_number": "SGH7389A05",
+      "processor": "Intel Xeon",
+      "ram": "8 GB",
+      "storage": "1 TB HDD",
+      "os": "Win Ser 2003",
+      "ip_address": "192.168.0.101",
+      "seat": "",
+      "employee_name": "#N/A",
+      "office_section": "#N/A",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": true,
+      "status": "Working",
+      "is_complaint": false,
+      "device_status": "Working",
+      "amc_type": "NA",
+      "amc_agency": "No Service"
+    },
+    {
+      "asset_id": "PGP-SYS-PC036",
+      "category": "Laptop",
+      "brand": "HP",
+      "model": "HP 240G8",
+      "serial_number": "SCG141759R",
+      "processor": "intel i3",
+      "ram": "8 GB",
+      "storage": "500 HDD",
+      "os": "Win 11",
+      "ip_address": "NA",
+      "seat": "SEC",
+      "employee_name": "SHANAVAS",
+      "office_section": "PGP OFFICE",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "is_working": false,
+      "status": "Complaint",
+      "is_complaint": true,
+      "device_status": "Complaint",
+      "amc_type": "",
+      "amc_agency": "#N/A"
+    }
+  ],
+  "monitors": [
+    {
+      "asset_id": "PGP-SYS-MTR001",
+      "category": "Monitor",
+      "brand": "Acer",
+      "model": "KA222Q",
+      "serial_number": "MMTKSSI0064350B7733W01",
+      "specifications": "LED 22inch",
+      "assigned_seat": "TA",
+      "employee_name": "SHAMEER M",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC001",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-MTR002",
+      "category": "Monitor",
+      "brand": "Acer",
+      "model": "EK220Q",
+      "serial_number": "MMTJDSI00560910E383W01",
+      "specifications": "LED 22inch",
+      "assigned_seat": "JS",
+      "employee_name": "DILEEPKUMAR",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC002",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-MTR003",
+      "category": "Monitor",
+      "brand": "Zebronics",
+      "model": "ZEB-EA122",
+      "serial_number": "ZBW05ET00710",
+      "specifications": "",
+      "assigned_seat": "AO",
+      "employee_name": "MANEESH DEVASSIA",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC004",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-MTR004",
+      "category": "Monitor",
+      "brand": "Acer",
+      "model": "EK240Y",
+      "serial_number": "MMTJESI0044290324E3W01",
+      "specifications": "",
+      "assigned_seat": "SC1",
+      "employee_name": "GIYAS",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC003",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-MTR005",
+      "category": "Monitor",
+      "brand": "Zebronics",
+      "model": "ZEB-EA122",
+      "serial_number": "ZBW0SET00711",
+      "specifications": "",
+      "assigned_seat": "JC5",
+      "employee_name": "AMALRAJ K V",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC005",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-MTR006",
+      "category": "Monitor",
+      "brand": "Zebronics",
+      "model": "ZEB-EA123",
+      "serial_number": "ZBW0SET00712",
+      "specifications": "",
+      "assigned_seat": "",
+      "employee_name": "#N/A",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "#N/A",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-MTR007",
+      "category": "Monitor",
+      "brand": "Acer",
+      "model": "EB192Q",
+      "serial_number": "MMT6MSS00162801C053E00",
+      "specifications": "",
+      "assigned_seat": "JC3",
+      "employee_name": "ASOKAN T",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC008",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-MTR008",
+      "category": "Monitor",
+      "brand": "Acer",
+      "model": "K202Q",
+      "serial_number": "MMV0CSI00152B034A74HA1",
+      "specifications": "",
+      "assigned_seat": "JC2",
+      "employee_name": "ANEESH K",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC007",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-MTR009",
+      "category": "Monitor",
+      "brand": "Acer",
+      "model": "EK240Y",
+      "serial_number": "MMTJESI003347053BB3W01",
+      "specifications": "",
+      "assigned_seat": "AS",
+      "employee_name": "RANJINI",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC009",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-MTR010",
+      "category": "Monitor",
+      "brand": "Acer",
+      "model": "K202Q",
+      "serial_number": "MMV0CSI001508002FF4HAI",
+      "specifications": "",
+      "assigned_seat": "SC4",
+      "employee_name": "RAJ MOHAN CHACKO",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC018",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-MTR011",
+      "category": "Monitor",
+      "brand": "Acer",
+      "model": "EK240Y",
+      "serial_number": "MMTJESI00334705A263W01",
+      "specifications": "",
+      "assigned_seat": "SC2",
+      "employee_name": "RAJI KV",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC012",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-MTR012",
+      "category": "Monitor",
+      "brand": "Acer",
+      "model": "EK240Y",
+      "serial_number": "MMTJESI00334705A363W01",
+      "specifications": "",
+      "assigned_seat": "SC3",
+      "employee_name": "LAJI",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC013",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-MTR013",
+      "category": "Monitor",
+      "brand": "Acer",
+      "model": "EK240Y",
+      "serial_number": "MMTJESI003347052D53W01",
+      "specifications": "",
+      "assigned_seat": "JC1",
+      "employee_name": "RAJEESH K G",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC014",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-MTR014",
+      "category": "Monitor",
+      "brand": "Acer",
+      "model": "EK240Y",
+      "serial_number": "MMTJESI003347053753W01",
+      "specifications": "",
+      "assigned_seat": "SC5",
+      "employee_name": "PRABHILA E",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC015",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-MTR015",
+      "category": "Monitor",
+      "brand": "Acer",
+      "model": "V206HQL",
+      "serial_number": "MMLY65501213818F23853K",
+      "specifications": "",
+      "assigned_seat": "FO",
+      "employee_name": "Front office",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC016",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-MTR016",
+      "category": "Monitor",
+      "brand": "Acer",
+      "model": "V193HQL",
+      "serial_number": "MMLKESS00723801A558503",
+      "specifications": "",
+      "assigned_seat": "PA",
+      "employee_name": "SHYAMILI E",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC017",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-MTR017",
+      "category": "Monitor",
+      "brand": "Acer",
+      "model": "EK220Q",
+      "serial_number": "MMTJDSI0056091114D3W01",
+      "specifications": "",
+      "assigned_seat": "SEC",
+      "employee_name": "SHANAVAS",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC010",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-MTR018",
+      "category": "Monitor",
+      "brand": "Acer",
+      "model": "V196HQL",
+      "serial_number": "MMLY0SS0047090633E8507",
+      "specifications": "",
+      "assigned_seat": "HI",
+      "employee_name": "HYRUNNISSA",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC011",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-MTR019",
+      "category": "Monitor",
+      "brand": "Acer",
+      "model": "V206WQL",
+      "serial_number": "MMT3LSI00100400DB12472",
+      "specifications": "",
+      "assigned_seat": "AITA-2",
+      "employee_name": "Reshma",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC019",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-MTR020",
+      "category": "Monitor",
+      "brand": "Acer",
+      "model": "EK240Y",
+      "serial_number": "MMT7ESI0033470539B3W01",
+      "specifications": "",
+      "assigned_seat": "AITA-1",
+      "employee_name": "Biju Levi",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC020",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-MTR021",
+      "category": "Monitor",
+      "brand": "Acer",
+      "model": "V206WQL",
+      "serial_number": "MMT3LSI00100400DB42472",
+      "specifications": "",
+      "assigned_seat": "AE Nregs",
+      "employee_name": "Archana",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC021",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-MTR022",
+      "category": "Monitor",
+      "brand": "Acer",
+      "model": "EK240Y",
+      "serial_number": "MMTJESI0033470538C3W01",
+      "specifications": "",
+      "assigned_seat": "Overseer NREGS-2",
+      "employee_name": "Praseeda",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC022",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-MTR023",
+      "category": "Monitor",
+      "brand": "Acer",
+      "model": "V196HQL",
+      "serial_number": "MMLY0SS004709063D68507",
+      "specifications": "",
+      "assigned_seat": "Overseer NREGS-1",
+      "employee_name": "Remya",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC023",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-MTR024",
+      "category": "Monitor",
+      "brand": "Dell",
+      "model": "A03",
+      "serial_number": "CN-OCXZTG",
+      "specifications": "",
+      "assigned_seat": "VEO-2",
+      "employee_name": "Vacant",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC025",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-MTR025",
+      "category": "Monitor",
+      "brand": "Acer",
+      "model": "V196HQL",
+      "serial_number": "MMLY0SS004842011318507",
+      "specifications": "",
+      "assigned_seat": "DEO",
+      "employee_name": "FASNA",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC027",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-MTR026",
+      "category": "Monitor",
+      "brand": "Acer",
+      "model": "V196HQL",
+      "serial_number": "MMLXNSS0027330A4734212",
+      "specifications": "",
+      "assigned_seat": "Overseer-1",
+      "employee_name": "Swapna",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC028",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-MTR027",
+      "category": "Monitor",
+      "brand": "Dell",
+      "model": "NA",
+      "serial_number": "CN-09YKU7-72872-684-AUYD-A00",
+      "specifications": "",
+      "assigned_seat": "Overseer-2",
+      "employee_name": "Vineetha",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC029",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-MTR028",
+      "category": "Monitor",
+      "brand": "Acer",
+      "model": "EK220Q",
+      "serial_number": "MMTJDSI005609111693W01",
+      "specifications": "",
+      "assigned_seat": "Principal",
+      "employee_name": "Haseena",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC032",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-MTR029",
+      "category": "Monitor",
+      "brand": "Acer",
+      "model": "V196HQL",
+      "serial_number": "MMLY0SS004709068988507",
+      "specifications": "",
+      "assigned_seat": "FO",
+      "employee_name": "Front office",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC016",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-MTR030",
+      "category": "Monitor",
+      "brand": "Acer",
+      "model": "EK240Y",
+      "serial_number": "MMTJESI0033450A1EC3W01",
+      "specifications": "",
+      "assigned_seat": "JC4",
+      "employee_name": "SHA P H",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC006",
+      "status": "Working"
+    }
+  ],
+  "peripherals": [
+    {
+      "asset_id": "PGP-SYS-KM001",
+      "category": "Keyboard",
+      "brand": "Logitech",
+      "model": "K120",
+      "serial_number": "2445MR10CHV8",
+      "assigned_seat": "TA",
+      "employee_name": "SHAMEER M",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC001",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM002",
+      "category": "Mouse",
+      "brand": "Lapcare",
+      "model": "L50",
+      "serial_number": "",
+      "assigned_seat": "TA",
+      "employee_name": "SHAMEER M",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC001",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM003",
+      "category": "Mouse",
+      "brand": "Zebronics",
+      "model": "NA",
+      "serial_number": "NA",
+      "assigned_seat": "AO",
+      "employee_name": "MANEESH DEVASSIA",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC004",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM004",
+      "category": "Keyboard",
+      "brand": "Foxin",
+      "model": "FKB102PLUS",
+      "serial_number": "FKBKLDX112525019",
+      "assigned_seat": "AO",
+      "employee_name": "MANEESH DEVASSIA",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC004",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM005",
+      "category": "Mouse",
+      "brand": "Zebronics",
+      "model": "NA",
+      "serial_number": "NA",
+      "assigned_seat": "SC1",
+      "employee_name": "GIYAS",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC003",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM006",
+      "category": "Keyboard",
+      "brand": "Acer",
+      "model": "DKS0B1B0HL",
+      "serial_number": "444011E1K801",
+      "assigned_seat": "SC1",
+      "employee_name": "GIYAS",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC003",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM007",
+      "category": "Mouse",
+      "brand": "Rapoo",
+      "model": "NA",
+      "serial_number": "NA",
+      "assigned_seat": "JC5",
+      "employee_name": "AMALRAJ K V",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC005",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM008",
+      "category": "Keyboard",
+      "brand": "Foxin",
+      "model": "FKB-102PLUS",
+      "serial_number": "FKB102032332890",
+      "assigned_seat": "JC5",
+      "employee_name": "AMALRAJ K V",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC005",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM009",
+      "category": "Mouse",
+      "brand": "Acer",
+      "model": "NA",
+      "serial_number": "4500FA4EK701",
+      "assigned_seat": "JC4",
+      "employee_name": "SHA P H",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC006",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM010",
+      "category": "Keyboard",
+      "brand": "Acer",
+      "model": "ACER HD KBD",
+      "serial_number": "WBYBJA004690",
+      "assigned_seat": "JC4",
+      "employee_name": "SHA P H",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC006",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM011",
+      "category": "Mouse",
+      "brand": "Dell",
+      "model": "",
+      "serial_number": "CN-009NK2-73826-6B1-06AQ",
+      "assigned_seat": "JC2",
+      "employee_name": "ANEESH K",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC007",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM012",
+      "category": "Keyboard",
+      "brand": "Acer",
+      "model": "DKUSB1P03L",
+      "serial_number": "65182F51K701",
+      "assigned_seat": "JC2",
+      "employee_name": "ANEESH K",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC007",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM013",
+      "category": "Mouse",
+      "brand": "Rapoo",
+      "model": "",
+      "serial_number": "1903A4QXXX9",
+      "assigned_seat": "JC3",
+      "employee_name": "ASOKAN T",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC008",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM014",
+      "category": "Keyboard",
+      "brand": "Acer",
+      "model": "DKUSB1P03L",
+      "serial_number": "44702B87K701",
+      "assigned_seat": "JC3",
+      "employee_name": "ASOKAN T",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC008",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM015",
+      "category": "Mouse",
+      "brand": "Zebronics",
+      "model": "",
+      "serial_number": "",
+      "assigned_seat": "AS",
+      "employee_name": "RANJINI",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC009",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM016",
+      "category": "Keyboard",
+      "brand": "Acer",
+      "model": "ACER HD KBD",
+      "serial_number": "WBYBJA004318",
+      "assigned_seat": "AS",
+      "employee_name": "RANJINI",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC009",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM017",
+      "category": "Mouse",
+      "brand": "Acer",
+      "model": "DC11211021",
+      "serial_number": "55204475K700",
+      "assigned_seat": "SEC",
+      "employee_name": "SHANAVAS",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC010",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM018",
+      "category": "Keyboard",
+      "brand": "Acer",
+      "model": "DKUSB1B0HL",
+      "serial_number": "54101BD8K801",
+      "assigned_seat": "SEC",
+      "employee_name": "SHANAVAS",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC010",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM019",
+      "category": "Mouse",
+      "brand": "Acer",
+      "model": "",
+      "serial_number": "",
+      "assigned_seat": "SC4",
+      "employee_name": "RAJ MOHAN CHACKO",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC018",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM020",
+      "category": "Keyboard",
+      "brand": "Acer",
+      "model": "DKUSB1B0DT",
+      "serial_number": "737008B3K801",
+      "assigned_seat": "SC4",
+      "employee_name": "RAJ MOHAN CHACKO",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC018",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM021",
+      "category": "Mouse",
+      "brand": "Acer",
+      "model": "ACER COMBO MOUSE",
+      "serial_number": "WBYBJA004685",
+      "assigned_seat": "SC2",
+      "employee_name": "RAJI KV",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC012",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM022",
+      "category": "Keyboard",
+      "brand": "Acer",
+      "model": "ACER HD KBD",
+      "serial_number": "WBYBJA004995",
+      "assigned_seat": "SC2",
+      "employee_name": "RAJI KV",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC012",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM023",
+      "category": "Mouse",
+      "brand": "Acer",
+      "model": "",
+      "serial_number": "",
+      "assigned_seat": "SC3",
+      "employee_name": "LAJI",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC013",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM024",
+      "category": "Keyboard",
+      "brand": "Acer",
+      "model": "ACER HD-KBD",
+      "serial_number": "WBYBJA004312",
+      "assigned_seat": "SC3",
+      "employee_name": "LAJI",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC013",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM025",
+      "category": "Mouse",
+      "brand": "Acer",
+      "model": "DC11211021",
+      "serial_number": "43702DA3K700",
+      "assigned_seat": "JC1",
+      "employee_name": "RAJEESH K G",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC014",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM026",
+      "category": "Keyboard",
+      "brand": "Rapoo",
+      "model": "",
+      "serial_number": "18802NK2513524",
+      "assigned_seat": "JC1",
+      "employee_name": "RAJEESH K G",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC014",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM027",
+      "category": "Mouse",
+      "brand": "Acer",
+      "model": "ACER COMBO MOUSE",
+      "serial_number": "WBOBJA000180",
+      "assigned_seat": "SC5",
+      "employee_name": "PRABHILA E",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC015",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM028",
+      "category": "Keyboard",
+      "brand": "Acer",
+      "model": "ACER HD KBD",
+      "serial_number": "WBOBJA000239",
+      "assigned_seat": "SC5",
+      "employee_name": "PRABHILA E",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC015",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM029",
+      "category": "Mouse",
+      "brand": "Lenovo",
+      "model": "120",
+      "serial_number": "1SGY51L52636214G4YPV",
+      "assigned_seat": "FO",
+      "employee_name": "Front office",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC016",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM030",
+      "category": "Keyboard",
+      "brand": "Acer",
+      "model": "DKUSB1P03L",
+      "serial_number": "65180FDCK701",
+      "assigned_seat": "JS",
+      "employee_name": "DILEEPKUMAR",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC002",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM031",
+      "category": "Keyboard",
+      "brand": "Acer",
+      "model": "DK01B10HL",
+      "serial_number": "54101BB5K801",
+      "assigned_seat": "JS",
+      "employee_name": "DILEEPKUMAR",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC002",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM032",
+      "category": "Mouse",
+      "brand": "Lapcare",
+      "model": "",
+      "serial_number": "",
+      "assigned_seat": "PA",
+      "employee_name": "SHYAMILI E",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC017",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM033",
+      "category": "Keyboard",
+      "brand": "Acer",
+      "model": "DKUSB1P03L",
+      "serial_number": "1388116EK701",
+      "assigned_seat": "PA",
+      "employee_name": "SHYAMILI E",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC017",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM034",
+      "category": "Mouse",
+      "brand": "Logitech",
+      "model": "M90",
+      "serial_number": "",
+      "assigned_seat": "HI",
+      "employee_name": "HYRUNNISSA",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC011",
+      "status": "Complaint"
+    },
+    {
+      "asset_id": "PGP-SYS-KM035",
+      "category": "Keyboard",
+      "brand": "Rapoo",
+      "model": "NK2500",
+      "serial_number": "18802NK2513555",
+      "assigned_seat": "HI",
+      "employee_name": "HYRUNNISSA",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC011",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM036",
+      "category": "Mouse",
+      "brand": "Acer",
+      "model": "NA",
+      "serial_number": "NA",
+      "assigned_seat": "AITA-2",
+      "employee_name": "Reshma",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC019",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM037",
+      "category": "Keyboard",
+      "brand": "Acer",
+      "model": "DKUSB1B0DT",
+      "serial_number": "01202127K801",
+      "assigned_seat": "AITA-2",
+      "employee_name": "Reshma",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC019",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM038",
+      "category": "Mouse",
+      "brand": "Acer",
+      "model": "0C11211007",
+      "serial_number": "343025301701",
+      "assigned_seat": "AITA-1",
+      "employee_name": "Biju Levi",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC020",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM039",
+      "category": "Keyboard",
+      "brand": "Acer",
+      "model": "DKUSBB0DT",
+      "serial_number": "35200354K801",
+      "assigned_seat": "AITA-1",
+      "employee_name": "Biju Levi",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC020",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM040",
+      "category": "Mouse",
+      "brand": "Acer",
+      "model": "DC11211007",
+      "serial_number": "016085C3K701",
+      "assigned_seat": "AE Nregs",
+      "employee_name": "Archana",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC021",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM041",
+      "category": "Keyboard",
+      "brand": "Acer",
+      "model": "DKUSB1B0DT",
+      "serial_number": "01702813K701",
+      "assigned_seat": "AE Nregs",
+      "employee_name": "Archana",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC021",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM042",
+      "category": "Mouse",
+      "brand": "Acer",
+      "model": "DC11211007",
+      "serial_number": "35101D7BK701",
+      "assigned_seat": "Overseer NREGS-2",
+      "employee_name": "Praseeda",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC022",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM043",
+      "category": "Keyboard",
+      "brand": "Acer",
+      "model": "DKUSB1B0DT",
+      "serial_number": "352004D3K801",
+      "assigned_seat": "Overseer NREGS-2",
+      "employee_name": "Praseeda",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC022",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM044",
+      "category": "Mouse",
+      "brand": "Acer",
+      "model": "NA",
+      "serial_number": "NA",
+      "assigned_seat": "Overseer NREGS-1",
+      "employee_name": "Remya",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC023",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM045",
+      "category": "Keyboard",
+      "brand": "Consistant",
+      "model": "NA",
+      "serial_number": "CT-KB-NR-0401",
+      "assigned_seat": "Overseer NREGS-1",
+      "employee_name": "Remya",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC023",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM046",
+      "category": "Mouse",
+      "brand": "Dell",
+      "model": "NA",
+      "serial_number": "CN-0PRDV9-L030010WV",
+      "assigned_seat": "VEO-2",
+      "employee_name": "Vacant",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC025",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM047",
+      "category": "Keyboard",
+      "brand": "Dell",
+      "model": "857-OUX5-A03",
+      "serial_number": "CN-0371D8-L0300",
+      "assigned_seat": "VEO-2",
+      "employee_name": "Vacant",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC025",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM048",
+      "category": "Mouse",
+      "brand": "Rapoo",
+      "model": "NA",
+      "serial_number": "1903ABGL2FEC",
+      "assigned_seat": "DEO",
+      "employee_name": "FASNA",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC027",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM049",
+      "category": "Keyboard",
+      "brand": "Acer",
+      "model": "DKUSBIP03L",
+      "serial_number": "838816D8K701",
+      "assigned_seat": "DEO",
+      "employee_name": "FASNA",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC027",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM050",
+      "category": "Keyboard",
+      "brand": "Acer",
+      "model": "DKUSBIB0DT",
+      "serial_number": "01702811K801",
+      "assigned_seat": "Overseer-1",
+      "employee_name": "Swapna",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC028",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM051",
+      "category": "Keyboard",
+      "brand": "Acer",
+      "model": "DKSUB1B0HL",
+      "serial_number": "54101BF9K801",
+      "assigned_seat": "Principal",
+      "employee_name": "Haseena",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC032",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM052",
+      "category": "Mouse",
+      "brand": "Acer",
+      "model": "DC11211021",
+      "serial_number": "552047B6K700",
+      "assigned_seat": "Principal",
+      "employee_name": "Haseena",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC032",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM053",
+      "category": "Keyboard",
+      "brand": "Logitech",
+      "model": "K120",
+      "serial_number": "2445MRA06YC8",
+      "assigned_seat": "FO",
+      "employee_name": "Front office",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC016",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-KM054",
+      "category": "Mouse",
+      "brand": "Logitech",
+      "model": "M90",
+      "serial_number": "2322HS032GE8",
+      "assigned_seat": "FO",
+      "employee_name": "Front office",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC016",
+      "status": "Working"
+    }
+  ],
+  "printers": [
+    {
+      "asset_id": "PGP-SYS-PTR001",
+      "category": "Ink Tank Printer",
+      "brand": "HP",
+      "model": "Smart Tank 750",
+      "serial_number": "TH57F9B1Z",
+      "specifications": "Ink Tank , MFP , Color",
+      "toner_cartridge": "GT 52 , GT53 , GT53XL",
+      "assigned_seat": "SC1",
+      "employee_name": "GIYAS",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC003",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-PTR002",
+      "category": "Ink Tank Printer",
+      "brand": "Epson",
+      "model": "M11170",
+      "serial_number": "X68K070973",
+      "specifications": "Ink Tank, Mono",
+      "toner_cartridge": "BK 005 , 005S",
+      "assigned_seat": "JC4",
+      "employee_name": "SHA P H",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC006",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-PTR003",
+      "category": "Ink Tank Printer",
+      "brand": "Epson",
+      "model": "M3170",
+      "serial_number": "X5TW073486",
+      "specifications": "Ink Tank ,MFP , Mono",
+      "toner_cartridge": "BK 005 , 005S",
+      "assigned_seat": "SC3",
+      "employee_name": "LAJI",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC013",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-PTR004",
+      "category": "Ink Tank Printer",
+      "brand": "Epson",
+      "model": "M3170",
+      "serial_number": "X5TW072819",
+      "specifications": "Ink Tank ,MFP , Mono",
+      "toner_cartridge": "BK 005 , 005S",
+      "assigned_seat": "JC1",
+      "employee_name": "RAJEESH K G",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC014",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-PTR005",
+      "category": "Ink Tank Printer",
+      "brand": "Epson",
+      "model": "M2170",
+      "serial_number": "X687022228",
+      "specifications": "Ink Tank ,MFP , Mono",
+      "toner_cartridge": "BK 005 , 005S",
+      "assigned_seat": "FO",
+      "employee_name": "Front office",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC016",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-PTR006",
+      "category": "Scanner",
+      "brand": "Canon",
+      "model": "DR-M1060II",
+      "serial_number": "KGU00127",
+      "specifications": "HIGH SPEED",
+      "toner_cartridge": "",
+      "assigned_seat": "FO",
+      "employee_name": "Front office",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC016",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-PTR007",
+      "category": "Photocopier",
+      "brand": "Sharp",
+      "model": "BP30M28",
+      "serial_number": "23005141",
+      "specifications": "Photocopier Machine ,ADF",
+      "toner_cartridge": "",
+      "assigned_seat": "FO",
+      "employee_name": "Front office",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC016",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-PTR008",
+      "category": "Ink Tank Printer",
+      "brand": "Epson",
+      "model": "M1170",
+      "serial_number": "X68K070904",
+      "specifications": "Ink Tank MONO",
+      "toner_cartridge": "BK 005 / 005S",
+      "assigned_seat": "AE Nregs",
+      "employee_name": "Archana",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC021",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-PTR009",
+      "category": "Laser printer",
+      "brand": "Canon",
+      "model": "MF4820D",
+      "serial_number": "QYR58750",
+      "specifications": "laserjet MFP",
+      "toner_cartridge": "278",
+      "assigned_seat": "AITA-1",
+      "employee_name": "Biju Levi",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC020",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-PTR010",
+      "category": "Ink Tank Printer",
+      "brand": "Epson",
+      "model": "M2170",
+      "serial_number": "Q687024211",
+      "specifications": "Ink Tank MFP",
+      "toner_cartridge": "BK 005 / 005S",
+      "assigned_seat": "ICDS",
+      "employee_name": "Subaida",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC024",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-PTR011",
+      "category": "Ink Tank Printer",
+      "brand": "Canon",
+      "model": "GM4070",
+      "serial_number": "KNVV30597",
+      "specifications": "Ink Tank, Mono",
+      "toner_cartridge": "BK G1-70",
+      "assigned_seat": "VEO-2",
+      "employee_name": "Vacant",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC025",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-PTR012",
+      "category": "Photocopier",
+      "brand": "Canon",
+      "model": "IR 2006N",
+      "serial_number": "(21)2FG37315 / F193302",
+      "specifications": "Photocopier Machine ",
+      "toner_cartridge": "",
+      "assigned_seat": "AE",
+      "employee_name": "Ashraf Kalladayil",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC030",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-PTR013",
+      "category": "Scanner",
+      "brand": "Epson",
+      "model": "V3911",
+      "serial_number": "XC23061970",
+      "specifications": "Flatbed Scanner",
+      "toner_cartridge": "",
+      "assigned_seat": "AE",
+      "employee_name": "Ashraf Kalladayil",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC030",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-PTR014",
+      "category": "Ink Tank Printer",
+      "brand": "HP",
+      "model": "Smart Tank 750",
+      "serial_number": "THSAI9B0Z8",
+      "specifications": "INK TANK COLOR MFP",
+      "toner_cartridge": "GT 52 , GT 53,GT53XL",
+      "assigned_seat": "Principal",
+      "employee_name": "Haseena",
+      "purchase_date": "",
+      "warranty_expiry": "",
+      "connected_pc_id": "PGP-SYS-PC032",
+      "status": "Working"
+    }
+  ],
+  "other_equipments": [
+    {
+      "asset_id": "PGP-SYS-OE001",
+      "category": "Stabilizer",
+      "brand": "Digi Guard",
+      "model": "DIGIGUARD",
+      "serial_number": "2301319",
+      "details": "600va",
+      "section": "PGP OFFICE GF",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-OE002",
+      "category": "UPS",
+      "brand": "IGA TECH",
+      "model": "IGOL5KR",
+      "serial_number": "T22880115",
+      "details": "5KAV",
+      "section": "PGP OFFICE SF",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-OE003",
+      "category": "UPS",
+      "brand": "IGA TECH",
+      "model": "IGA SATURN",
+      "serial_number": "M11170513",
+      "details": "3 KVA",
+      "section": "PGP OFFICE SF",
+      "status": "Complaint"
+    },
+    {
+      "asset_id": "PGP-SYS-OE004",
+      "category": "Modem",
+      "brand": "SCOPUS",
+      "model": "SC5520GWV",
+      "serial_number": "FCCD2FA923E0",
+      "details": "Kerala Vision Modem",
+      "section": "PGP OFFICE GF",
+      "status": "Complaint"
+    },
+    {
+      "asset_id": "PGP-SYS-OE005",
+      "category": "Modem",
+      "brand": "Net Link",
+      "model": "HG323RGW",
+      "serial_number": "8CC7C3814177",
+      "details": "4952235229",
+      "section": "PGP OFFICE GF",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-OE006",
+      "category": "Modem",
+      "brand": "TP Link",
+      "model": "TLWR841N",
+      "serial_number": "30B5C2361CF8",
+      "details": "WIFI Splitter",
+      "section": "PGP OFFICE GF",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-OE007",
+      "category": "Modem",
+      "brand": "Net Link",
+      "model": "HG323RGW",
+      "serial_number": "GPON00912622",
+      "details": "",
+      "section": "NREGS OFFICE",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-OE008",
+      "category": "Modem",
+      "brand": "Alphion",
+      "model": "9067176840FE",
+      "serial_number": "APHN124E1070",
+      "details": "BBNL",
+      "section": "PGP OFFICE GF",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-OE009",
+      "category": "Battery",
+      "brand": "Triotec",
+      "model": "IM-IT 1600T",
+      "serial_number": "RHB1600E20297",
+      "details": "IGA TEC 5 KVA UPS BATTERY 160 AH C20",
+      "section": "PGP OFFICE SF",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-OE010",
+      "category": "Battery",
+      "brand": "Triotec",
+      "model": "IM-IT 1600T",
+      "serial_number": "RHB1600E20298",
+      "details": "IGA TEC 5 KVA UPS BATTERY 160 AH C21",
+      "section": "PGP OFFICE SF",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-OE011",
+      "category": "Battery",
+      "brand": "Triotec",
+      "model": "IM-IT 1600T",
+      "serial_number": "RHB1600E20299",
+      "details": "IGA TEC 5 KVA UPS BATTERY 160 AH C22",
+      "section": "PGP OFFICE SF",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-OE012",
+      "category": "Battery",
+      "brand": "Triotec",
+      "model": "IM-IT 1600T",
+      "serial_number": "RHB1600E20300",
+      "details": "IGA TEC 5 KVA UPS BATTERY 160 AH C23",
+      "section": "PGP OFFICE SF",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-OE013",
+      "category": "Battery",
+      "brand": "Triotec",
+      "model": "IM-IT 1600T",
+      "serial_number": "RHB1600E20304",
+      "details": "IGA TEC 5 KVA UPS BATTERY 160 AH C24",
+      "section": "PGP OFFICE SF",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-OE014",
+      "category": "Battery",
+      "brand": "Triotec",
+      "model": "IM-IT 1600T",
+      "serial_number": "RHB1600E20305",
+      "details": "IGA TEC 5 KVA UPS BATTERY 160 AH C25",
+      "section": "PGP OFFICE SF",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-OE015",
+      "category": "Battery",
+      "brand": "Triotec",
+      "model": "IM-IT 1600T",
+      "serial_number": "RHB1600E20308",
+      "details": "IGA TEC 5 KVA UPS BATTERY 160 AH C26",
+      "section": "PGP OFFICE SF",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-OE016",
+      "category": "Battery",
+      "brand": "Triotec",
+      "model": "IM-IT 1600T",
+      "serial_number": "RHB1600E20309",
+      "details": "IGA TEC 5 KVA UPS BATTERY 160 AH C27",
+      "section": "PGP OFFICE SF",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-OE017",
+      "category": "Battery",
+      "brand": "SF",
+      "model": "FSPO-TT60S150",
+      "serial_number": "A1D4E650330JD42",
+      "details": "IGA TEC 5 KVA UPS BATTERY",
+      "section": "PGP OFFICE SF",
+      "status": "Working"
+    },
+    {
+      "asset_id": "PGP-SYS-OE018",
+      "category": "Battery",
+      "brand": "SF",
+      "model": "FSPO-TT60S150",
+      "serial_number": "A1D4E646810JD42",
+      "details": "IGA TEC 5 KVA UPS BATTERY",
+      "section": "PGP OFFICE SF",
+      "status": "Working"
+    }
+  ],
+  "complaints": [],
+  "employees": [
+    {
+      "sl_no": 1,
+      "seat": "SEC",
+      "name": "SHANAVAS",
+      "designation": "Secretary",
+      "office": "PGP OFFICE"
+    },
+    {
+      "sl_no": 2,
+      "seat": "AS",
+      "name": "RANJINI",
+      "designation": "Asst.Secretary",
+      "office": "PGP OFFICE"
+    },
+    {
+      "sl_no": 3,
+      "seat": "JS",
+      "name": "DILEEPKUMAR",
+      "designation": "Junior Superintendant",
+      "office": "PGP OFFICE"
+    },
+    {
+      "sl_no": 4,
+      "seat": "AO",
+      "name": "MANEESH DEVASSIA",
+      "designation": "Accountant",
+      "office": "PGP OFFICE"
+    },
+    {
+      "sl_no": 5,
+      "seat": "SC1",
+      "name": "GIYAS",
+      "designation": "Sr.Clerk",
+      "office": "PGP OFFICE"
+    },
+    {
+      "sl_no": 6,
+      "seat": "SC2",
+      "name": "RAJI KV",
+      "designation": "Sr.Clerk",
+      "office": "PGP OFFICE"
+    },
+    {
+      "sl_no": 7,
+      "seat": "SC3",
+      "name": "LAJI",
+      "designation": "Sr.Clerk",
+      "office": "PGP OFFICE"
+    },
+    {
+      "sl_no": 8,
+      "seat": "SC4",
+      "name": "RAJ MOHAN CHACKO",
+      "designation": "Sr.Clerk",
+      "office": "PGP OFFICE"
+    },
+    {
+      "sl_no": 9,
+      "seat": "SC5",
+      "name": "PRABHILA E",
+      "designation": "Sr.Clerk",
+      "office": "PGP OFFICE"
+    },
+    {
+      "sl_no": 10,
+      "seat": "JC1",
+      "name": "RAJEESH K G",
+      "designation": "Clerk",
+      "office": "PGP OFFICE"
+    },
+    {
+      "sl_no": 11,
+      "seat": "JC2",
+      "name": "ANEESH K",
+      "designation": "Clerk",
+      "office": "PGP OFFICE"
+    },
+    {
+      "sl_no": 12,
+      "seat": "JC3",
+      "name": "ASOKAN T",
+      "designation": "Clerk",
+      "office": "PGP OFFICE"
+    },
+    {
+      "sl_no": 13,
+      "seat": "JC4",
+      "name": "SHA P H",
+      "designation": "Clerk",
+      "office": "PGP OFFICE"
+    },
+    {
+      "sl_no": 14,
+      "seat": "JC5",
+      "name": "AMALRAJ K V",
+      "designation": "Clerk",
+      "office": "PGP OFFICE"
+    },
+    {
+      "sl_no": 15,
+      "seat": "TA",
+      "name": "SHAMEER M",
+      "designation": "Technical Assistant",
+      "office": "PGP OFFICE"
+    },
+    {
+      "sl_no": 16,
+      "seat": "PA",
+      "name": "SHYAMILI E",
+      "designation": "Project Assistant",
+      "office": "PGP OFFICE"
+    },
+    {
+      "sl_no": 17,
+      "seat": "HI",
+      "name": "HYRUNNISSA",
+      "designation": "Health Inspector",
+      "office": "PGP OFFICE"
+    },
+    {
+      "sl_no": 18,
+      "seat": "AE",
+      "name": "Ashraf Kalladayil",
+      "designation": "Asst.Engineer",
+      "office": "AE OFFICE"
+    },
+    {
+      "sl_no": 19,
+      "seat": "Overseer-1",
+      "name": "Swapna",
+      "designation": "Overseer",
+      "office": "AE OFFICE"
+    },
+    {
+      "sl_no": 20,
+      "seat": "Overseer-2",
+      "name": "Vineetha",
+      "designation": "Overseer",
+      "office": "AE OFFICE"
+    },
+    {
+      "sl_no": 21,
+      "seat": "AE Nregs",
+      "name": "Archana",
+      "designation": "Accredited Engineer",
+      "office": "NREGS OFFICE"
+    },
+    {
+      "sl_no": 22,
+      "seat": "Overseer NREGS-1",
+      "name": "Remya",
+      "designation": "Overseer",
+      "office": "NREGS OFFICE"
+    },
+    {
+      "sl_no": 23,
+      "seat": "Overseer NREGS-2",
+      "name": "Praseeda",
+      "designation": "Overseer",
+      "office": "NREGS OFFICE"
+    },
+    {
+      "sl_no": 24,
+      "seat": "AITA-1",
+      "name": "Biju Levi",
+      "designation": "AITA",
+      "office": "NREGS OFFICE"
+    },
+    {
+      "sl_no": 25,
+      "seat": "AITA-2",
+      "name": "Reshma",
+      "designation": "AITA",
+      "office": "NREGS OFFICE"
+    },
+    {
+      "sl_no": 26,
+      "seat": "DEO",
+      "name": "FASNA",
+      "designation": "DEO",
+      "office": "AE OFFICE"
+    },
+    {
+      "sl_no": 27,
+      "seat": "ICDS",
+      "name": "Subaida",
+      "designation": "ICDS Supervisor",
+      "office": "ICDS OFFICE"
+    },
+    {
+      "sl_no": 28,
+      "seat": "MO FHC",
+      "name": "Dr JAMAL",
+      "designation": "MO",
+      "office": "FHC PUTHUPPADY"
+    },
+    {
+      "sl_no": 29,
+      "seat": "MO AYUR",
+      "name": "Dr SUMAYYA",
+      "designation": "MO",
+      "office": "AYURVEDA HOSPITAL"
+    },
+    {
+      "sl_no": 30,
+      "seat": "FO",
+      "name": "Front office",
+      "designation": "FO",
+      "office": "PGP OFFICE"
+    },
+    {
+      "sl_no": 31,
+      "seat": "VEO-1",
+      "name": "PRADEEP KUMAR",
+      "designation": "VEO",
+      "office": "VEO OFFICE"
+    },
+    {
+      "sl_no": 32,
+      "seat": "VEO-2",
+      "name": "Vacant",
+      "designation": "VEO",
+      "office": "VEO OFFICE"
+    },
+    {
+      "sl_no": 33,
+      "seat": "Pre",
+      "name": "Biju Thannikkakuzhi",
+      "designation": "President",
+      "office": "PGP OFFICE"
+    },
+    {
+      "sl_no": 34,
+      "seat": "Principal",
+      "name": "Haseena",
+      "designation": "Buds School Principal",
+      "office": "Buds School"
+    },
+    {
+      "sl_no": 100,
+      "seat": "TEST",
+      "name": "test",
+      "designation": "test",
+      "office": "PGP OFFICE"
+    }
+  ],
+  "generator": {
+    "name": "Mahindra",
+    "serial": "N3B24XL29998",
+    "capacity": "25 KVA",
+    "logs": [
+      {
+        "call_date": "",
+        "service_details": "2024-12-13T08:00:00.000Z",
+        "running_hours": "Oil and Filter Changed",
+        "service_attended_date": "117",
+        "amount": "2024-12-13T08:00:00.000Z",
+        "remarks": "2866"
+      },
+      {
+        "call_date": "",
+        "service_details": "2026-05-11T07:00:00.000Z",
+        "running_hours": "",
+        "service_attended_date": "",
+        "amount": "",
+        "remarks": ""
+      },
+      {
+        "call_date": "2026-09-10T07:00:00.000Z",
+        "service_details": "Routine filter cleaning & Battery voltage test",
+        "running_hours": "135",
+        "service_attended_date": "2026-09-10T07:00:00.000Z",
+        "amount": "1500",
+        "remarks": "Quarterly servicing complete"
+      }
+    ]
+  },
+  "purchases": [
+    {
+      "sl_no": "1",
+      "date": "20/06/2026",
+      "item": "Toner Catridges\nink epson 005\n278 A Laser Toer",
+      "amount": "1980",
+      "vendor": "VOXX Engapuzha",
+      "file_number": "5026081-2026"
+    },
+    {
+      "sl_no": "2",
+      "date": "24/06/2026",
+      "item": "PHOTOCOPIER HEAR ROLL REPLACEMENT",
+      "amount": "",
+      "vendor": "",
+      "file_number": "3879541-2026"
+    },
+    {
+      "sl_no": "1000",
+      "date": "2026-09-10T07:00:00.000Z",
+      "item": "HP GT52/GT53 Ink Set (Color + Black)",
+      "amount": "2450",
+      "vendor": "VOXX Engapuzha",
+      "file_number": "5026090-2026"
+    }
+  ],
+  "ip_allocations": [
+    {
+      "ip": "192.168.0.1",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.2",
+      "is_assigned": true,
+      "assigned_to": "PGP-SYS-PC009"
+    },
+    {
+      "ip": "192.168.0.3",
+      "is_assigned": true,
+      "assigned_to": "PGP-SYS-PC033"
+    },
+    {
+      "ip": "192.168.0.4",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.5",
+      "is_assigned": true,
+      "assigned_to": "PGP-SYS-PC003"
+    },
+    {
+      "ip": "192.168.0.6",
+      "is_assigned": true,
+      "assigned_to": "PGP-SYS-PC012"
+    },
+    {
+      "ip": "192.168.0.7",
+      "is_assigned": true,
+      "assigned_to": "PGP-SYS-PC013"
+    },
+    {
+      "ip": "192.168.0.8",
+      "is_assigned": true,
+      "assigned_to": "PGP-SYS-PC011"
+    },
+    {
+      "ip": "192.168.0.9",
+      "is_assigned": true,
+      "assigned_to": "PGP-SYS-PC015"
+    },
+    {
+      "ip": "192.168.0.10",
+      "is_assigned": true,
+      "assigned_to": "PGP-SYS-PC014"
+    },
+    {
+      "ip": "192.168.0.11",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.12",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.13",
+      "is_assigned": true,
+      "assigned_to": "PGP-SYS-PC006"
+    },
+    {
+      "ip": "192.168.0.14",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.15",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.16",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.17",
+      "is_assigned": true,
+      "assigned_to": "PGP-SYS-PC025"
+    },
+    {
+      "ip": "192.168.0.18",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.19",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.20",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.21",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.22",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.23",
+      "is_assigned": true,
+      "assigned_to": "PGP-SYS-PC016"
+    },
+    {
+      "ip": "192.168.0.24",
+      "is_assigned": true,
+      "assigned_to": "PGP-SYS-PC021"
+    },
+    {
+      "ip": "192.168.0.25",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.26",
+      "is_assigned": true,
+      "assigned_to": "PGP-SYS-PC004"
+    },
+    {
+      "ip": "192.168.0.27",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.28",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.29",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.30",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.31",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.32",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.33",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.34",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.35",
+      "is_assigned": true,
+      "assigned_to": "PGP-SYS-PC001"
+    },
+    {
+      "ip": "192.168.0.36",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.37",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.38",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.39",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.40",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.41",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.42",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.43",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.44",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.45",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.46",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.47",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.48",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.49",
+      "is_assigned": true,
+      "assigned_to": "PGP-SYS-PC028"
+    },
+    {
+      "ip": "192.168.0.50",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.51",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.52",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.53",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.54",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.55",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.56",
+      "is_assigned": true,
+      "assigned_to": "PGP-SYS-PC007"
+    },
+    {
+      "ip": "192.168.0.57",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.58",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.59",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.60",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.61",
+      "is_assigned": true,
+      "assigned_to": "PGP-SYS-PC017"
+    },
+    {
+      "ip": "192.168.0.62",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.63",
+      "is_assigned": true,
+      "assigned_to": "PGP-SYS-PC010"
+    },
+    {
+      "ip": "192.168.0.64",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.65",
+      "is_assigned": true,
+      "assigned_to": "PGP-SYS-PC002"
+    },
+    {
+      "ip": "192.168.0.66",
+      "is_assigned": true,
+      "assigned_to": "PGP-SYS-PC018"
+    },
+    {
+      "ip": "192.168.0.67",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.68",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.69",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.70",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.71",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.72",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.73",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.74",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.75",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.76",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.77",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.78",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.79",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.80",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.81",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.82",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.83",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.84",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.85",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.86",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.87",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.88",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.89",
+      "is_assigned": true,
+      "assigned_to": "PGP-SYS-PC008"
+    },
+    {
+      "ip": "192.168.0.90",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.91",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.92",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.93",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.94",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.95",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.96",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.97",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.98",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.99",
+      "is_assigned": true,
+      "assigned_to": "PGP-SYS-PC005"
+    },
+    {
+      "ip": "192.168.0.100",
+      "is_assigned": true,
+      "assigned_to": "PGP-SYS-PC034"
+    },
+    {
+      "ip": "192.168.0.101",
+      "is_assigned": true,
+      "assigned_to": "PGP-SYS-PC035"
+    },
+    {
+      "ip": "192.168.0.102",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.103",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.104",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.105",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.106",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.107",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.108",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.109",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.110",
+      "is_assigned": true,
+      "assigned_to": "PGP-SYS-PC024"
+    },
+    {
+      "ip": "192.168.0.111",
+      "is_assigned": true,
+      "assigned_to": "PGP-SYS-PC030"
+    },
+    {
+      "ip": "192.168.0.112",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.113",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.114",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.115",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.116",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.117",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.118",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.119",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.120",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.121",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.122",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.123",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.124",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.125",
+      "is_assigned": true,
+      "assigned_to": "PGP-SYS-PC026"
+    },
+    {
+      "ip": "192.168.0.126",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.127",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.128",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.129",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.130",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.131",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.132",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.133",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.134",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.135",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.136",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.137",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.138",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.139",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.140",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.141",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.142",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.143",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.144",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.145",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.146",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.147",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.148",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.149",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.150",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.151",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.152",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.153",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.154",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.155",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.156",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.157",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.158",
+      "is_assigned": true,
+      "assigned_to": "PGP-SYS-PC023"
+    },
+    {
+      "ip": "192.168.0.159",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.160",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.161",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.162",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.163",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.164",
+      "is_assigned": true,
+      "assigned_to": "PGP-SYS-PC027"
+    },
+    {
+      "ip": "192.168.0.165",
+      "is_assigned": true,
+      "assigned_to": "PGP-SYS-PC029"
+    },
+    {
+      "ip": "192.168.0.166",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.167",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.168",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.169",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.170",
+      "is_assigned": true,
+      "assigned_to": "PGP-SYS-PC022"
+    },
+    {
+      "ip": "192.168.0.171",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.172",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.173",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.174",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.175",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.176",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.177",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.178",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.179",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.180",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.181",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.182",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.183",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.184",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.185",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.186",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.187",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.188",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.189",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.190",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.191",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.192",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.193",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.194",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.195",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.196",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.197",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.198",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.199",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.200",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.201",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.202",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.203",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.204",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.205",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.206",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.207",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.208",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.209",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.210",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.211",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.212",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.213",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.214",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.215",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.216",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.217",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.218",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.219",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.220",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.221",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.222",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.223",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.224",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.225",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.226",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.227",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.228",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.229",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.230",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.231",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.232",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.233",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.234",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.235",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.236",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.237",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.238",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.239",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.240",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.241",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.242",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.243",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.244",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.245",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.246",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.247",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.248",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.249",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.250",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.251",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.252",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.253",
+      "is_assigned": false,
+      "assigned_to": null
+    },
+    {
+      "ip": "192.168.0.254",
+      "is_assigned": false,
+      "assigned_to": null
+    }
+  ],
+  "tickets": []
+}

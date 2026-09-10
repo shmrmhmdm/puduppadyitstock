@@ -1,0 +1,1108 @@
+{
+  "Dashboard": {
+    "total_valid_rows": 7,
+    "header": {
+      "row": "2",
+      "cells": {
+        "B2": "DASH BOARD OF COMPUTER AND PERIFERALS DETAILS IN PUTHUPPADI GP"
+      }
+    },
+    "sample_data": [
+      {
+        "row": "4",
+        "cells": {
+          "B4": "🖥️\nTotal PC's",
+          "C4": "36",
+          "E4": "💻\nWorking PC's ",
+          "F4": "34",
+          "H4": "🔧🖥️\nComplaint PC's",
+          "I4": "2"
+        }
+      },
+      {
+        "row": "5",
+        "cells": {
+          "B5": "Server",
+          "C5": "2",
+          "E5": "PGP OFFICE",
+          "F5": "21",
+          "H5": "AMC Agency:",
+          "I5": "Keltron"
+        }
+      },
+      {
+        "row": "7",
+        "cells": {
+          "B7": "Monitor",
+          "C7": "30",
+          "E7": "System Under AMC",
+          "F7": "17"
+        }
+      },
+      {
+        "row": "9",
+        "cells": {
+          "B9": "Keyboard",
+          "C9": "28",
+          "E9": "System Under Warranty",
+          "F9": "12"
+        }
+      },
+      {
+        "row": "11",
+        "cells": {
+          "B11": "E-waste Item",
+          "C11": "0",
+          "E11": "System Under \nNo Warranty /No AMC",
+          "F11": "6"
+        }
+      }
+    ]
+  },
+  "Register-PC": {
+    "total_valid_rows": 100,
+    "header": {
+      "row": "1",
+      "cells": {
+        "A1": "Asset ID *",
+        "B1": "Item Category",
+        "C1": "Brand ",
+        "D1": "Model",
+        "E1": "Serial Number",
+        "F1": "Processor",
+        "G1": "RAM",
+        "H1": "STORAGE",
+        "I1": "OS",
+        "J1": "IP address Assigned",
+        "K1": "Assigned to",
+        "L1": "Employee_Name",
+        "M1": "Office Section",
+        "N1": "Purchase Date",
+        "O1": "Warranty/AMC Expiry",
+        "P1": "Is Working",
+        "Q1": "Present Status",
+        "R1": "Is Complaint",
+        "S1": "Device Status",
+        "T1": "AMC/WARRANTY",
+        "U1": "amc/warranty\nagency"
+      }
+    },
+    "sample_data": [
+      {
+        "row": "2",
+        "cells": {
+          "A2": "PGP-SYS-PC001",
+          "B2": "Desktop",
+          "C2": "Acer",
+          "D2": "Veriton M200-H81",
+          "E2": "UXVJKSI703H1399074",
+          "F2": "intel i3",
+          "G2": "8 GB",
+          "H2": "1 TB HDD",
+          "I2": "Win 10",
+          "J2": "192.168.0.35",
+          "K2": "TA",
+          "L2": "SHAMEER M",
+          "M2": "PGP OFFICE",
+          "P2": "1",
+          "Q2": "Working",
+          "R2": "0",
+          "T2": "AMC",
+          "U2": "Keltron"
+        }
+      },
+      {
+        "row": "3",
+        "cells": {
+          "A3": "PGP-SYS-PC002",
+          "B3": "Desktop",
+          "C3": "Acer",
+          "D3": "Veriton M200-P500",
+          "E3": "UD30SSI0FR61213AA60700",
+          "F3": "AMD Ryzon 5",
+          "G3": "16 GB",
+          "H3": "500 SSD",
+          "I3": "Win 11",
+          "J3": "192.168.0.65",
+          "K3": "JS",
+          "L3": "DILEEPKUMAR",
+          "M3": "PGP OFFICE",
+          "P3": "1",
+          "Q3": "Working",
+          "R3": "0",
+          "T3": "Warranty",
+          "U3": "Acer Warranty"
+        }
+      },
+      {
+        "row": "4",
+        "cells": {
+          "A4": "PGP-SYS-PC003",
+          "B4": "Desktop",
+          "C4": "Acer",
+          "D4": "Veriton M200-H610",
+          "E4": "UD30KSI0FB45103B870700",
+          "F4": "intel i5",
+          "G4": "16 GB",
+          "H4": "500 SSD",
+          "I4": "Win 11",
+          "J4": "192.168.0.5",
+          "K4": "SC1",
+          "L4": "GIYAS",
+          "M4": "PGP OFFICE",
+          "P4": "1",
+          "Q4": "Working",
+          "R4": "0",
+          "T4": "Warranty",
+          "U4": "Acer Warranty"
+        }
+      },
+      {
+        "row": "5",
+        "cells": {
+          "A5": "PGP-SYS-PC004",
+          "B5": "Desktop",
+          "C5": "Acer",
+          "D5": "Veriton M200-H81",
+          "E5": "UXVJSSID71F0502021",
+          "F5": "intel i3",
+          "G5": "8 GB",
+          "H5": "500 HDD",
+          "I5": "Win 8",
+          "J5": "192.168.0.26",
+          "K5": "AO",
+          "L5": "MANEESH DEVASSIA",
+          "M5": "PGP OFFICE",
+          "P5": "1",
+          "Q5": "Working",
+          "R5": "0",
+          "T5": "AMC",
+          "U5": "Keltron"
+        }
+      },
+      {
+        "row": "6",
+        "cells": {
+          "A6": "PGP-SYS-PC005",
+          "B6": "Desktop",
+          "C6": "Acer",
+          "D6": "Veriton M200-H81",
+          "E6": "UXVJKSI703H1399053",
+          "F6": "intel i3",
+          "G6": "8 GB",
+          "H6": "1 TB HDD",
+          "I6": "Win 10",
+          "J6": "192.168.0.99",
+          "K6": "JC5",
+          "L6": "AMALRAJ K V",
+          "M6": "PGP OFFICE",
+          "P6": "1",
+          "Q6": "Working",
+          "R6": "0",
+          "T6": "AMC",
+          "U6": "Keltron"
+        }
+      }
+    ]
+  },
+  "Register-Monitor": {
+    "total_valid_rows": 31,
+    "header": {
+      "row": "1",
+      "cells": {
+        "A1": "Asset ID*",
+        "B1": "Item Category",
+        "C1": "Brand ",
+        "D1": "Model",
+        "E1": "Serial Number",
+        "F1": "Specifications",
+        "G1": "Assigned to",
+        "H1": "Employee_Name",
+        "I1": "Purchase Date",
+        "J1": "Warranty/AMC Expiry",
+        "K1": "Connected PC Asset ID",
+        "L1": "Status"
+      }
+    },
+    "sample_data": [
+      {
+        "row": "2",
+        "cells": {
+          "A2": "PGP-SYS-MTR001",
+          "B2": "Monitor",
+          "C2": "Acer",
+          "D2": "KA222Q",
+          "E2": "MMTKSSI0064350B7733W01",
+          "F2": "LED 22inch",
+          "G2": "TA",
+          "H2": "SHAMEER M",
+          "K2": "PGP-SYS-PC001"
+        }
+      },
+      {
+        "row": "3",
+        "cells": {
+          "A3": "PGP-SYS-MTR002",
+          "B3": "Monitor",
+          "C3": "Acer",
+          "D3": "EK220Q",
+          "E3": "MMTJDSI00560910E383W01",
+          "F3": "LED 22inch",
+          "G3": "JS",
+          "H3": "DILEEPKUMAR",
+          "K3": "PGP-SYS-PC002"
+        }
+      },
+      {
+        "row": "4",
+        "cells": {
+          "A4": "PGP-SYS-MTR003",
+          "B4": "Monitor",
+          "C4": "Zebronics",
+          "D4": "ZEB-EA122",
+          "E4": "ZBW05ET00710",
+          "G4": "AO",
+          "H4": "MANEESH DEVASSIA",
+          "K4": "PGP-SYS-PC004"
+        }
+      },
+      {
+        "row": "5",
+        "cells": {
+          "A5": "PGP-SYS-MTR004",
+          "B5": "Monitor",
+          "C5": "Acer",
+          "D5": "EK240Y",
+          "E5": "MMTJESI0044290324E3W01",
+          "G5": "SC1",
+          "H5": "GIYAS",
+          "K5": "PGP-SYS-PC003"
+        }
+      },
+      {
+        "row": "6",
+        "cells": {
+          "A6": "PGP-SYS-MTR005",
+          "B6": "Monitor",
+          "C6": "Zebronics",
+          "D6": "ZEB-EA122",
+          "E6": "ZBW0SET00711",
+          "G6": "JC5",
+          "H6": "AMALRAJ K V",
+          "K6": "PGP-SYS-PC005"
+        }
+      }
+    ]
+  },
+  "Register-K&M": {
+    "total_valid_rows": 55,
+    "header": {
+      "row": "1",
+      "cells": {
+        "A1": "Asset ID",
+        "B1": "Item Category",
+        "C1": "Brand ",
+        "D1": "Model",
+        "E1": "Serial Number",
+        "F1": "Assigned to",
+        "G1": "Employee_Name",
+        "H1": "Purchase Date",
+        "I1": "Warranty/AMC Expiry",
+        "J1": "Connected PC Asset ID",
+        "K1": "Status"
+      }
+    },
+    "sample_data": [
+      {
+        "row": "2",
+        "cells": {
+          "A2": "PGP-SYS-KM001",
+          "B2": "Keyboard",
+          "C2": "Logitech",
+          "D2": "K120",
+          "E2": "2445MR10CHV8",
+          "F2": "TA",
+          "G2": "SHAMEER M",
+          "J2": "PGP-SYS-PC001"
+        }
+      },
+      {
+        "row": "3",
+        "cells": {
+          "A3": "PGP-SYS-KM002",
+          "B3": "Mouse",
+          "C3": "Lapcare",
+          "D3": "L50",
+          "F3": "TA",
+          "G3": "SHAMEER M",
+          "J3": "PGP-SYS-PC001"
+        }
+      },
+      {
+        "row": "4",
+        "cells": {
+          "A4": "PGP-SYS-KM003",
+          "B4": "Mouse",
+          "C4": "Zebronics",
+          "D4": "NA",
+          "E4": "NA",
+          "F4": "AO",
+          "G4": "MANEESH DEVASSIA",
+          "J4": "PGP-SYS-PC004"
+        }
+      },
+      {
+        "row": "5",
+        "cells": {
+          "A5": "PGP-SYS-KM004",
+          "B5": "Keyboard",
+          "C5": "Foxin",
+          "D5": "FKB102PLUS",
+          "E5": "FKBKLDX112525019",
+          "F5": "AO",
+          "G5": "MANEESH DEVASSIA",
+          "J5": "PGP-SYS-PC004"
+        }
+      },
+      {
+        "row": "6",
+        "cells": {
+          "A6": "PGP-SYS-KM005",
+          "B6": "Mouse",
+          "C6": "Zebronics",
+          "D6": "NA",
+          "E6": "NA",
+          "F6": "SC1",
+          "G6": "GIYAS",
+          "J6": "PGP-SYS-PC003"
+        }
+      }
+    ]
+  },
+  "Other_Equipments": {
+    "total_valid_rows": 19,
+    "header": {
+      "row": "1",
+      "cells": {
+        "A1": "ASSET ID",
+        "B1": "ITEM NAME",
+        "C1": "BRAND",
+        "D1": "MODEL",
+        "E1": "SERIAL NUMBER",
+        "F1": "Details",
+        "G1": "SECTION",
+        "H1": "STATUS"
+      }
+    },
+    "sample_data": [
+      {
+        "row": "2",
+        "cells": {
+          "A2": "PGP-SYS-OE001",
+          "B2": "Stabilizer",
+          "C2": "Digi Guard",
+          "D2": "DIGIGUARD",
+          "E2": "2301319.0",
+          "F2": "600va",
+          "G2": "PGP OFFICE GF",
+          "H2": "Working"
+        }
+      },
+      {
+        "row": "3",
+        "cells": {
+          "A3": "PGP-SYS-OE002",
+          "B3": "UPS",
+          "C3": "IGA TECH",
+          "D3": "IGOL5KR",
+          "E3": "T22880115",
+          "F3": "5KAV",
+          "G3": "PGP OFFICE SF",
+          "H3": "Working"
+        }
+      },
+      {
+        "row": "4",
+        "cells": {
+          "A4": "PGP-SYS-OE003",
+          "B4": "UPS",
+          "C4": "IGA TECH",
+          "D4": "IGA SATURN",
+          "E4": "M11170513",
+          "F4": "3 KVA",
+          "G4": "PGP OFFICE SF",
+          "H4": "Complaint"
+        }
+      },
+      {
+        "row": "5",
+        "cells": {
+          "A5": "PGP-SYS-OE004",
+          "B5": "Modem",
+          "C5": "SCOPUS",
+          "D5": "SC5520GWV",
+          "E5": "FCCD2FA923E0",
+          "F5": "Kerala Vision Modem",
+          "G5": "PGP OFFICE GF",
+          "H5": "Complaint"
+        }
+      },
+      {
+        "row": "6",
+        "cells": {
+          "A6": "PGP-SYS-OE005",
+          "B6": "Modem",
+          "C6": "Net Link",
+          "D6": "HG323RGW",
+          "E6": "8CC7C3814177",
+          "F6": "4.952235229E9",
+          "G6": "PGP OFFICE GF",
+          "H6": "Working"
+        }
+      }
+    ]
+  },
+  "Register-PTR": {
+    "total_valid_rows": 15,
+    "header": {
+      "row": "1",
+      "cells": {
+        "A1": "Asset ID",
+        "B1": "Item Category",
+        "C1": "Brand ",
+        "D1": "Model",
+        "E1": "Serial Number",
+        "F1": "Specifications",
+        "G1": "Toner Catridge Details",
+        "H1": "Assigned to",
+        "I1": "Employee_Name",
+        "J1": "Purchase Date",
+        "K1": "Warranty/AMC Expiry",
+        "L1": "Printed Connected System ID",
+        "M1": "Device Status"
+      }
+    },
+    "sample_data": [
+      {
+        "row": "2",
+        "cells": {
+          "A2": "PGP-SYS-PTR001",
+          "B2": "Ink Tank Printer",
+          "C2": "HP",
+          "D2": "Smart Tank 750",
+          "E2": "TH57F9B1Z",
+          "F2": "Ink Tank , MFP , Color",
+          "G2": "GT 52 , GT53 , GT53XL",
+          "H2": "SC1",
+          "I2": "GIYAS",
+          "L2": "PGP-SYS-PC003",
+          "M2": "Working"
+        }
+      },
+      {
+        "row": "3",
+        "cells": {
+          "A3": "PGP-SYS-PTR002",
+          "B3": "Ink Tank Printer",
+          "C3": "Epson",
+          "D3": "M11170",
+          "E3": "X68K070973",
+          "F3": "Ink Tank, Mono",
+          "G3": "BK 005 , 005S",
+          "H3": "JC4",
+          "I3": "SHA P H",
+          "L3": "PGP-SYS-PC006",
+          "M3": "Working"
+        }
+      },
+      {
+        "row": "4",
+        "cells": {
+          "A4": "PGP-SYS-PTR003",
+          "B4": "Ink Tank Printer",
+          "C4": "Epson",
+          "D4": "M3170",
+          "E4": "X5TW073486",
+          "F4": "Ink Tank ,MFP , Mono",
+          "G4": "BK 005 , 005S",
+          "H4": "SC3",
+          "I4": "LAJI",
+          "L4": "PGP-SYS-PC013",
+          "M4": "Working"
+        }
+      },
+      {
+        "row": "5",
+        "cells": {
+          "A5": "PGP-SYS-PTR004",
+          "B5": "Ink Tank Printer",
+          "C5": "Epson",
+          "D5": "M3170",
+          "E5": "X5TW072819",
+          "F5": "Ink Tank ,MFP , Mono",
+          "G5": "BK 005 , 005S",
+          "H5": "JC1",
+          "I5": "RAJEESH K G",
+          "L5": "PGP-SYS-PC014",
+          "M5": "Working"
+        }
+      },
+      {
+        "row": "6",
+        "cells": {
+          "A6": "PGP-SYS-PTR005",
+          "B6": "Ink Tank Printer",
+          "C6": "Epson",
+          "D6": "M2170",
+          "E6": "X687022228",
+          "F6": "Ink Tank ,MFP , Mono",
+          "G6": "BK 005 , 005S",
+          "H6": "FO",
+          "I6": "Front office",
+          "L6": "PGP-SYS-PC016",
+          "M6": "Working"
+        }
+      }
+    ]
+  },
+  "Complaint_Register": {
+    "total_valid_rows": 6,
+    "header": {
+      "row": "1",
+      "cells": {
+        "A1": "Complaint System\nFrom Register-PC",
+        "B1": "Choose PC Asset ID from List",
+        "C1": "Section Name",
+        "D1": "Date",
+        "E1": "Complaint Details",
+        "F1": "Complaint ID",
+        "G1": "Complaint\n Assisted \nDate",
+        "H1": "Solution Provided",
+        "I1": "Status",
+        "J1": "Warranty / AMC Details",
+        "K1": "Complaint Closed Date"
+      }
+    },
+    "sample_data": [
+      {
+        "row": "2",
+        "cells": {
+          "A2": "PGP-SYS-PC029",
+          "B2": "PGP-SYS-PC032",
+          "C2": "Principal",
+          "D2": "14/05/2026",
+          "E2": "Not powering On",
+          "G2": "15/05/2026",
+          "H2": "RAM re fixed ",
+          "I2": "Closed",
+          "J2": "Acer Warranty",
+          "K2": "15/05/2026"
+        }
+      },
+      {
+        "row": "3",
+        "cells": {
+          "A3": "PGP-SYS-PC033",
+          "B3": "PGP-SYS-PC005",
+          "C3": "JC5",
+          "D3": "20/05/2026",
+          "E3": "System Slow",
+          "G3": "18/05/2026",
+          "H3": "OS Formatted",
+          "I3": "Closed",
+          "J3": "Keltron",
+          "K3": "18/05/2026"
+        }
+      },
+      {
+        "row": "4",
+        "cells": {
+          "B4": "PGP-SYS-PC025",
+          "C4": "VEO-2",
+          "D4": "17/06/2025",
+          "E4": "printer complaint",
+          "F4": "CSP/20260704/99667.",
+          "G4": "46119.0",
+          "I4": "Open",
+          "J4": "Keltron"
+        }
+      },
+      {
+        "row": "5",
+        "cells": {
+          "B5": "PGP-SYS-PC029",
+          "C5": "Overseer-2",
+          "D5": "24/07/2026",
+          "E5": "Booting Device Not Detected",
+          "F5": "NIL",
+          "G5": "25/07/2026",
+          "H5": "HDD TAKEN ",
+          "I5": "Closed",
+          "J5": "Keltron"
+        }
+      },
+      {
+        "row": "6",
+        "cells": {
+          "B6": "PGP-SYS-PC033",
+          "C6": "FO",
+          "D6": "46274.0",
+          "E6": "AUTOMATIC RESTARTING , STUCK SOME TIME",
+          "J6": "Keltron"
+        }
+      }
+    ]
+  },
+  "Generator": {
+    "total_valid_rows": 6,
+    "header": {
+      "row": "1",
+      "cells": {
+        "B1": "Generator Name",
+        "D1": "Mahindra"
+      }
+    },
+    "sample_data": [
+      {
+        "row": "2",
+        "cells": {
+          "B2": "Engine SL Number",
+          "D2": "N3B24XL29998"
+        }
+      },
+      {
+        "row": "3",
+        "cells": {
+          "B3": "Capacity",
+          "D3": "25 KVA"
+        }
+      },
+      {
+        "row": "5",
+        "cells": {
+          "B5": "Date of call Logging",
+          "C5": "Service Details",
+          "D5": "Machine Running Hours",
+          "E5": "Date of Service Attended",
+          "F5": "Amount",
+          "G5": "Remarks"
+        }
+      },
+      {
+        "row": "6",
+        "cells": {
+          "B6": "45639.0",
+          "C6": "Oil and Filter Changed",
+          "D6": "117.0",
+          "E6": "45639.0",
+          "F6": "2866.0"
+        }
+      },
+      {
+        "row": "7",
+        "cells": {
+          "B7": "46153.0"
+        }
+      }
+    ]
+  },
+  "RT-Section": {
+    "total_valid_rows": 15,
+    "header": {
+      "row": "2",
+      "cells": {
+        "C2": "SYSTEM ASSET REPORT\nSection wise"
+      }
+    },
+    "sample_data": [
+      {
+        "row": "3",
+        "cells": {
+          "I3": "Search By PC Asset ID:",
+          "J3": "PGP-SYS-pc005"
+        }
+      },
+      {
+        "row": "4",
+        "cells": {
+          "C4": "SECTION",
+          "D4": "FO",
+          "E4": "Front office",
+          "F4": "PGP OFFICE",
+          "I4": "Section Code ",
+          "J4": "JC5"
+        }
+      },
+      {
+        "row": "5",
+        "cells": {
+          "C5": "Asset ID",
+          "D5": "PGP-SYS-PC016",
+          "E5": "FO",
+          "F5": "FO",
+          "I5": "Employee Name",
+          "J5": "AMALRAJ K V"
+        }
+      },
+      {
+        "row": "6",
+        "cells": {
+          "C6": "Product",
+          "D6": "Desktop",
+          "E6": "Working"
+        }
+      },
+      {
+        "row": "8",
+        "cells": {
+          "C8": "Serial Number",
+          "D8": "UXVJKSI703H1399058"
+        }
+      }
+    ]
+  },
+  "Item-Sort": {
+    "total_valid_rows": 14,
+    "header": {
+      "row": "1",
+      "cells": {
+        "B1": "8 GB",
+        "D1": "intel i5",
+        "F1": "Win 10",
+        "I1": "Laptop"
+      }
+    },
+    "sample_data": [
+      {
+        "row": "2",
+        "cells": {
+          "B2": "TA",
+          "C2": "SHAMEER M",
+          "D2": "SC1",
+          "E2": "GIYAS",
+          "F2": "TA",
+          "G2": "SHAMEER M",
+          "I2": "ICDS",
+          "J2": "Subaida"
+        }
+      },
+      {
+        "row": "3",
+        "cells": {
+          "B3": "AO",
+          "C3": "MANEESH DEVASSIA",
+          "D3": "JC4",
+          "E3": "SHA P H",
+          "F3": "JC5",
+          "G3": "AMALRAJ K V",
+          "I3": "VEO-1",
+          "J3": "PRADEEP KUMAR"
+        }
+      },
+      {
+        "row": "4",
+        "cells": {
+          "B4": "JC5",
+          "C4": "AMALRAJ K V",
+          "D4": "AS",
+          "E4": "AJITH P S",
+          "F4": "JC3",
+          "G4": "ASOKAN T",
+          "I4": "AE",
+          "J4": "Ashraf Kalladayil"
+        }
+      },
+      {
+        "row": "5",
+        "cells": {
+          "B5": "AS",
+          "C5": "AJITH P S",
+          "D5": "SC2",
+          "E5": "RAJI KV",
+          "F5": "HI",
+          "G5": "HYRUNNISSA",
+          "I5": "Pre",
+          "J5": "Biju Thannikkakuzhi"
+        }
+      },
+      {
+        "row": "6",
+        "cells": {
+          "B6": "SC4",
+          "C6": "RAJ MOHAN CHACKO",
+          "D6": "SC3",
+          "E6": "LAJI",
+          "F6": "FO",
+          "G6": "Front office",
+          "I6": "SEC",
+          "J6": "SHANAVAS"
+        }
+      }
+    ]
+  },
+  "Employee_list": {
+    "total_valid_rows": 35,
+    "header": {
+      "row": "1",
+      "cells": {
+        "A1": "SlNo",
+        "B1": "Seat",
+        "C1": "Employee_Name",
+        "D1": "Designation",
+        "E1": "OFFICE"
+      }
+    },
+    "sample_data": [
+      {
+        "row": "2",
+        "cells": {
+          "A2": "1",
+          "B2": "SEC",
+          "C2": "SHANAVAS",
+          "D2": "Secretary",
+          "E2": "PGP OFFICE"
+        }
+      },
+      {
+        "row": "3",
+        "cells": {
+          "A3": "2.0",
+          "B3": "AS",
+          "C3": "AJITH P S",
+          "D3": "Asst.Secretary",
+          "E3": "PGP OFFICE"
+        }
+      },
+      {
+        "row": "4",
+        "cells": {
+          "A4": "3.0",
+          "B4": "JS",
+          "C4": "DILEEPKUMAR",
+          "D4": "Junior Superintendant",
+          "E4": "PGP OFFICE"
+        }
+      },
+      {
+        "row": "5",
+        "cells": {
+          "A5": "4.0",
+          "B5": "AO",
+          "C5": "MANEESH DEVASSIA",
+          "D5": "Accountant",
+          "E5": "PGP OFFICE"
+        }
+      },
+      {
+        "row": "6",
+        "cells": {
+          "A6": "5.0",
+          "B6": "SC1",
+          "C6": "GIYAS",
+          "D6": "Sr.Clerk",
+          "E6": "PGP OFFICE"
+        }
+      }
+    ]
+  },
+  "E-waste": {
+    "total_valid_rows": 1,
+    "header": {
+      "row": "1",
+      "cells": {
+        "A1": "S-No",
+        "B1": "Item",
+        "C1": "Brand Name",
+        "D1": "Serial Number /any other details",
+        "E1": "Product Description"
+      }
+    },
+    "sample_data": []
+  },
+  "Purchases": {
+    "total_valid_rows": 3,
+    "header": {
+      "row": "1",
+      "cells": {
+        "A1": "Sl.No",
+        "B1": "Date",
+        "C1": "Item",
+        "D1": "Amount",
+        "E1": "Vendor",
+        "F1": "File Number"
+      }
+    },
+    "sample_data": [
+      {
+        "row": "2",
+        "cells": {
+          "A2": "1.0",
+          "B2": "20/06/2026",
+          "C2": "Toner Catridges\nink epson 005\n278 A Laser Toer",
+          "D2": "1980.0",
+          "E2": "VOXX Engapuzha",
+          "F2": "5026081-2026"
+        }
+      },
+      {
+        "row": "3",
+        "cells": {
+          "A3": "2.0",
+          "B3": "24/06/2026",
+          "C3": "PHOTOCOPIER HEAR ROLL REPLACEMENT",
+          "F3": "3879541-2026"
+        }
+      }
+    ]
+  },
+  "ip_address": {
+    "total_valid_rows": 165,
+    "header": {
+      "row": "1",
+      "cells": {
+        "B1": "IP Address Assigned List",
+        "J1": "Missing Ip Address"
+      }
+    },
+    "sample_data": [
+      {
+        "row": "2",
+        "cells": {
+          "B2": "192.168.0.35",
+          "C2": "NA",
+          "D2": "NA",
+          "H2": "2",
+          "I2": "1",
+          "J2": "192.168.0.1"
+        }
+      },
+      {
+        "row": "3",
+        "cells": {
+          "B3": "192.168.0.65",
+          "C3": "NA",
+          "D3": "NA",
+          "H3": "3.0",
+          "I3": "4",
+          "J3": "192.168.0.4"
+        }
+      },
+      {
+        "row": "4",
+        "cells": {
+          "B4": "192.168.0.5",
+          "C4": "NA",
+          "D4": "NA",
+          "H4": "5.0",
+          "I4": "11",
+          "J4": "192.168.0.11"
+        }
+      },
+      {
+        "row": "5",
+        "cells": {
+          "B5": "192.168.0.26",
+          "C5": "Direct internet",
+          "D5": "Direct internet",
+          "H5": "6.0",
+          "I5": "12",
+          "J5": "192.168.0.12"
+        }
+      },
+      {
+        "row": "6",
+        "cells": {
+          "B6": "192.168.0.99",
+          "C6": "Direct internet",
+          "D6": "Direct internet",
+          "H6": "7.0",
+          "I6": "14",
+          "J6": "192.168.0.14"
+        }
+      }
+    ]
+  },
+  "Sheet9": {
+    "total_valid_rows": 50,
+    "header": {
+      "row": "1",
+      "cells": {
+        "A1": "PGP-SYS-PC001",
+        "B1": "SHAMEER M",
+        "C1": "PGP-SYS-MTR001",
+        "D1": "SHAMEER M",
+        "E1": "PGP-SYS-KM001",
+        "F1": "SHAMEER M",
+        "G1": "PGP-SYS-PTR001",
+        "H1": "GIYAS"
+      }
+    },
+    "sample_data": [
+      {
+        "row": "2",
+        "cells": {
+          "A2": "PGP-SYS-PC002",
+          "B2": "DILEEPKUMAR",
+          "C2": "PGP-SYS-MTR002",
+          "D2": "DILEEPKUMAR",
+          "E2": "PGP-SYS-KM002",
+          "F2": "SHAMEER M",
+          "G2": "PGP-SYS-PTR002",
+          "H2": "SHA P H"
+        }
+      },
+      {
+        "row": "3",
+        "cells": {
+          "A3": "PGP-SYS-PC003",
+          "B3": "GIYAS",
+          "C3": "PGP-SYS-MTR003",
+          "D3": "MANEESH DEVASSIA",
+          "E3": "PGP-SYS-KM003",
+          "F3": "MANEESH DEVASSIA",
+          "G3": "PGP-SYS-PTR003",
+          "H3": "LAJI"
+        }
+      },
+      {
+        "row": "4",
+        "cells": {
+          "A4": "PGP-SYS-PC004",
+          "B4": "MANEESH DEVASSIA",
+          "C4": "PGP-SYS-MTR004",
+          "D4": "GIYAS",
+          "E4": "PGP-SYS-KM004",
+          "F4": "MANEESH DEVASSIA",
+          "G4": "PGP-SYS-PTR004",
+          "H4": "RAJEESH K G"
+        }
+      },
+      {
+        "row": "5",
+        "cells": {
+          "A5": "PGP-SYS-PC005",
+          "B5": "AMALRAJ K V",
+          "C5": "PGP-SYS-MTR005",
+          "D5": "AMALRAJ K V",
+          "E5": "PGP-SYS-KM005",
+          "F5": "GIYAS",
+          "G5": "PGP-SYS-PTR005",
+          "H5": "Front office"
+        }
+      },
+      {
+        "row": "6",
+        "cells": {
+          "A6": "PGP-SYS-PC006",
+          "B6": "SHA P H",
+          "C6": "PGP-SYS-MTR006",
+          "D6": "SHA P H",
+          "E6": "PGP-SYS-KM006",
+          "F6": "GIYAS",
+          "G6": "PGP-SYS-PTR006",
+          "H6": "Front office"
+        }
+      }
+    ]
+  }
+}
