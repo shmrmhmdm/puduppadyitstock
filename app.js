@@ -203,6 +203,8 @@ function renderAll() {
   renderPurchasesAndGenerator();
   renderIpMap();
   populateHandoverSelect();
+  renderQrStickers();
+  checkUrlForAsset();
 }
 
 function updateSidebarBadges() {
@@ -318,6 +320,7 @@ function renderPcsTable(items = appData.pcs) {
       </td>
       <td class="text-right">
         <div class="action-btns">
+          <button class="action-btn" title="QR Code & Passport" onclick="openAssetPassport('${p.asset_id}')"><i class="fa-solid fa-qrcode"></i></button>
           <button class="action-btn" title="View Handover" onclick="generateHandoverFor('${p.asset_id}')"><i class="fa-solid fa-file-lines"></i></button>
           <button class="action-btn" title="Edit Item" onclick="openEditModal('pcs', '${p.asset_id}')"><i class="fa-solid fa-pen"></i></button>
           <button class="action-btn delete" title="Delete Item" onclick="deleteStockItem('pcs', '${p.asset_id}')"><i class="fa-solid fa-trash"></i></button>
@@ -370,6 +373,7 @@ function renderMonitorsTable(items = appData.monitors) {
       <td><span class="status-tag working">Working</span></td>
       <td class="text-right">
         <div class="action-btns">
+          <button class="action-btn" title="QR Code & Passport" onclick="openAssetPassport('${m.asset_id}')"><i class="fa-solid fa-qrcode"></i></button>
           <button class="action-btn" title="Edit" onclick="openEditModal('monitors', '${m.asset_id}')"><i class="fa-solid fa-pen"></i></button>
           <button class="action-btn delete" title="Delete" onclick="deleteStockItem('monitors', '${m.asset_id}')"><i class="fa-solid fa-trash"></i></button>
         </div>
@@ -396,6 +400,7 @@ function renderPeripheralsTable(items = appData.peripherals) {
       <td><span class="status-tag working">Working</span></td>
       <td class="text-right">
         <div class="action-btns">
+          <button class="action-btn" title="QR Code & Passport" onclick="openAssetPassport('${k.asset_id}')"><i class="fa-solid fa-qrcode"></i></button>
           <button class="action-btn" title="Edit" onclick="openEditModal('peripherals', '${k.asset_id}')"><i class="fa-solid fa-pen"></i></button>
           <button class="action-btn delete" title="Delete" onclick="deleteStockItem('peripherals', '${k.asset_id}')"><i class="fa-solid fa-trash"></i></button>
         </div>
@@ -427,6 +432,7 @@ function renderPrintersTable(items = appData.printers) {
       <td><span class="status-tag working">Working</span></td>
       <td class="text-right">
         <div class="action-btns">
+          <button class="action-btn" title="QR Code & Passport" onclick="openAssetPassport('${p.asset_id}')"><i class="fa-solid fa-qrcode"></i></button>
           <button class="action-btn" title="Edit" onclick="openEditModal('printers', '${p.asset_id}')"><i class="fa-solid fa-pen"></i></button>
           <button class="action-btn delete" title="Delete" onclick="deleteStockItem('printers', '${p.asset_id}')"><i class="fa-solid fa-trash"></i></button>
         </div>
@@ -452,6 +458,7 @@ function renderOtherEquipmentsTable(items = appData.other_equipments) {
       <td><span class="status-tag ${o.status === 'Complaint' ? 'complaint' : 'working'}">${o.status || 'Working'}</span></td>
       <td class="text-right">
         <div class="action-btns">
+          <button class="action-btn" title="QR Code & Passport" onclick="openAssetPassport('${o.asset_id}')"><i class="fa-solid fa-qrcode"></i></button>
           <button class="action-btn" title="Edit" onclick="openEditModal('other_equipments', '${o.asset_id}')"><i class="fa-solid fa-pen"></i></button>
           <button class="action-btn delete" title="Delete" onclick="deleteStockItem('other_equipments', '${o.asset_id}')"><i class="fa-solid fa-trash"></i></button>
         </div>
@@ -1661,11 +1668,13 @@ function exportData(category) {
 
 // 23. Modal Utilities
 function openModal(id) {
-  document.getElementById(id).classList.add('active');
+  const m = document.getElementById(id);
+  if (m) m.classList.add('active');
 }
 
 function closeModal(id) {
-  document.getElementById(id).classList.remove('active');
+  const m = document.getElementById(id);
+  if (m) m.classList.remove('active');
 }
 
 // 24. Toast Utility
@@ -1677,4 +1686,454 @@ function showToast(message, type = 'success') {
   setTimeout(() => {
     toast.classList.remove('show');
   }, 3500);
+}
+
+// ==========================================
+// 25. QR CODE ENGINE & ASSET PASSPORT SYSTEM
+// ==========================================
+
+let html5QrScannerInstance = null;
+let hasCheckedUrlAsset = false;
+
+// Helper: Find item by Asset ID across all categories
+function findItemByAssetId(assetId) {
+  if (!assetId) return null;
+  const aid = String(assetId).trim().toUpperCase();
+  
+  let found = appData.pcs.find(p => String(p.asset_id).toUpperCase() === aid);
+  if (found) return { item: found, category: 'pcs', typeLabel: 'Computer / Server', icon: 'fa-desktop' };
+
+  found = appData.monitors.find(m => String(m.asset_id).toUpperCase() === aid);
+  if (found) return { item: found, category: 'monitors', typeLabel: 'Monitor / Display', icon: 'fa-display' };
+
+  found = appData.peripherals.find(k => String(k.asset_id).toUpperCase() === aid);
+  if (found) return { item: found, category: 'peripherals', typeLabel: 'Keyboard / Mouse', icon: 'fa-keyboard' };
+
+  found = appData.printers.find(p => String(p.asset_id).toUpperCase() === aid);
+  if (found) return { item: found, category: 'printers', typeLabel: 'Printer / Scanner', icon: 'fa-print' };
+
+  found = appData.other_equipments.find(o => String(o.asset_id).toUpperCase() === aid);
+  if (found) return { item: found, category: 'other_equipments', typeLabel: 'Power & Network Device', icon: 'fa-plug-circle-bolt' };
+
+  return null;
+}
+
+// Generate URL encoded link for asset
+function getAssetPassportUrl(assetId) {
+  const baseUrl = window.location.origin + window.location.pathname;
+  return `${baseUrl}?asset=${encodeURIComponent(assetId)}`;
+}
+
+// 26. Open Asset Passport Modal
+function openAssetPassport(assetId) {
+  const result = findItemByAssetId(assetId);
+  if (!result) {
+    showToast(`Asset "${assetId}" not found in inventory`, 'error');
+    return;
+  }
+
+  const { item, category, typeLabel, icon } = result;
+  const modalTitle = document.getElementById('passport-asset-title');
+  if (modalTitle) modalTitle.innerText = `${item.asset_id} - ${item.brand || ''} ${item.model || ''}`;
+
+  const isWorking = (item.is_working !== false && item.is_complaint !== true && item.status !== 'Complaint');
+  const statusBadge = isWorking 
+    ? '<span class="status-tag working"><i class="fa-solid fa-check"></i> Operational / Working</span>'
+    : '<span class="status-tag complaint"><i class="fa-solid fa-triangle-exclamation"></i> Complaint / Fault Reported</span>';
+
+  const assignedUser = item.employee_name || 'Unassigned';
+  const assignedSeat = item.seat || item.assigned_seat || 'N/A';
+  const officeSec = item.office_section || item.section || 'PGP OFFICE';
+
+  // Build specifications list depending on equipment type
+  let specTilesHtml = '';
+  if (category === 'pcs') {
+    specTilesHtml = `
+      <div class="passport-tile">
+        <span class="tile-label"><i class="fa-solid fa-microchip"></i> Processor</span>
+        <span class="tile-val">${item.processor || 'N/A'}</span>
+      </div>
+      <div class="passport-tile">
+        <span class="tile-label"><i class="fa-solid fa-memory"></i> RAM Memory</span>
+        <span class="tile-val">${item.ram || 'N/A'}</span>
+      </div>
+      <div class="passport-tile">
+        <span class="tile-label"><i class="fa-solid fa-hard-drive"></i> Storage</span>
+        <span class="tile-val">${item.storage || 'N/A'}</span>
+      </div>
+      <div class="passport-tile">
+        <span class="tile-label"><i class="fa-brands fa-windows"></i> Operating System</span>
+        <span class="tile-val">${item.os || 'N/A'}</span>
+      </div>
+      <div class="passport-tile">
+        <span class="tile-label"><i class="fa-solid fa-network-wired"></i> Static IP Address</span>
+        <span class="tile-val font-mono" style="color: var(--info);">${item.ip_address || 'DHCP / None'}</span>
+      </div>
+      <div class="passport-tile">
+        <span class="tile-label"><i class="fa-solid fa-barcode"></i> Serial Number</span>
+        <span class="tile-val font-mono">${item.serial_number || 'N/A'}</span>
+      </div>
+    `;
+  } else if (category === 'monitors') {
+    specTilesHtml = `
+      <div class="passport-tile"><span class="tile-label">Display Specs</span><span class="tile-val">${item.specifications || 'Standard Monitor'}</span></div>
+      <div class="passport-tile"><span class="tile-label">Serial Number</span><span class="tile-val font-mono">${item.serial_number || 'N/A'}</span></div>
+      <div class="passport-tile"><span class="tile-label">Connected Computer</span><span class="tile-val font-mono">${item.connected_pc_id || 'N/A'}</span></div>
+    `;
+  } else if (category === 'printers') {
+    specTilesHtml = `
+      <div class="passport-tile"><span class="tile-label">Cartridge / Toner</span><span class="tile-val">${item.toner_cartridge || item.specifications || 'N/A'}</span></div>
+      <div class="passport-tile"><span class="tile-label">Serial Number</span><span class="tile-val font-mono">${item.serial_number || 'N/A'}</span></div>
+      <div class="passport-tile"><span class="tile-label">Connected Computer</span><span class="tile-val font-mono">${item.connected_pc_id || 'N/A'}</span></div>
+    `;
+  } else {
+    specTilesHtml = `
+      <div class="passport-tile"><span class="tile-label">Device Type</span><span class="tile-val">${item.category || item.item_name || 'Equipment'}</span></div>
+      <div class="passport-tile"><span class="tile-label">Details</span><span class="tile-val">${item.details || item.specifications || 'N/A'}</span></div>
+      <div class="passport-tile"><span class="tile-label">Serial Number</span><span class="tile-val font-mono">${item.serial_number || 'N/A'}</span></div>
+    `;
+  }
+
+  // Find tickets for this asset
+  const relatedTickets = (appData.tickets || appData.complaints || []).filter(t => t.asset_id === item.asset_id || t.pc_asset_id === item.asset_id);
+  let ticketHistoryHtml = '';
+  if (relatedTickets.length === 0) {
+    ticketHistoryHtml = '<p class="text-muted" style="font-size: 12.5px; font-style: italic;">No breakdown tickets logged for this asset.</p>';
+  } else {
+    ticketHistoryHtml = `
+      <div class="table-responsive">
+        <table class="data-table" style="font-size: 12px;">
+          <thead>
+            <tr>
+              <th>Ticket ID</th>
+              <th>Date</th>
+              <th>Issue Reported</th>
+              <th>Status</th>
+              <th>Work Done</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${relatedTickets.map(t => `
+              <tr>
+                <td><strong>${t.ticket_id || t.id}</strong></td>
+                <td>${t.date_logged || t.date || '-'}</td>
+                <td>${t.fault_description || t.complaint_details || '-'}</td>
+                <td><span class="status-tag ${t.status === 'Closed' ? 'working' : 'complaint'}">${t.status}</span></td>
+                <td>${t.resolution || '-'}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    `;
+  }
+
+  const container = document.getElementById('passport-body-content');
+  container.innerHTML = `
+    <div class="passport-hero">
+      <div class="passport-qr-frame" id="modal-qr-container"></div>
+      <div class="passport-hero-info">
+        <div class="passport-hero-id">
+          <i class="fa-solid ${icon}"></i> ${item.asset_id}
+        </div>
+        <div class="passport-hero-model">${item.brand || ''} ${item.model || ''} (${typeLabel})</div>
+        <div class="passport-hero-meta">
+          <i class="fa-solid fa-user"></i> <strong>${assignedUser}</strong> | Seat: <strong>${assignedSeat}</strong> | ${officeSec}
+        </div>
+        <div style="margin-top: 4px;">
+          ${statusBadge}
+        </div>
+      </div>
+    </div>
+
+    <div class="passport-grid-sections">
+      <div>
+        <div class="passport-section-title"><i class="fa-solid fa-sliders"></i> Hardware & Network Specifications</div>
+        <div class="passport-spec-tiles">
+          ${specTilesHtml}
+        </div>
+      </div>
+
+      <div>
+        <div class="passport-section-title"><i class="fa-solid fa-shield-halved"></i> Maintenance & Coverage</div>
+        <div class="passport-spec-tiles">
+          <div class="passport-tile"><span class="tile-label">AMC / Warranty Type</span><span class="tile-val">${item.amc_type || 'Warranty'}</span></div>
+          <div class="passport-tile"><span class="tile-label">Service Agency</span><span class="tile-val">${item.amc_agency || 'Keltron AMC'}</span></div>
+          <div class="passport-tile"><span class="tile-label">Purchase Date</span><span class="tile-val">${item.purchase_date || 'N/A'}</span></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="passport-section-title"><i class="fa-solid fa-clock-rotate-left"></i> Service & Maintenance History</div>
+        ${ticketHistoryHtml}
+      </div>
+    </div>
+  `;
+
+  // Render QR Code in modal frame
+  setTimeout(() => {
+    const qrTarget = document.getElementById('modal-qr-container');
+    if (qrTarget) {
+      qrTarget.innerHTML = '';
+      const assetUrl = getAssetPassportUrl(item.asset_id);
+      if (typeof QRCode !== 'undefined') {
+        new QRCode(qrTarget, {
+          text: assetUrl,
+          width: 94,
+          height: 94,
+          colorDark: "#0f172a",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.M
+        });
+      }
+    }
+  }, 50);
+
+  // Footer Actions
+  const footer = document.getElementById('passport-footer-actions');
+  footer.innerHTML = `
+    <button class="btn btn-outline" onclick="printSingleSticker('${item.asset_id}')"><i class="fa-solid fa-print"></i> Print QR Sticker</button>
+    <button class="btn btn-secondary" onclick="logComplaintFromPassport('${item.asset_id}')"><i class="fa-solid fa-triangle-exclamation" style="color: var(--warning);"></i> Report Complaint / Ticket</button>
+    <button class="btn btn-primary" onclick="openEditModal('${category}', '${item.asset_id}')"><i class="fa-solid fa-pen"></i> Edit Hardware</button>
+  `;
+
+  openModal('asset-passport-modal');
+}
+
+// 27. Render Batch QR Asset Stickers View (`#view-qr_stickers`)
+function renderQrStickers() {
+  const grid = document.getElementById('qr-stickers-grid');
+  if (!grid) return;
+
+  const typeFilter = (document.getElementById('qr-filter-type')?.value) || 'pcs';
+  const sectionFilter = (document.getElementById('qr-filter-section')?.value) || 'all';
+  const query = (document.getElementById('qr-filter-search')?.value || '').toLowerCase();
+
+  let itemsToRender = [];
+  if (typeFilter === 'all') {
+    itemsToRender = [
+      ...appData.pcs.map(i => ({ ...i, _cat: 'pcs', _type: 'Desktop / Server' })),
+      ...appData.monitors.map(i => ({ ...i, _cat: 'monitors', _type: 'Monitor' })),
+      ...appData.printers.map(i => ({ ...i, _cat: 'printers', _type: 'Printer' })),
+      ...appData.peripherals.map(i => ({ ...i, _cat: 'peripherals', _type: 'Peripheral' })),
+      ...appData.other_equipments.map(i => ({ ...i, _cat: 'other_equipments', _type: 'Power/Network' }))
+    ];
+  } else if (appData[typeFilter]) {
+    itemsToRender = appData[typeFilter].map(i => ({ ...i, _cat: typeFilter, _type: typeFilter }));
+  }
+
+  // Filter by section
+  if (sectionFilter !== 'all') {
+    itemsToRender = itemsToRender.filter(i => {
+      const s = (i.office_section || i.section || 'PGP OFFICE').toUpperCase();
+      return s.includes(sectionFilter.toUpperCase());
+    });
+  }
+
+  // Filter by search query
+  if (query) {
+    itemsToRender = itemsToRender.filter(i => {
+      const str = `${i.asset_id || ''} ${i.brand || ''} ${i.model || ''} ${i.employee_name || ''} ${i.seat || i.assigned_seat || ''} ${i.ip_address || ''}`.toLowerCase();
+      return str.includes(query);
+    });
+  }
+
+  grid.innerHTML = '';
+
+  if (itemsToRender.length === 0) {
+    grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">No equipment matches the selected sticker filters.</div>';
+    return;
+  }
+
+  itemsToRender.forEach((item, index) => {
+    const aid = item.asset_id;
+    const card = document.createElement('div');
+    card.className = 'qr-sticker-card';
+    card.id = `sticker-${aid}`;
+
+    const seat = item.seat || item.assigned_seat || 'N/A';
+    const emp = item.employee_name || 'Unassigned';
+    const sec = item.office_section || item.section || 'PGP OFFICE';
+    const spec = item.processor || item.specifications || item.details || item.toner_cartridge || '';
+
+    card.innerHTML = `
+      <div class="qr-sticker-header">
+        <div class="qr-panchayath-name">Puthuppadi Grama Panchayath</div>
+        <div class="qr-sub-header">IT Asset & Inventory Management</div>
+      </div>
+      <div class="qr-sticker-body">
+        <div class="qr-code-box" id="qr-box-${index}"></div>
+        <div class="qr-sticker-details">
+          <div class="qr-asset-id">${aid}</div>
+          <div class="qr-item-model">${item.brand || ''} ${item.model || ''}</div>
+          <div class="qr-meta-line">Seat: <strong>${seat}</strong> | <strong>${emp}</strong></div>
+          <div class="qr-meta-line">Sec: <strong>${sec}</strong></div>
+          ${item.ip_address ? `<div class="qr-meta-line">IP: <strong class="font-mono">${item.ip_address}</strong></div>` : ''}
+          ${spec ? `<div class="qr-meta-line text-muted" style="font-size: 10.5px;">${spec}</div>` : ''}
+        </div>
+      </div>
+      <div class="qr-sticker-footer">
+        <span class="qr-scan-hint"><i class="fa-solid fa-camera"></i> Scan for specs & support</span>
+        <button class="btn btn-sm btn-outline" style="padding: 3px 8px; font-size: 11px;" onclick="openAssetPassport('${aid}')">Passport <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+    `;
+
+    grid.appendChild(card);
+
+    // Generate QR Code inside box
+    setTimeout(() => {
+      const qrEl = document.getElementById(`qr-box-${index}`);
+      if (qrEl && typeof QRCode !== 'undefined') {
+        new QRCode(qrEl, {
+          text: getAssetPassportUrl(aid),
+          width: 88,
+          height: 88,
+          colorDark: "#000000",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.M
+        });
+      }
+    }, 40);
+  });
+}
+
+// 28. Print Stickers
+function printAllStickers() {
+  document.body.className = 'printing-stickers';
+  window.print();
+  setTimeout(() => {
+    document.body.className = 'theme-dark';
+  }, 1000);
+}
+
+function printSingleSticker(assetId) {
+  // Filter only this sticker, trigger print
+  switchView('qr_stickers');
+  const searchInput = document.getElementById('qr-filter-search');
+  if (searchInput) {
+    searchInput.value = assetId;
+    renderQrStickers();
+    setTimeout(() => {
+      printAllStickers();
+    }, 300);
+  }
+}
+
+// 29. Log Complaint Pre-Filled from Asset Passport
+function logComplaintFromPassport(assetId) {
+  closeModal('asset-passport-modal');
+  openAddTicketModal();
+  
+  const selectAsset = document.getElementById('tkt-asset-id');
+  if (selectAsset) {
+    selectAsset.value = assetId;
+    handleTicketAssetChange();
+  }
+}
+
+// 30. In-App Camera QR Code Scanner (`#qr-scanner-modal`)
+function openQrScannerModal() {
+  openModal('qr-scanner-modal');
+  
+  const streamEl = document.getElementById('qr-camera-stream');
+  if (!streamEl) return;
+  streamEl.innerHTML = '';
+
+  if (typeof Html5Qrcode !== 'undefined') {
+    try {
+      html5QrScannerInstance = new Html5Qrcode("qr-camera-stream");
+      html5QrScannerInstance.start(
+        { facingMode: "environment" },
+        {
+          fps: 10,
+          qrbox: { width: 220, height: 220 }
+        },
+        (decodedText, decodedResult) => {
+          console.log("QR Code Scanned:", decodedText);
+          handleQrScanSuccess(decodedText);
+        },
+        (errorMessage) => {
+          // parse error / scanning
+        }
+      ).catch(err => {
+        console.warn("Camera access warning:", err);
+        streamEl.innerHTML = `
+          <div style="padding: 20px; text-align: center; color: var(--text-muted); font-size: 13px;">
+            <i class="fa-solid fa-video-slash" style="font-size: 28px; margin-bottom: 8px; color: var(--warning);"></i><br>
+            Camera access is not permitted or unavailable.<br>
+            Please use the manual Asset ID search below.
+          </div>
+        `;
+      });
+    } catch (e) {
+      console.error("Scanner init error:", e);
+    }
+  }
+}
+
+function closeQrScannerModal() {
+  if (html5QrScannerInstance) {
+    try {
+      html5QrScannerInstance.stop().then(() => {
+        html5QrScannerInstance.clear();
+        html5QrScannerInstance = null;
+      }).catch(() => {
+        html5QrScannerInstance = null;
+      });
+    } catch (e) {
+      html5QrScannerInstance = null;
+    }
+  }
+  closeModal('qr-scanner-modal');
+}
+
+function handleQrScanSuccess(scannedText) {
+  closeQrScannerModal();
+  showToast('QR Code Scanned Successfully!', 'success');
+
+  // Check if scannedText is a URL containing ?asset=...
+  let assetId = scannedText.trim();
+  if (scannedText.includes('asset=')) {
+    try {
+      const url = new URL(scannedText);
+      assetId = url.searchParams.get('asset') || assetId;
+    } catch (e) {
+      const match = scannedText.match(/asset=([^&]+)/);
+      if (match) assetId = decodeURIComponent(match[1]);
+    }
+  }
+
+  setTimeout(() => {
+    openAssetPassport(assetId);
+  }, 200);
+}
+
+function handleManualScanLookup() {
+  const input = document.getElementById('manual-scan-input');
+  if (!input || !input.value.trim()) {
+    showToast('Please enter an Asset ID', 'error');
+    return;
+  }
+  const aid = input.value.trim().toUpperCase();
+  closeQrScannerModal();
+  openAssetPassport(aid);
+}
+
+// 31. URL Deep Linking: Detect ?asset=PGP-SYS-PC001 on initial load
+function checkUrlForAsset() {
+  if (hasCheckedUrlAsset) return;
+  hasCheckedUrlAsset = true;
+
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const assetParam = urlParams.get('asset');
+    if (assetParam) {
+      console.log('Deep link Asset detected:', assetParam);
+      setTimeout(() => {
+        openAssetPassport(assetParam);
+      }, 300);
+    }
+  } catch (e) {
+    console.error('URL check notice:', e);
+  }
 }

@@ -1177,13 +1177,280 @@ body {
 .toast.success .toast-icon { color: var(--success); }
 .toast.error .toast-icon { color: var(--danger); }
 
-/* Print Stylesheet */
+/* QR Code Stickers & Asset Passport Styles */
+.qr-stickers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.qr-sticker-card {
+  background: #ffffff;
+  color: #0f172a;
+  border: 2px solid #cbd5e1;
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  transition: var(--transition);
+}
+
+.qr-sticker-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary);
+}
+
+.qr-sticker-header {
+  text-align: center;
+  border-bottom: 2px solid #0f172a;
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+}
+
+.qr-panchayath-name {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #1e3a8a;
+}
+
+.qr-sub-header {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+.qr-sticker-body {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.qr-code-box {
+  width: 96px;
+  height: 96px;
+  background: #ffffff;
+  padding: 4px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.qr-code-box img, .qr-code-box canvas {
+  width: 100% !important;
+  height: 100% !important;
+  image-rendering: pixelated;
+}
+
+.qr-sticker-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.qr-asset-id {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 800;
+  color: #1e3a8a;
+}
+
+.qr-item-model {
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 12.5px;
+}
+
+.qr-meta-line {
+  font-size: 11.5px;
+  color: #475569;
+}
+
+.qr-meta-line strong {
+  color: #0f172a;
+}
+
+.qr-sticker-footer {
+  margin-top: 12px;
+  padding-top: 8px;
+  border-top: 1px dashed #cbd5e1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.qr-scan-hint {
+  font-size: 10px;
+  color: #64748b;
+  font-style: italic;
+}
+
+/* Asset Passport Modal Styling */
+.passport-header-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.passport-hero {
+  background: linear-gradient(135deg, rgba(30, 58, 138, 0.4) 0%, rgba(15, 23, 42, 0.8) 100%);
+  padding: 24px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.passport-qr-frame {
+  background: #ffffff;
+  padding: 8px;
+  border-radius: var(--radius-md);
+  width: 110px;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-md);
+}
+
+.passport-qr-frame img, .passport-qr-frame canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.passport-hero-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.passport-hero-id {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.passport-hero-model {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.passport-hero-meta {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.passport-grid-sections {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.passport-section-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.passport-spec-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.passport-tile {
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  padding: 12px;
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.passport-tile .tile-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.passport-tile .tile-val {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Live Camera QR Scanner Modal */
+.scanner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #000000;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  padding: 12px;
+  position: relative;
+}
+
+#qr-camera-stream {
+  width: 100% !important;
+  max-width: 440px;
+  min-height: 260px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.scanner-guide-text {
+  font-size: 12px;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.scanner-manual-box {
+  background: var(--bg-card);
+  padding: 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  margin-top: 14px;
+}
+
+/* Print Stylesheet for Certificates & QR Stickers */
 @media print {
   body {
     background: #ffffff !important;
     color: #000000 !important;
   }
-  .sidebar, .top-header, .header-controls, .handover-controls, #btn-open-add-modal {
+  .sidebar, .top-header, .header-controls, .filter-bar, .handover-controls, #btn-open-add-modal, .qr-sticker-footer .btn {
     display: none !important;
   }
   .views-wrapper {
@@ -1192,9 +1459,29 @@ body {
   .view-panel {
     display: none !important;
   }
-  #view-handover {
+  
+  /* Print Handover */
+  body.printing-handover #view-handover {
     display: block !important;
   }
+  
+  /* Print QR Stickers */
+  body.printing-stickers #view-qr_stickers {
+    display: block !important;
+  }
+
+  .qr-stickers-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
+  }
+
+  .qr-sticker-card {
+    page-break-inside: avoid !important;
+    border: 2px solid #000000 !important;
+    box-shadow: none !important;
+  }
+
   .handover-certificate-card {
     box-shadow: none !important;
     border: none !important;
