@@ -1019,21 +1019,22 @@ function renderPurchasesAndGenerator() {
 // 14. IP Address Grid
 function renderIpMap() {
   const container = document.getElementById('ip-grid-container');
+  if (!container) return;
   container.innerHTML = '';
-  appData.ip_allocations.forEach(ipObj => {
+  (appData.ip_allocations || []).forEach(ipObj => {
+    const ipStr = String(ipObj.ip || ipObj.ip_address || '');
+    if (!ipStr) return;
     const cell = document.createElement('div');
     cell.className = `ip-cell ${ipObj.is_assigned ? 'used' : 'free'}`;
-    const ipLast = ipObj.ip.split('.').pop();
+    const ipLast = ipStr.includes('.') ? ipStr.split('.').pop() : ipStr;
     cell.innerHTML = `.${ipLast}`;
     cell.title = ipObj.is_assigned 
-      ? `IP: ${ipObj.ip} (Assigned to: ${ipObj.assigned_to})`
-      : `IP: ${ipObj.ip} (Available)`;
+      ? `IP: ${ipStr} (Assigned to: ${ipObj.assigned_to || 'Equipment'})`
+      : `IP: ${ipStr} (Available)`;
 
-    if (ipObj.is_assigned) {
+    if (ipObj.is_assigned && ipObj.assigned_to) {
       cell.addEventListener('click', () => {
-        switchView('pcs');
-        document.getElementById('filter-pc-search').value = ipObj.assigned_to;
-        filterPcs();
+        openAssetPassport(ipObj.assigned_to);
       });
     }
 
@@ -1804,6 +1805,7 @@ function parseCloudSpreadsheetData(cloudData) {
     const ip = `192.168.0.${i}`;
     const assign = assignedIps[ip];
     allocs.push({
+      ip: ip,
       ip_address: ip,
       is_assigned: !!assign,
       assigned_to: assign ? assign.asset_id : null,
