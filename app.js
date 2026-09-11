@@ -1577,39 +1577,300 @@ async function saveConfig(e) {
   const gasUrl = document.getElementById('cfg-gas-url').value.trim();
 
   try {
+    localStorage.setItem('pgp_gas_url', gasUrl);
     const res = await fetch(`${API_BASE}/api/config`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ google_apps_script_url: gasUrl })
     });
-    const result = await res.json();
-    if (result.status === 'success') {
-      showToast('Settings saved successfully!', 'success');
+    if (res.ok) {
+      const result = await res.json();
+      if (result.status === 'success') {
+        showToast('Settings saved successfully!', 'success');
+        return;
+      }
     }
   } catch (err) {
-    showToast('Failed to save configuration: ' + err.message, 'error');
+    console.log('Local config save notice, stored in localStorage');
   }
+  showToast('Settings saved successfully in browser!', 'success');
+}
+
+// Helper to parse boolean from Google Sheets
+function parseBool(val, def = true) {
+  if (val === null || val === undefined || val === '') return def;
+  if (typeof val === 'boolean') return val;
+  const s = String(val).trim().toLowerCase();
+  if (['1', '1.0', 'true', 'yes', 'working'].includes(s)) return true;
+  if (['0', '0.0', 'false', 'no', 'complaint'].includes(s)) return false;
+  return def;
+}
+
+// Client-side parser for raw Google Sheet data from Apps Script
+function parseCloudSpreadsheetData(cloudData) {
+  if (!cloudData || typeof cloudData !== 'object') return null;
+
+  // 1. PCs
+  if (cloudData['Register-PC']) {
+    const pcs = [];
+    cloudData['Register-PC'].slice(1).forEach(row => {
+      if (row[0] && String(row[0]).startsWith('PGP-SYS-PC')) {
+        const isWork = parseBool(row[15], true);
+        const isComp = parseBool(row[17], false);
+        let statusVal = String(row[16] || (isWork ? 'Working' : 'Complaint'));
+        if (statusVal.toLowerCase() === 'complaint' || isComp) {
+          statusVal = 'Complaint';
+        }
+        pcs.push({
+          asset_id: String(row[0]),
+          category: String(row[1] || 'Desktop'),
+          brand: String(row[2] || ''),
+          model: String(row[3] || ''),
+          serial_number: String(row[4] || ''),
+          processor: String(row[5] || ''),
+          ram: String(row[6] || ''),
+          storage: String(row[7] || ''),
+          os: String(row[8] || ''),
+          ip_address: String(row[9] || ''),
+          seat: String(row[10] || ''),
+          employee_name: String(row[11] || ''),
+          office_section: String(row[12] || ''),
+          purchase_date: String(row[13] || ''),
+          warranty_expiry: String(row[14] || ''),
+          is_working: isWork && statusVal !== 'Complaint',
+          status: statusVal,
+          is_complaint: !isWork || statusVal === 'Complaint',
+          device_status: statusVal,
+          amc_type: String(row[19] || ''),
+          amc_agency: String(row[20] || '')
+        });
+      }
+    });
+    if (pcs.length > 0) appData.pcs = pcs;
+  }
+
+  // 2. Monitors
+  if (cloudData['Register-Monitor']) {
+    const monitors = [];
+    cloudData['Register-Monitor'].slice(1).forEach(row => {
+      if (row[0] && String(row[0]).startsWith('PGP-SYS-MTR')) {
+        monitors.push({
+          asset_id: String(row[0]),
+          category: String(row[1] || 'Monitor'),
+          brand: String(row[2] || ''),
+          model: String(row[3] || ''),
+          serial_number: String(row[4] || ''),
+          specifications: String(row[5] || ''),
+          assigned_seat: String(row[6] || ''),
+          employee_name: String(row[7] || ''),
+          purchase_date: String(row[8] || ''),
+          warranty_expiry: String(row[9] || ''),
+          connected_pc_id: String(row[10] || ''),
+          status: String(row[11] || 'Working')
+        });
+      }
+    });
+    if (monitors.length > 0) appData.monitors = monitors;
+  }
+
+  // 3. Peripherals
+  if (cloudData['Register-K&M']) {
+    const km = [];
+    cloudData['Register-K&M'].slice(1).forEach(row => {
+      if (row[0] && String(row[0]).startsWith('PGP-SYS-KM')) {
+        km.push({
+          asset_id: String(row[0]),
+          category: String(row[1] || 'Peripheral'),
+          brand: String(row[2] || ''),
+          model: String(row[3] || ''),
+          serial_number: String(row[4] || ''),
+          assigned_seat: String(row[5] || ''),
+          employee_name: String(row[6] || ''),
+          purchase_date: String(row[7] || ''),
+          warranty_expiry: String(row[8] || ''),
+          connected_pc_id: String(row[9] || ''),
+          status: String(row[10] || 'Working')
+        });
+      }
+    });
+    if (km.length > 0) appData.peripherals = km;
+  }
+
+  // 4. Printers
+  if (cloudData['Register-PTR']) {
+    const ptrs = [];
+    cloudData['Register-PTR'].slice(1).forEach(row => {
+      if (row[0] && String(row[0]).startsWith('PGP-SYS-PTR')) {
+        ptrs.push({
+          asset_id: String(row[0]),
+          category: String(row[1] || 'Printer'),
+          brand: String(row[2] || ''),
+          model: String(row[3] || ''),
+          serial_number: String(row[4] || ''),
+          specifications: String(row[5] || ''),
+          toner_cartridge: String(row[6] || ''),
+          assigned_seat: String(row[7] || ''),
+          employee_name: String(row[8] || ''),
+          purchase_date: String(row[9] || ''),
+          warranty_expiry: String(row[10] || ''),
+          connected_pc_id: String(row[11] || ''),
+          status: String(row[12] || 'Working')
+        });
+      }
+    });
+    if (ptrs.length > 0) appData.printers = ptrs;
+  }
+
+  // 5. Other Equipments
+  if (cloudData['Other_Equipments']) {
+    const oe = [];
+    cloudData['Other_Equipments'].slice(1).forEach(row => {
+      if (row[0] && String(row[0]).startsWith('PGP-SYS-OE')) {
+        oe.push({
+          asset_id: String(row[0]),
+          category: String(row[1] || 'Equipment'),
+          brand: String(row[2] || ''),
+          model: String(row[3] || ''),
+          serial_number: String(row[4] || ''),
+          details: String(row[5] || ''),
+          section: String(row[6] || ''),
+          status: String(row[7] || 'Working')
+        });
+      }
+    });
+    if (oe.length > 0) appData.other_equipments = oe;
+  }
+
+  // 6. Tickets
+  if (cloudData['Ticketing_System'] && cloudData['Ticketing_System'].length > 1) {
+    const tkts = [];
+    cloudData['Ticketing_System'].slice(1).forEach(row => {
+      if (row[0] && String(row[0]).startsWith('TKT-')) {
+        tkts.push({
+          ticket_id: String(row[0]),
+          vendor_call_no: String(row[1] || ''),
+          asset_id: String(row[2] || ''),
+          item_name: String(row[3] || ''),
+          office_section: String(row[4] || ''),
+          reported_by: String(row[5] || ''),
+          issue_category: String(row[6] || 'Hardware Fault'),
+          priority: String(row[7] || 'Medium'),
+          fault_description: String(row[8] || ''),
+          service_provider: String(row[9] || 'Keltron AMC'),
+          date_logged: String(row[10] || ''),
+          vendor_call_date: String(row[11] || ''),
+          attended_date: String(row[12] || ''),
+          technician_name: String(row[13] || ''),
+          technician_phone: String(row[14] || ''),
+          parts_replaced: String(row[15] || ''),
+          resolution: String(row[16] || ''),
+          status: String(row[17] || 'Open'),
+          closed_date: String(row[18] || ''),
+          turnaround_days: String(row[19] || ''),
+          remarks: String(row[20] || '')
+        });
+      }
+    });
+    if (tkts.length > 0) appData.tickets = tkts;
+  }
+
+  // 7. Employees
+  if (cloudData['Employee_list'] && cloudData['Employee_list'].length > 1) {
+    const emps = [];
+    cloudData['Employee_list'].slice(1).forEach(row => {
+      if (row[1] && String(row[1]).trim()) {
+        const rawSl = String(row[0] || '').replace(/[^0-9]/g, '');
+        emps.push({
+          sl_no: rawSl ? parseInt(rawSl, 10) : emps.length + 1,
+          seat: String(row[1] || '').trim(),
+          name: String(row[2] || '').trim(),
+          designation: String(row[3] || '').trim(),
+          office: String(row[4] || '').trim() || 'PGP OFFICE'
+        });
+      }
+    });
+    if (emps.length > 0) appData.employees = emps;
+  }
+
+  // Recalculate IP allocations
+  const allocs = [];
+  const assignedIps = {};
+  appData.pcs.forEach(p => {
+    if (p.ip_address && p.ip_address.startsWith('192.168.0.')) {
+      assignedIps[p.ip_address] = { asset_id: p.asset_id, employee_name: p.employee_name || '', seat: p.seat || '' };
+    }
+  });
+  for (let i = 1; i <= 254; i++) {
+    const ip = `192.168.0.${i}`;
+    const assign = assignedIps[ip];
+    allocs.push({
+      ip_address: ip,
+      is_assigned: !!assign,
+      assigned_to: assign ? assign.asset_id : null,
+      employee_name: assign ? assign.employee_name : null,
+      seat: assign ? assign.seat : null
+    });
+  }
+  appData.ip_allocations = allocs;
+
+  return appData;
 }
 
 async function testSync() {
   showToast('Connecting to Google Sheets...', 'info');
-  try {
-    const res = await fetch(`${API_BASE}/api/sync`, { method: 'POST' });
-    const result = await res.json();
-    if (result.status === 'success') {
-      showToast('Successfully synced with Google Sheets!', 'success');
-      if (result.data) {
-        appData = result.data;
-        renderAll();
-      } else {
-        await loadData();
+
+  const gasUrl = (document.getElementById('cfg-gas-url')?.value.trim()) || 
+                 localStorage.getItem('pgp_gas_url') ||
+                 'https://script.google.com/macros/s/AKfycbz73R1P-6JtjMgYixFFd22mngGU4a-WbbXr_3UEXxYHwfI_fJLWal64SG3Nk5PDSPOz/exec';
+
+  // 1. Try local server first if on localhost
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    try {
+      const res = await fetch(`${API_BASE}/api/sync`, { method: 'POST' });
+      if (res.ok) {
+        const result = await res.json();
+        if (result.status === 'success') {
+          showToast('Successfully synced with Google Sheets!', 'success');
+          if (result.data) {
+            appData = result.data;
+          } else {
+            await loadData();
+          }
+          renderAll();
+          loadConfig();
+          return;
+        }
       }
-      loadConfig();
-    } else {
-      showToast(result.message || 'Sync failed', 'error');
+    } catch (e) {
+      console.log('Local API sync fallback to direct Google Sheets:', e);
     }
-  } catch (err) {
-    showToast('Sync error: ' + err.message, 'error');
+  }
+
+  // 2. Direct Cloud Fetch from Google Apps Script Web App (works seamlessly on GitHub Pages)
+  try {
+    const cloudRes = await fetch(gasUrl);
+    if (!cloudRes.ok) throw new Error(`HTTP ${cloudRes.status}`);
+    const cloudJson = await cloudRes.json();
+    if (cloudJson.status === 'success' && cloudJson.data) {
+      parseCloudSpreadsheetData(cloudJson.data);
+      const nowStr = new Date().toLocaleString();
+      const lastSyncedEl = document.getElementById('cfg-last-synced');
+      if (lastSyncedEl) lastSyncedEl.innerText = nowStr;
+      
+      try {
+        localStorage.setItem('pgp_stock_data', JSON.stringify(appData));
+        localStorage.setItem('pgp_last_synced', nowStr);
+      } catch (e) {}
+
+      renderAll();
+      showToast('Successfully synchronized live data from Google Sheets!', 'success');
+      return;
+    } else {
+      throw new Error(cloudJson.message || 'Invalid response from Google Apps Script');
+    }
+  } catch (directErr) {
+    console.error('Direct cloud sync error:', directErr);
+    showToast('Google Sheet Sync error: ' + directErr.message, 'error');
   }
 }
 
