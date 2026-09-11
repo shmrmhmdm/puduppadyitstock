@@ -1959,22 +1959,17 @@ function renderQrStickers() {
     card.innerHTML = `
       <div class="qr-sticker-header">
         <div class="qr-panchayath-name">Puthuppadi Grama Panchayath</div>
-        <div class="qr-sub-header">IT Asset & Inventory Management</div>
+        <div class="qr-sub-header">IT Asset Management</div>
       </div>
-      <div class="qr-sticker-body">
-        <div class="qr-code-box" id="qr-box-${index}"></div>
-        <div class="qr-sticker-details">
-          <div class="qr-asset-id">${aid}</div>
-          <div class="qr-item-model">${item.brand || ''} ${item.model || ''}</div>
-          <div class="qr-meta-line">Seat: <strong>${seat}</strong> | <strong>${emp}</strong></div>
-          <div class="qr-meta-line">Sec: <strong>${sec}</strong></div>
-          ${item.ip_address ? `<div class="qr-meta-line">IP: <strong class="font-mono">${item.ip_address}</strong></div>` : ''}
-          ${spec ? `<div class="qr-meta-line text-muted" style="font-size: 10.5px;">${spec}</div>` : ''}
-        </div>
+      <div class="qr-sticker-body-clean">
+        <div class="qr-code-box-large" id="qr-box-${index}"></div>
+        <div class="qr-asset-id-large">${aid}</div>
+        <div class="qr-seat-badge">Seat: <strong>${seat}</strong> ${emp !== 'Unassigned' ? `(${emp})` : ''}</div>
+        <div class="qr-office-tag">${sec}</div>
       </div>
       <div class="qr-sticker-footer">
-        <span class="qr-scan-hint"><i class="fa-solid fa-camera"></i> Scan for specs & support</span>
-        <button class="btn btn-sm btn-outline" style="padding: 3px 8px; font-size: 11px;" onclick="openAssetPassport('${aid}')">Passport <i class="fa-solid fa-arrow-right"></i></button>
+        <button class="btn btn-sm btn-outline" style="padding: 3px 8px; font-size: 11px;" onclick="printSingleSticker('${aid}')"><i class="fa-solid fa-print"></i> Print</button>
+        <button class="btn btn-sm btn-primary" style="padding: 3px 8px; font-size: 11px;" onclick="openAssetPassport('${aid}')"><i class="fa-solid fa-circle-info"></i> Passport</button>
       </div>
     `;
 
@@ -1986,8 +1981,8 @@ function renderQrStickers() {
       if (qrEl && typeof QRCode !== 'undefined') {
         new QRCode(qrEl, {
           text: getAssetPassportUrl(aid),
-          width: 88,
-          height: 88,
+          width: 115,
+          height: 115,
           colorDark: "#000000",
           colorLight: "#ffffff",
           correctLevel: QRCode.CorrectLevel.M
