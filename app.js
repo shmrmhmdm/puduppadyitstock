@@ -989,31 +989,36 @@ function renderEmployeesTable(items = appData.employees) {
 // 13. Purchases and Generator
 function renderPurchasesAndGenerator() {
   const purTbody = document.getElementById('purchases-table-body');
-  purTbody.innerHTML = '';
-  appData.purchases.forEach(p => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${p.date || '-'}</td>
-      <td><strong>${p.item || '-'}</strong></td>
-      <td><strong class="text-success">${p.amount ? '₹' + p.amount : '-'}</strong></td>
-      <td>${p.vendor || '-'}</td>
-      <td><span class="text-muted">${p.file_number || '-'}</span></td>
-    `;
-    purTbody.appendChild(tr);
-  });
+  if (purTbody) {
+    purTbody.innerHTML = '';
+    (appData.purchases || []).forEach(p => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${p.date || '-'}</td>
+        <td><strong>${p.item || '-'}</strong></td>
+        <td><strong class="text-success">${p.amount ? '₹' + p.amount : '-'}</strong></td>
+        <td>${p.vendor || '-'}</td>
+        <td><span class="text-muted">${p.file_number || '-'}</span></td>
+      `;
+      purTbody.appendChild(tr);
+    });
+  }
 
   const genTbody = document.getElementById('generator-table-body');
-  genTbody.innerHTML = '';
-  appData.generator.logs.forEach(g => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${g.call_date || '-'}</td>
-      <td>${g.service_details || 'Routine maintenance'}</td>
-      <td>${g.running_hours ? g.running_hours + ' hrs' : '-'}</td>
-      <td>${g.amount ? '₹' + g.amount : '-'}</td>
-    `;
-    genTbody.appendChild(tr);
-  });
+  if (genTbody) {
+    genTbody.innerHTML = '';
+    const logs = (appData.generator && Array.isArray(appData.generator.logs)) ? appData.generator.logs : [];
+    logs.forEach(g => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${g.call_date || '-'}</td>
+        <td>${g.service_details || 'Routine maintenance'}</td>
+        <td>${g.running_hours ? g.running_hours + ' hrs' : '-'}</td>
+        <td>${g.amount ? '₹' + g.amount : '-'}</td>
+      `;
+      genTbody.appendChild(tr);
+    });
+  }
 }
 
 // 14. IP Address Grid
@@ -1045,16 +1050,18 @@ function renderIpMap() {
 // 15. RT-Section Asset Handover Generator
 function populateHandoverSelect() {
   const select = document.getElementById('handover-pc-select');
+  if (!select) return;
   select.innerHTML = '';
-  appData.pcs.forEach(p => {
+  const pcs = appData.pcs || [];
+  pcs.forEach(p => {
     const opt = document.createElement('option');
     opt.value = p.asset_id;
-    opt.innerText = `${p.asset_id} - ${p.employee_name || 'Vacant'} (${p.seat || p.office_section})`;
+    opt.innerText = `${p.asset_id} - ${p.employee_name || 'Vacant'} (${p.seat || p.office_section || ''})`;
     select.appendChild(opt);
   });
 
-  if (appData.pcs.length > 0) {
-    populateHandoverSheet(appData.pcs[0].asset_id);
+  if (pcs.length > 0) {
+    populateHandoverSheet(pcs[0].asset_id);
   }
 }
 
@@ -1793,11 +1800,46 @@ function parseCloudSpreadsheetData(cloudData) {
     if (emps.length > 0) appData.employees = emps;
   }
 
+  // 8. Purchases
+  if (cloudData['Purchases'] && cloudData['Purchases'].length > 1) {
+    const purchases = [];
+    cloudData['Purchases'].slice(1).forEach(row => {
+      if (row[0] || row[1]) {
+        purchases.push({
+          date: String(row[0] || ''),
+          item: String(row[1] || ''),
+          amount: String(row[2] || ''),
+          vendor: String(row[3] || ''),
+          file_number: String(row[4] || '')
+        });
+      }
+    });
+    if (purchases.length > 0) appData.purchases = purchases;
+  }
+
+  // 9. Generator
+  if (cloudData['Generator'] && cloudData['Generator'].length > 1) {
+    const logs = [];
+    cloudData['Generator'].slice(1).forEach(row => {
+      if (row[0] || row[1]) {
+        logs.push({
+          call_date: String(row[0] || ''),
+          service_details: String(row[1] || ''),
+          running_hours: String(row[2] || ''),
+          amount: String(row[3] || ''),
+          remarks: String(row[4] || '')
+        });
+      }
+    });
+    if (!appData.generator) appData.generator = { name: 'Mahindra', serial: 'N3B24XL29998', capacity: '25 KVA', logs: [] };
+    appData.generator.logs = logs;
+  }
+
   // Recalculate IP allocations
   const allocs = [];
   const assignedIps = {};
-  appData.pcs.forEach(p => {
-    if (p.ip_address && p.ip_address.startsWith('192.168.0.')) {
+  (appData.pcs || []).forEach(p => {
+    if (p.ip_address && String(p.ip_address).startsWith('192.168.0.')) {
       assignedIps[p.ip_address] = { asset_id: p.asset_id, employee_name: p.employee_name || '', seat: p.seat || '' };
     }
   });
