@@ -1180,7 +1180,7 @@ body {
 /* QR Code Stickers & Asset Passport Styles */
 .qr-stickers-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 16px;
 }
 
@@ -1189,7 +1189,7 @@ body {
   color: #0f172a;
   border: 2px solid #0f172a;
   border-radius: var(--radius-md);
-  padding: 14px;
+  padding: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1208,39 +1208,39 @@ body {
 .qr-sticker-header {
   text-align: center;
   border-bottom: 2px solid #0f172a;
-  padding-bottom: 6px;
-  margin-bottom: 10px;
+  padding-bottom: 5px;
+  margin-bottom: 8px;
   width: 100%;
 }
 
 .qr-panchayath-name {
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.6px;
+  letter-spacing: 0.5px;
   color: #1e3a8a;
   line-height: 1.2;
 }
 
 .qr-sub-header {
-  font-size: 9px;
+  font-size: 8.5px;
   font-weight: 700;
   color: #64748b;
   text-transform: uppercase;
-  margin-top: 2px;
+  margin-top: 1px;
 }
 
 .qr-sticker-body-clean {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
-  gap: 6px;
 }
 
 .qr-code-box-large {
-  width: 125px;
-  height: 125px;
+  width: 140px;
+  height: 140px;
   background: #ffffff;
   padding: 4px;
   border: 1px solid #cbd5e1;
@@ -1248,7 +1248,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 4px 0;
+  margin: 2px 0;
 }
 
 .qr-code-box-large img, .qr-code-box-large canvas {
