@@ -1809,23 +1809,43 @@ function parseBool(val, def = true) {
 function parseCloudSpreadsheetData(cloudData) {
   if (!cloudData || typeof cloudData !== 'object') return null;
 
+  // 0. Collect Active / Open Complaints first (Tickets that are NOT Closed/Resolved)
+  const openComplaintPcIds = new Set();
+  if (cloudData['Complaint_Register']) {
+    cloudData['Complaint_Register'].slice(1).forEach(row => {
+      const pcId = String(row[0] || row[1] || '').trim().toUpperCase();
+      const status = String(row[8] || '').trim().toLowerCase();
+      if (pcId && pcId.startsWith('PGP-SYS-PC') && status !== 'closed' && status !== 'resolved' && status !== '') {
+        openComplaintPcIds.add(pcId);
+      }
+    });
+  }
+  if (cloudData['Ticketing_System']) {
+    cloudData['Ticketing_System'].slice(1).forEach(row => {
+      const pcId = String(row[2] || '').trim().toUpperCase();
+      const status = String(row[17] || '').trim().toLowerCase();
+      if (pcId && pcId.startsWith('PGP-SYS-PC') && status !== 'closed' && status !== 'resolved' && status !== '') {
+        openComplaintPcIds.add(pcId);
+      }
+    });
+  }
+
   // 1. PCs
   if (cloudData['Register-PC']) {
     const pcs = [];
     cloudData['Register-PC'].slice(1).forEach(row => {
       if (row[0] && String(row[0]).startsWith('PGP-SYS-PC')) {
-        const isWork = parseBool(row[15], true);
-        const presentStatus = String(row[16] || '').trim();
-        const isComp = parseBool(row[17], false);
+        const pcId = String(row[0]).trim().toUpperCase();
+        const presentStatus = String(row[16] || '').trim().toLowerCase();
 
-        // If row[15] is explicitly true or row[16] is 'Working', the system is operational
-        let isOperational = isWork;
-        if (presentStatus.toLowerCase() === 'working') {
+        // System is in Complaint ONLY if there is an active unresolved complaint or explicitly set to complaint
+        let isOperational = true;
+        if (openComplaintPcIds.has(pcId)) {
+          isOperational = false;
+        } else if (presentStatus === 'complaint') {
+          isOperational = false;
+        } else {
           isOperational = true;
-        } else if (presentStatus.toLowerCase() === 'complaint') {
-          isOperational = false;
-        } else if (isComp && !isWork) {
-          isOperational = false;
         }
 
         const statusVal = isOperational ? 'Working' : 'Complaint';
