@@ -883,35 +883,51 @@ body {
   box-shadow: var(--shadow-lg);
   width: 100%;
   max-width: 680px;
-  max-height: 90vh;
+  max-height: 92vh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
 
+.modal-card > form,
+.modal-card form {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
 .modal-header {
-  padding: 18px 24px;
+  padding: 16px 24px;
   border-bottom: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-shrink: 0;
+  background: var(--bg-sidebar);
 }
 
 .modal-body {
-  padding: 24px;
+  padding: 20px 24px;
   overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+  max-height: calc(92vh - 130px);
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
 .modal-footer {
-  padding: 16px 24px;
+  padding: 14px 24px;
   border-top: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 12px;
+  flex-shrink: 0;
+  background: var(--bg-sidebar);
 }
 
 /* Form Styles */
@@ -1729,6 +1745,7 @@ body {
   .modal-body {
     padding: 14px 16px;
     gap: 12px;
+    max-height: calc(95vh - 120px);
   }
 
   .modal-footer {
