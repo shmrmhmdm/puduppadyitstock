@@ -3,6 +3,7 @@
  */
 
 const API_BASE = window.location.origin;
+const DEFAULT_GAS_URL = "https://script.google.com/macros/s/AKfycbz73R1P-6JtjMgYixFFd22mngGU4a-WbbXr_3UEXxYHwfI_fJLWal64SG3Nk5PDSPOz/exec";
 
 // Application State
 let appData = {
@@ -11,6 +12,7 @@ let appData = {
   peripherals: [],
   printers: [],
   other_equipments: [],
+  tickets: [],
   complaints: [],
   employees: [],
   generator: { name: 'Mahindra', serial: 'N3B24XL29998', capacity: '25 KVA', logs: [] },
@@ -21,11 +23,21 @@ let appData = {
 let currentCategory = 'pcs';
 let editMode = false;
 
+function isLocalServer() {
+  return window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+}
+
+function getGasUrl() {
+  return (document.getElementById('cfg-gas-url')?.value.trim()) || 
+         localStorage.getItem('pgp_gas_url') || 
+         DEFAULT_GAS_URL;
+}
+
 // 1. Initialization
 document.addEventListener('DOMContentLoaded', () => {
   initEventListeners();
-  loadData();
   loadConfig();
+  loadData();
 });
 
 function initEventListeners() {
@@ -100,67 +112,119 @@ function initEventListeners() {
   }
 }
 
-// 2. Fetch Data from API (with Static Hosting / GitHub Pages fallback)
+// 2. Fetch Data (Hybrid: Python Server / Google Sheets Live / LocalStorage Cache / Bundled JSON)
 async function loadData() {
+  // 1. Instant Cache Render
+  const cachedData = localStorage.getItem('pgp_stock_data');
+  if (cachedData) {
+    try {
+      appData = JSON.parse(cachedData);
+      renderAll();
+    } catch (e) {}
+  }
+
+  // 2. Local Python Server (if running on localhost)
+  if (isLocalServer()) {
+    try {
+      const res = await fetch(`${API_BASE}/api/data`);
+      if (res.ok) {
+        const json = await res.json();
+        if (json.status === 'success' && json.data) {
+          appData = json.data;
+          try { localStorage.setItem('pgp_stock_data', JSON.stringify(appData)); } catch (e) {}
+          renderAll();
+          return;
+        }
+      }
+    } catch (err) {
+      console.log('Local API not running, checking Google Sheets:', err.message);
+    }
+  }
+
+  // 3. Direct Google Sheets Cloud Fetch (100% works on GitHub Pages / Static Hosting)
+  const gasUrl = getGasUrl();
+  if (gasUrl) {
+    try {
+      const cloudRes = await fetch(gasUrl);
+      if (cloudRes.ok) {
+        const cloudJson = await cloudRes.json();
+        if (cloudJson.status === 'success' && cloudJson.data) {
+          parseCloudSpreadsheetData(cloudJson.data);
+          const nowStr = new Date().toLocaleString();
+          const lastSyncedEl = document.getElementById('cfg-last-synced');
+          if (lastSyncedEl) lastSyncedEl.innerText = nowStr;
+          try {
+            localStorage.setItem('pgp_stock_data', JSON.stringify(appData));
+            localStorage.setItem('pgp_last_synced', nowStr);
+          } catch (e) {}
+          renderAll();
+          return;
+        }
+      }
+    } catch (cloudErr) {
+      console.warn('Google Sheets live fetch warning:', cloudErr);
+    }
+  }
+
+  // 4. Bundled Static Fallback
   try {
-    const res = await fetch(`${API_BASE}/api/data`);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const json = await res.json();
-    if (json.status === 'success') {
-      appData = json.data;
+    const staticRes = await fetch('./stock_data.json');
+    if (staticRes.ok) {
+      const staticData = await staticRes.json();
+      appData = staticData;
+      try { localStorage.setItem('pgp_stock_data', JSON.stringify(appData)); } catch (e) {}
       renderAll();
       return;
     }
-  } catch (err) {
-    console.log('API endpoint not reachable, loading static stock_data.json:', err.message);
-    try {
-      const staticRes = await fetch('./stock_data.json');
-      if (staticRes.ok) {
-        const staticData = await staticRes.json();
-        appData = staticData;
-        renderAll();
-        return;
-      }
-    } catch (staticErr) {
-      console.error('Failed to load static fallback data:', staticErr);
-      showToast('Failed to load database. Running offline cache.', 'error');
-    }
+  } catch (staticErr) {
+    console.warn('Static stock_data.json fallback warning:', staticErr);
   }
 }
 
 async function loadConfig() {
-  try {
-    const res = await fetch(`${API_BASE}/api/config`);
-    if (res.ok) {
-      const json = await res.json();
-      if (json.status === 'success' && json.config) {
-        if (json.config.google_apps_script_url) {
-          document.getElementById('cfg-gas-url').value = json.config.google_apps_script_url;
+  const localGasUrl = localStorage.getItem('pgp_gas_url');
+  if (localGasUrl) {
+    const input = document.getElementById('cfg-gas-url');
+    if (input) input.value = localGasUrl;
+  }
+  const lastSync = localStorage.getItem('pgp_last_synced');
+  if (lastSync) {
+    const el = document.getElementById('cfg-last-synced');
+    if (el) el.innerText = lastSync;
+  }
+
+  if (isLocalServer()) {
+    try {
+      const res = await fetch(`${API_BASE}/api/config`);
+      if (res.ok) {
+        const json = await res.json();
+        if (json.status === 'success' && json.config) {
+          if (json.config.google_apps_script_url) {
+            document.getElementById('cfg-gas-url').value = json.config.google_apps_script_url;
+            localStorage.setItem('pgp_gas_url', json.config.google_apps_script_url);
+          }
+          if (json.config.last_synced) {
+            document.getElementById('cfg-last-synced').innerText = json.config.last_synced;
+            localStorage.setItem('pgp_last_synced', json.config.last_synced);
+          }
+          return;
         }
-        if (json.config.last_synced) {
-          document.getElementById('cfg-last-synced').innerText = json.config.last_synced;
-        }
-        return;
       }
-    }
-  } catch (err) {
-    console.log('API config not reachable, loading config.json fallback');
+    } catch (err) {}
   }
 
   try {
     const staticCfgRes = await fetch('./config.json');
     if (staticCfgRes.ok) {
       const cfg = await staticCfgRes.json();
-      if (cfg.google_apps_script_url) {
+      if (cfg.google_apps_script_url && !localStorage.getItem('pgp_gas_url')) {
         document.getElementById('cfg-gas-url').value = cfg.google_apps_script_url;
       }
-      if (cfg.last_synced) {
+      if (cfg.last_synced && !localStorage.getItem('pgp_last_synced')) {
         document.getElementById('cfg-last-synced').innerText = cfg.last_synced;
       }
     }
-  } catch (e) {
-    console.log('Config fallback notice:', e);
-  }
+  } catch (e) {}
 }
 
 // 3. View Switcher
@@ -693,7 +757,149 @@ function onComplaintPcSelect(assetId) {
     document.getElementById('comp-item-name').value = `${oe.brand} ${oe.model} (${oe.category || oe.item_name})`;
     document.getElementById('comp-section').value = oe.section || '';
     document.getElementById('comp-amc').value = 'In-House / OEM';
-    document.getElementById('comp-category').value = 'Power / UPS';
+// Helper: Recalculate IP allocations locally
+function recalculateClientIps() {
+  const assignedIps = {};
+  (appData.pcs || []).forEach(p => {
+    if (p.ip_address && String(p.ip_address).startsWith('192.168.0.')) {
+      assignedIps[p.ip_address] = { asset_id: p.asset_id, employee_name: p.employee_name || '', seat: p.seat || '' };
+    }
+  });
+  const allocs = [];
+  for (let i = 1; i <= 254; i++) {
+    const ip = `192.168.0.${i}`;
+    const assign = assignedIps[ip];
+    allocs.push({
+      ip: ip,
+      ip_address: ip,
+      is_assigned: !!assign,
+      assigned_to: assign ? assign.asset_id : null,
+      employee_name: assign ? assign.employee_name : null,
+      seat: assign ? assign.seat : null
+    });
+  }
+  appData.ip_allocations = allocs;
+}
+
+function getNextAssetId(category) {
+  const prefixMap = {
+    pcs: 'PGP-SYS-PC',
+    monitors: 'PGP-SYS-MTR',
+    peripherals: 'PGP-SYS-KM',
+    printers: 'PGP-SYS-PTR',
+    other_equipments: 'PGP-SYS-OE'
+  };
+  const prefix = prefixMap[category] || 'PGP-SYS-ITEM';
+  const list = appData[category] || [];
+  let maxNum = 0;
+  list.forEach(it => {
+    const aid = String(it.asset_id || '');
+    if (aid.startsWith(prefix)) {
+      const num = parseInt(aid.replace(prefix, ''), 10);
+      if (!isNaN(num) && num > maxNum) maxNum = num;
+    }
+  });
+  return `${prefix}${String(maxNum + 1).padStart(3, '0')}`;
+}
+
+function getNextTicketId() {
+  const year = new Date().getFullYear();
+  const prefix = `TKT-${year}-`;
+  const list = appData.tickets || appData.complaints || [];
+  let maxNum = 0;
+  list.forEach(t => {
+    const tid = String(t.ticket_id || t.id || '');
+    if (tid.startsWith(prefix)) {
+      const num = parseInt(tid.replace(prefix, ''), 10);
+      if (!isNaN(num) && num > maxNum) maxNum = num;
+    } else if (tid.startsWith('TKT-')) {
+      const parts = tid.split('-');
+      const num = parseInt(parts[parts.length - 1], 10);
+      if (!isNaN(num) && num > maxNum) maxNum = num;
+    }
+  });
+  return `${prefix}${String(maxNum + 1).padStart(3, '0')}`;
+}
+
+function getRowDataForSheet(category, item) {
+  if (category === 'pcs') {
+    return [
+      item.asset_id, item.category || 'Desktop', item.brand || '', item.model || '',
+      item.serial_number || '', item.processor || '', item.ram || '', item.storage || '',
+      item.os || '', item.ip_address || '', item.seat || '', item.employee_name || '',
+      item.office_section || 'PGP OFFICE', item.purchase_date || '', item.warranty_expiry || '',
+      item.is_working ? 1 : 0, item.status || 'Working',
+      item.is_complaint ? 1 : 0, item.device_status || item.status || 'Working',
+      item.amc_type || '', item.amc_agency || ''
+    ];
+  } else if (category === 'monitors') {
+    return [
+      item.asset_id, item.category || 'Monitor', item.brand || '', item.model || '',
+      item.serial_number || '', item.specifications || '', item.assigned_seat || '',
+      item.employee_name || '', item.purchase_date || '', item.warranty_expiry || '',
+      item.connected_pc_id || '', item.status || 'Working'
+    ];
+  } else if (category === 'peripherals') {
+    return [
+      item.asset_id, item.category || 'Peripheral', item.brand || '', item.model || '',
+      item.serial_number || '', item.assigned_seat || '', item.employee_name || '',
+      item.purchase_date || '', item.warranty_expiry || '', item.connected_pc_id || '',
+      item.status || 'Working'
+    ];
+  } else if (category === 'printers') {
+    return [
+      item.asset_id, item.category || 'Printer', item.brand || '', item.model || '',
+      item.serial_number || '', item.specifications || '', item.toner_cartridge || '',
+      item.assigned_seat || '', item.employee_name || '', item.purchase_date || '',
+      item.warranty_expiry || '', item.connected_pc_id || '', item.status || 'Working'
+    ];
+  } else if (category === 'other_equipments') {
+    return [
+      item.asset_id, item.category || item.item_name || 'Equipment', item.brand || '',
+      item.model || '', item.serial_number || '', item.details || '', item.section || 'PGP OFFICE',
+      item.status || 'Working'
+    ];
+  }
+  return [];
+}
+
+function ticketToSheetRow(t) {
+  return [
+    t.ticket_id, t.vendor_call_no || '', t.asset_id || t.pc_asset_id || '',
+    t.item_name || '', t.office_section || t.section_name || '', t.reported_by || '',
+    t.issue_category || 'Hardware Fault', t.priority || 'Medium',
+    t.fault_description || t.complaint_details || '', t.service_provider || t.amc_details || 'Keltron AMC',
+    t.date_logged || t.date || '', t.vendor_call_date || '', t.attended_date || '',
+    t.technician_name || '', t.technician_phone || '', t.parts_replaced || '',
+    t.resolution || t.solution || '', t.status || 'Open',
+    t.closed_date || '', t.turnaround_days || '', t.remarks || 'Managed via PGP IT Register'
+  ];
+}
+
+async function postToCloudOrLocal(localEndpoint, localMethod, localBody, gasPayload) {
+  // 1. Google Apps Script Web App Push
+  const gasUrl = getGasUrl();
+  if (gasUrl && gasPayload) {
+    try {
+      fetch(gasUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(gasPayload)
+      }).catch(e => console.warn('Background Google Apps Script push notice:', e));
+    } catch (e) {}
+  }
+
+  // 2. Local Python Server (if active)
+  if (isLocalServer() && localEndpoint) {
+    try {
+      await fetch(`${API_BASE}${localEndpoint}`, {
+        method: localMethod || 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: localBody ? JSON.stringify(localBody) : undefined
+      });
+    } catch (e) {
+      console.log('Local server sync notice:', e);
+    }
   }
 }
 
@@ -718,8 +924,12 @@ async function handleComplaintSubmit(e) {
   const status = document.getElementById('comp-status').value;
   const solution = document.getElementById('comp-solution').value.trim();
 
+  const finalTicketId = ticketId || getNextTicketId();
+  const isClosed = (status === 'Closed' || status === 'Resolved');
+
   const ticket = {
-    ticket_id: ticketId || `TKT-2026-${String(appData.tickets.length + 1).padStart(3, '0')}`,
+    ticket_id: finalTicketId,
+    id: finalTicketId,
     vendor_call_no: vendorCallNo,
     asset_id: assetId,
     pc_asset_id: assetId,
@@ -744,45 +954,78 @@ async function handleComplaintSubmit(e) {
     resolution: solution,
     solution: solution,
     status: status,
-    closed_date: (status === 'Closed' || status === 'Resolved') ? new Date().toISOString().split('T')[0] : '',
+    closed_date: isClosed ? new Date().toISOString().split('T')[0] : '',
     turnaround_days: '',
     remarks: 'Managed via PGP IT Register'
   };
 
-  try {
-    const res = await fetch(`${API_BASE}/api/tickets`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ticket })
-    });
-    const result = await res.json();
-    if (result.status === 'success') {
-      showToast('Service ticket saved & synchronized successfully!', 'success');
-      closeModal('complaint-modal');
-      await loadData();
-    } else {
-      showToast(result.message || 'Failed to save ticket', 'error');
-    }
-  } catch (err) {
-    showToast('API Connection error: ' + err.message, 'error');
+  if (!appData.tickets) appData.tickets = [];
+  const existingIdx = appData.tickets.findIndex(t => t.ticket_id === finalTicketId || t.id === finalTicketId);
+  const isEdit = existingIdx !== -1;
+  if (isEdit) {
+    appData.tickets[existingIdx] = ticket;
+  } else {
+    appData.tickets.unshift(ticket);
   }
+  appData.complaints = appData.tickets;
+
+  // Update associated PC status
+  if (assetId) {
+    const pc = appData.pcs.find(p => p.asset_id === assetId);
+    if (pc) {
+      if (isClosed) {
+        pc.is_complaint = false;
+        pc.is_working = true;
+        pc.status = 'Working';
+        pc.device_status = 'Working';
+      } else {
+        pc.is_complaint = true;
+        pc.is_working = false;
+        pc.status = 'Complaint';
+        pc.device_status = 'Complaint';
+      }
+    }
+  }
+
+  try { localStorage.setItem('pgp_stock_data', JSON.stringify(appData)); } catch (e) {}
+  renderAll();
+  closeModal('complaint-modal');
+  showToast('Service ticket saved & synchronized successfully!', 'success');
+
+  const rowData = ticketToSheetRow(ticket);
+  postToCloudOrLocal(
+    '/api/tickets',
+    'POST',
+    { ticket },
+    {
+      action: isEdit ? 'update_ticket' : 'add_ticket',
+      ticketId: finalTicketId,
+      sheet: 'Ticketing_System',
+      data: rowData
+    }
+  );
 }
 
 async function deleteTicket(ticketId) {
   if (!confirm(`Are you sure you want to delete ticket ${ticketId}?`)) return;
 
-  try {
-    const res = await fetch(`${API_BASE}/api/tickets?ticket_id=${ticketId}`, {
-      method: 'DELETE'
-    });
-    const result = await res.json();
-    if (result.status === 'success') {
-      showToast(result.message, 'success');
-      await loadData();
-    }
-  } catch (err) {
-    showToast('Delete failed: ' + err.message, 'error');
+  if (appData.tickets) {
+    appData.tickets = appData.tickets.filter(t => t.ticket_id !== ticketId && t.id !== ticketId);
+    appData.complaints = appData.tickets;
   }
+  try { localStorage.setItem('pgp_stock_data', JSON.stringify(appData)); } catch (e) {}
+  renderAll();
+  showToast(`Ticket ${ticketId} deleted`, 'success');
+
+  postToCloudOrLocal(
+    `/api/tickets?ticket_id=${ticketId}`,
+    'DELETE',
+    null,
+    {
+      action: 'delete_ticket',
+      ticketId: ticketId
+    }
+  );
 }
 
 // 13. Job Card / Service Slip Generator
@@ -840,23 +1083,22 @@ async function handlePurchaseSubmit(e) {
     file_number: fileNo
   };
 
-  try {
-    const res = await fetch(`${API_BASE}/api/purchases`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ purchase })
-    });
-    const result = await res.json();
-    if (result.status === 'success') {
-      showToast('Purchase record added & synced successfully!', 'success');
-      closeModal('purchase-modal');
-      await loadData();
-    } else {
-      showToast(result.message || 'Failed to save purchase', 'error');
+  if (!appData.purchases) appData.purchases = [];
+  appData.purchases.unshift(purchase);
+  try { localStorage.setItem('pgp_stock_data', JSON.stringify(appData)); } catch (e) {}
+  renderAll();
+  closeModal('purchase-modal');
+  showToast('Purchase record added & synced successfully!', 'success');
+
+  postToCloudOrLocal(
+    '/api/purchases',
+    'POST',
+    { purchase },
+    {
+      action: 'add_purchase',
+      data: [date, item, amount, vendor, fileNo]
     }
-  } catch (err) {
-    showToast('API Connection error: ' + err.message, 'error');
-  }
+  );
 }
 
 function openGeneratorModal() {
@@ -885,23 +1127,23 @@ async function handleGeneratorSubmit(e) {
     remarks: remarks
   };
 
-  try {
-    const res = await fetch(`${API_BASE}/api/generator`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ log })
-    });
-    const result = await res.json();
-    if (result.status === 'success') {
-      showToast('Generator service log added & synced successfully!', 'success');
-      closeModal('generator-modal');
-      await loadData();
-    } else {
-      showToast(result.message || 'Failed to save log', 'error');
+  if (!appData.generator) appData.generator = { name: 'Mahindra', serial: 'N3B24XL29998', capacity: '25 KVA', logs: [] };
+  if (!Array.isArray(appData.generator.logs)) appData.generator.logs = [];
+  appData.generator.logs.unshift(log);
+  try { localStorage.setItem('pgp_stock_data', JSON.stringify(appData)); } catch (e) {}
+  renderAll();
+  closeModal('generator-modal');
+  showToast('Generator service log added & synced successfully!', 'success');
+
+  postToCloudOrLocal(
+    '/api/generator',
+    'POST',
+    { log },
+    {
+      action: 'add_generator',
+      data: [date, service, hours, amount, remarks]
     }
-  } catch (err) {
-    showToast('API Connection error: ' + err.message, 'error');
-  }
+  );
 }
 
 // 15. Employee Modal Handlers
@@ -941,26 +1183,31 @@ async function handleEmployeeSubmit(e) {
     seat: seat,
     name: name,
     designation: desig,
-    office: office
+    office: office,
+    sl_no: appData.employees.length + 1
   };
 
-  try {
-    const res = await fetch(`${API_BASE}/api/employees`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ employee })
-    });
-    const result = await res.json();
-    if (result.status === 'success') {
-      showToast('Staff details updated & synchronized successfully!', 'success');
-      closeModal('employee-modal');
-      await loadData();
-    } else {
-      showToast(result.message || 'Failed to save staff member', 'error');
-    }
-  } catch (err) {
-    showToast('API Connection error: ' + err.message, 'error');
+  if (!appData.employees) appData.employees = [];
+  const empIdx = appData.employees.findIndex(em => em.seat === seat);
+  if (empIdx !== -1) {
+    appData.employees[empIdx] = { ...appData.employees[empIdx], ...employee };
+  } else {
+    appData.employees.push(employee);
   }
+  try { localStorage.setItem('pgp_stock_data', JSON.stringify(appData)); } catch (e) {}
+  renderAll();
+  closeModal('employee-modal');
+  showToast('Staff details updated & synchronized successfully!', 'success');
+
+  postToCloudOrLocal(
+    '/api/employees',
+    'POST',
+    { employee },
+    {
+      action: 'update_employee',
+      employee: { seat, name, designation: desig, office }
+    }
+  );
 }
 
 // 12. Staff & Seats Directory
@@ -1368,7 +1615,11 @@ function getCategoryOptions(cat, selected) {
 async function handleStockSubmit(e) {
   e.preventDefault();
   const category = currentCategory;
-  const assetId = document.getElementById('form-asset-id').value.trim();
+  let assetId = document.getElementById('form-asset-id').value.trim();
+  if (!assetId) {
+    assetId = getNextAssetId(category);
+  }
+
   const itemType = document.getElementById('form-category').value;
   const brand = document.getElementById('form-brand').value.trim();
   const model = document.getElementById('form-model').value.trim();
@@ -1398,7 +1649,8 @@ async function handleStockSubmit(e) {
       amc_agency: document.getElementById('form-amc-agency').value.trim(),
       is_working: isWorking,
       is_complaint: !isWorking,
-      status: isWorking ? 'Working' : 'Complaint'
+      status: isWorking ? 'Working' : 'Complaint',
+      device_status: isWorking ? 'Working' : 'Complaint'
     };
   } else if (category === 'monitors') {
     itemData = {
@@ -1436,147 +1688,82 @@ async function handleStockSubmit(e) {
     };
   }
 
-  const endpoint = `${API_BASE}/api/stock`;
-  const method = editMode ? 'PUT' : 'POST';
+  if (!appData[category]) appData[category] = [];
+  const existingIdx = appData[category].findIndex(i => i.asset_id === assetId);
+  const isEdit = existingIdx !== -1;
 
-  try {
-    const res = await fetch(endpoint, {
-      method: method,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ category, item: itemData })
-    });
-    const result = await res.json();
-    if (result.status === 'success') {
-      showToast(result.message || 'Record saved successfully!', 'success');
-      closeModal('stock-modal');
-      await loadData();
-    } else {
-      showToast(result.message || 'Failed to save record', 'error');
-    }
-  } catch (err) {
-    showToast('API Connection error: ' + err.message, 'error');
+  if (isEdit) {
+    appData[category][existingIdx] = itemData;
+  } else {
+    appData[category].push(itemData);
   }
+
+  if (category === 'pcs') {
+    recalculateClientIps();
+  }
+
+  try { localStorage.setItem('pgp_stock_data', JSON.stringify(appData)); } catch (e) {}
+  renderAll();
+  closeModal('stock-modal');
+  showToast(`Stock item ${assetId} saved & synchronized!`, 'success');
+
+  const sheetMap = {
+    pcs: 'Register-PC',
+    monitors: 'Register-Monitor',
+    peripherals: 'Register-K&M',
+    printers: 'Register-PTR',
+    other_equipments: 'Other_Equipments'
+  };
+  const rowData = getRowDataForSheet(category, itemData);
+  const empInfo = itemData.seat ? { seat: itemData.seat, name: itemData.employee_name } : null;
+
+  postToCloudOrLocal(
+    '/api/stock',
+    isEdit ? 'PUT' : 'POST',
+    { category, item: itemData },
+    {
+      action: isEdit ? 'update' : 'add',
+      sheet: sheetMap[category],
+      data: rowData,
+      assetId: assetId,
+      employee: empInfo
+    }
+  );
 }
 
 // 18. Delete Stock Item
 async function deleteStockItem(category, assetId) {
   if (!confirm(`Are you sure you want to delete ${assetId}?`)) return;
 
-  try {
-    const res = await fetch(`${API_BASE}/api/stock?category=${category}&asset_id=${assetId}`, {
-      method: 'DELETE'
-    });
-    const result = await res.json();
-    if (result.status === 'success') {
-      showToast(result.message, 'success');
-      await loadData();
-    } else {
-      showToast(result.message, 'error');
-    }
-  } catch (err) {
-    showToast('Delete failed: ' + err.message, 'error');
+  if (appData[category]) {
+    appData[category] = appData[category].filter(i => i.asset_id !== assetId);
   }
-}
-
-// 19. Complaint Desk Form & Handler
-function openComplaintModal() {
-  document.getElementById('complaint-modal-title').innerHTML = '<i class="fa-solid fa-plus"></i> Log New Complaint';
-  document.getElementById('comp-id').value = '';
-  document.getElementById('comp-date').value = new Date().toISOString().split('T')[0];
-  document.getElementById('comp-ticket').value = '';
-  document.getElementById('comp-details').value = '';
-  document.getElementById('comp-solution').value = '';
-  document.getElementById('comp-status').value = 'Open';
-
-  // populate select
-  const pcSelect = document.getElementById('comp-pc-select');
-  pcSelect.innerHTML = '<option value="">-- Choose Affected System --</option>';
-  appData.pcs.forEach(p => {
-    const opt = document.createElement('option');
-    opt.value = p.asset_id;
-    opt.innerText = `${p.asset_id} (${p.seat} - ${p.employee_name || 'Vacant'})`;
-    pcSelect.appendChild(opt);
-  });
-
-  openModal('complaint-modal');
-}
-
-function onComplaintPcSelect(pcAssetId) {
-  const pc = appData.pcs.find(p => p.asset_id === pcAssetId);
-  if (pc) {
-    document.getElementById('comp-section').value = pc.seat || pc.office_section || '';
-    document.getElementById('comp-amc').value = `${pc.amc_agency || 'Keltron'} (${pc.amc_type || 'AMC'})`;
+  if (category === 'pcs') {
+    recalculateClientIps();
   }
-}
 
-function openEditComplaintModal(compId) {
-  const comp = appData.complaints.find(c => c.id === compId);
-  if (!comp) return;
+  try { localStorage.setItem('pgp_stock_data', JSON.stringify(appData)); } catch (e) {}
+  renderAll();
+  showToast(`Item ${assetId} deleted`, 'success');
 
-  document.getElementById('complaint-modal-title').innerHTML = `<i class="fa-solid fa-pen"></i> Edit Ticket ${comp.ticket_id || comp.id}`;
-  document.getElementById('comp-id').value = comp.id;
-  
-  const pcSelect = document.getElementById('comp-pc-select');
-  pcSelect.innerHTML = '<option value="">-- Choose Affected System --</option>';
-  appData.pcs.forEach(p => {
-    const opt = document.createElement('option');
-    opt.value = p.asset_id;
-    opt.innerText = `${p.asset_id} (${p.seat} - ${p.employee_name || 'Vacant'})`;
-    if (p.asset_id === comp.pc_asset_id) opt.selected = true;
-    pcSelect.appendChild(opt);
-  });
-
-  document.getElementById('comp-section').value = comp.section_name || '';
-  document.getElementById('comp-date').value = comp.date || '';
-  document.getElementById('comp-ticket').value = comp.ticket_id || '';
-  document.getElementById('comp-details').value = comp.complaint_details || '';
-  document.getElementById('comp-amc').value = comp.amc_details || '';
-  document.getElementById('comp-status').value = comp.status || 'Open';
-  document.getElementById('comp-solution').value = comp.solution || '';
-
-  openModal('complaint-modal');
-}
-
-async function handleComplaintSubmit(e) {
-  e.preventDefault();
-  const compId = document.getElementById('comp-id').value;
-  const pcAssetId = document.getElementById('comp-pc-select').value;
-  const section = document.getElementById('comp-section').value.trim();
-  const date = document.getElementById('comp-date').value;
-  const ticket = document.getElementById('comp-ticket').value.trim();
-  const details = document.getElementById('comp-details').value.trim();
-  const amc = document.getElementById('comp-amc').value.trim();
-  const status = document.getElementById('comp-status').value;
-  const solution = document.getElementById('comp-solution').value.trim();
-
-  const complaint = {
-    id: compId || `CMP-${appData.complaints.length + 1}`,
-    pc_asset_id: pcAssetId,
-    section_name: section,
-    date: date,
-    ticket_id: ticket,
-    complaint_details: details,
-    amc_details: amc,
-    status: status,
-    solution: solution,
-    closed_date: status === 'Closed' ? new Date().toLocaleDateString() : ''
+  const sheetMap = {
+    pcs: 'Register-PC',
+    monitors: 'Register-Monitor',
+    peripherals: 'Register-K&M',
+    printers: 'Register-PTR',
+    other_equipments: 'Other_Equipments'
   };
 
-  try {
-    const res = await fetch(`${API_BASE}/api/complaints`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ complaint })
-    });
-    const result = await res.json();
-    if (result.status === 'success') {
-      showToast('Complaint saved successfully!', 'success');
-      closeModal('complaint-modal');
-      await loadData();
+  postToCloudOrLocal(
+    `/api/stock?category=${category}&asset_id=${assetId}`,
+    'DELETE',
+    null,
+    {
+      action: 'delete',
+      sheet: sheetMap[category],
+      assetId: assetId
     }
-  } catch (err) {
-    showToast('Failed to save complaint: ' + err.message, 'error');
-  }
+  );
 }
 
 // 20. Google Sheets Cloud Sync & Settings

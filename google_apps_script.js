@@ -168,10 +168,62 @@ function doPost(e) {
       }
 
       if (!updated) {
-        throw new Error('Asset ID ' + assetId + ' not found in sheet ' + sheetName);
+        sheet.appendRow(rowData);
       }
 
       return ContentService.createTextOutput(JSON.stringify({ status: 'success', message: 'Item updated successfully' }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
+    // 6. Delete Stock Item
+    else if (action === 'delete') {
+      const sheet = ss.getSheetByName(sheetName);
+      if (sheet && assetId) {
+        const data = sheet.getDataRange().getValues();
+        for (let i = 1; i < data.length; i++) {
+          if (String(data[i][0]).trim() === String(assetId).trim()) {
+            sheet.deleteRow(i + 1);
+            break;
+          }
+        }
+      }
+      return ContentService.createTextOutput(JSON.stringify({ status: 'success', message: 'Item deleted' }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
+    // 7. Delete Ticket
+    else if (action === 'delete_ticket') {
+      const ticketSheet = getOrCreateTicketingSheet(ss);
+      if (ticketSheet && ticketId) {
+        const data = ticketSheet.getDataRange().getValues();
+        for (let i = 1; i < data.length; i++) {
+          if (String(data[i][0]).trim() === String(ticketId).trim()) {
+            ticketSheet.deleteRow(i + 1);
+            break;
+          }
+        }
+      }
+      return ContentService.createTextOutput(JSON.stringify({ status: 'success', message: 'Ticket deleted' }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
+    // 8. Add Purchase
+    else if (action === 'add_purchase') {
+      const purSheet = ss.getSheetByName('Purchases');
+      if (purSheet && rowData) {
+        purSheet.appendRow(rowData);
+      }
+      return ContentService.createTextOutput(JSON.stringify({ status: 'success', message: 'Purchase logged' }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
+    // 9. Add Generator Log
+    else if (action === 'add_generator') {
+      const genSheet = ss.getSheetByName('Generator');
+      if (genSheet && rowData) {
+        genSheet.appendRow(rowData);
+      }
+      return ContentService.createTextOutput(JSON.stringify({ status: 'success', message: 'Generator log saved' }))
         .setMimeType(ContentService.MimeType.JSON);
     }
 
