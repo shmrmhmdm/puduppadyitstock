@@ -99,12 +99,30 @@ function doPost(e) {
       }
     }
 
-    // 2. Add / Update Ticket
-    if (action === 'add_ticket' || action === 'update_ticket') {
+    // 2. Add / Update Ticket (with optional CCFR File upload to Google Drive)
+    if (action === 'add_ticket' || action === 'update_ticket' || action === 'upload_ccfr') {
       const ticketSheet = getOrCreateTicketingSheet(ss);
+      let ccfrUrl = postData.ccfrUrl || '';
+
+      // If a file is uploaded (Base64), save it to Google Drive in folder 'PGP_IT_CCFR_Reports'
+      if (postData.fileData && postData.fileData.base64) {
+        try {
+          ccfrUrl = uploadCCFRToDrive(postData.fileData, ticketId, assetId);
+          if (rowData && Array.isArray(rowData)) {
+            while (rowData.length < 21) rowData.push('');
+            rowData[21] = ccfrUrl;
+          }
+        } catch (fErr) {
+          Logger.log('CCFR upload error: ' + fErr);
+        }
+      }
+
       writeTicketRowSafely(ticketSheet, rowData, ticketId);
-      return ContentService.createTextOutput(JSON.stringify({ status: 'success', message: 'Ticket saved successfully in Google Sheet' }))
-        .setMimeType(ContentService.MimeType.JSON);
+      return ContentService.createTextOutput(JSON.stringify({ 
+        status: 'success', 
+        message: 'Ticket saved successfully in Google Sheet',
+        ccfrUrl: ccfrUrl 
+      })).setMimeType(ContentService.MimeType.JSON);
     }
 
     // 3. Add or Update Standard Stock Item (Formula-Protected & Smart Slot Finder)
@@ -286,24 +304,56 @@ function writeTicketRowSafely(sheet, rowData, ticketId) {
  */
 function getOrCreateTicketingSheet(ss) {
   let sheet = ss.getSheetByName('Ticketing_System');
+  const headers = [
+    'Ticket ID', 'Vendor Call / CSP No', 'Asset ID', 'Item Details', 
+    'Office Section', 'Reported By', 'Category', 'Priority', 
+    'Fault Description', 'Service Provider', 'Date Logged', 
+    'Vendor Call Date', 'Attended Date', 'Technician Name', 
+    'Technician Contact', 'Parts Replaced', 'Resolution Work Done', 
+    'Status', 'Closed Date', 'Turnaround (Days)', 'Remarks', 'CCFR Document URL'
+  ];
   if (!sheet) {
     sheet = ss.insertSheet('Ticketing_System');
-    const headers = [
-      'Ticket ID', 'Vendor Call / CSP No', 'Asset ID', 'Item Details', 
-      'Office Section', 'Reported By', 'Category', 'Priority', 
-      'Fault Description', 'Service Provider', 'Date Logged', 
-      'Vendor Call Date', 'Attended Date', 'Technician Name', 
-      'Technician Contact', 'Parts Replaced', 'Resolution Work Done', 
-      'Status', 'Closed Date', 'Turnaround (Days)', 'Remarks'
-    ];
     sheet.appendRow(headers);
     const headerRange = sheet.getRange(1, 1, 1, headers.length);
     headerRange.setFontWeight('bold');
     headerRange.setBackground('#1e3a8a');
     headerRange.setFontColor('#ffffff');
     sheet.setFrozenRows(1);
+  } else {
+    // If header column for CCFR doesn't exist yet, ensure header is present
+    const lastCol = sheet.getLastColumn();
+    if (lastCol < headers.length) {
+      sheet.getRange(1, headers.length).setValue('CCFR Document URL');
+      sheet.getRange(1, headers.length).setFontWeight('bold').setBackground('#1e3a8a').setFontColor('#ffffff');
+    }
   }
   return sheet;
+}
+
+/**
+ * Helper to upload CCFR / Signed Job Slip files to a designated Google Drive Folder
+ */
+function uploadCCFRToDrive(fileData, ticketId, assetId) {
+  const folderName = 'PGP_IT_CCFR_Reports';
+  let folder;
+  const folders = DriveApp.getFoldersByName(folderName);
+  if (folders.hasNext()) {
+    folder = folders.next();
+  } else {
+    folder = DriveApp.createFolder(folderName);
+    folder.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+  }
+
+  const cleanBase64 = fileData.base64.replace(/^data:[^;]+;base64,/, '');
+  const decoded = Utilities.base64Decode(cleanBase64);
+  const ext = fileData.fileName ? fileData.fileName.split('.').pop() : 'pdf';
+  const finalFileName = `CCFR_${ticketId || 'TKT'}_${assetId || 'ASSET'}_${new Date().getTime()}.${ext}`;
+  const blob = Utilities.newBlob(decoded, fileData.mimeType || 'application/pdf', finalFileName);
+  
+  const file = folder.createFile(blob);
+  file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+  return file.getUrl();
 }
 
 /**

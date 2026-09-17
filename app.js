@@ -601,6 +601,7 @@ function renderComplaintsTable(items = appData.tickets || appData.complaints || 
       <td><span class="status-tag ${statusClass}">${t.status || 'Open'}</span></td>
       <td class="text-right">
         <div class="action-btns">
+          ${t.ccfr_url ? `<a href="${t.ccfr_url}" target="_blank" class="action-btn" title="View Signed CCFR Report" style="color: #10b981;"><i class="fa-solid fa-file-invoice"></i></a>` : ''}
           <button class="action-btn" title="Print Job Card" onclick="openJobCardModal('${t.ticket_id || t.id}')"><i class="fa-solid fa-print"></i></button>
           <button class="action-btn" title="Edit Ticket" onclick="openEditTicketModal('${t.ticket_id || t.id}')"><i class="fa-solid fa-pen"></i></button>
           <button class="action-btn delete" title="Delete Ticket" onclick="deleteTicket('${t.ticket_id || t.id}')"><i class="fa-solid fa-trash"></i></button>
@@ -655,6 +656,13 @@ function openTicketModal() {
   document.getElementById('comp-solution').value = '';
   document.getElementById('comp-status').value = 'Open';
 
+  const fileInput = document.getElementById('comp-ccfr-file');
+  if (fileInput) fileInput.value = '';
+  const urlInput = document.getElementById('comp-ccfr-url');
+  if (urlInput) urlInput.value = '';
+  const previewDiv = document.getElementById('comp-ccfr-preview');
+  if (previewDiv) previewDiv.style.display = 'none';
+
   populateTicketAssetSelect();
   openModal('complaint-modal');
 }
@@ -686,6 +694,21 @@ function openEditTicketModal(ticketId) {
   document.getElementById('comp-parts').value = t.parts_replaced || '';
   document.getElementById('comp-status').value = t.status || 'Open';
   document.getElementById('comp-solution').value = t.resolution || t.solution || '';
+
+  const fileInput = document.getElementById('comp-ccfr-file');
+  if (fileInput) fileInput.value = '';
+  const urlInput = document.getElementById('comp-ccfr-url');
+  if (urlInput) urlInput.value = t.ccfr_url || '';
+  const previewDiv = document.getElementById('comp-ccfr-preview');
+  const previewLink = document.getElementById('comp-ccfr-link');
+  if (previewDiv && previewLink) {
+    if (t.ccfr_url) {
+      previewLink.href = t.ccfr_url;
+      previewDiv.style.display = 'block';
+    } else {
+      previewDiv.style.display = 'none';
+    }
+  }
 
   openModal('complaint-modal');
 }
@@ -876,21 +899,37 @@ function ticketToSheetRow(t) {
     t.date_logged || t.date || '', t.vendor_call_date || '', t.attended_date || '',
     t.technician_name || '', t.technician_phone || '', t.parts_replaced || '',
     t.resolution || t.solution || '', t.status || 'Open',
-    t.closed_date || '', t.turnaround_days || '', t.remarks || 'Managed via PGP IT Register'
+    t.closed_date || '', t.turnaround_days || '', t.remarks || 'Managed via PGP IT Register',
+    t.ccfr_url || ''
   ];
 }
 
+function readFileAsBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+    reader.readAsDataURL(file);
+  });
+}
+
 async function postToCloudOrLocal(localEndpoint, localMethod, localBody, gasPayload) {
+  let gasResult = null;
   // 1. Google Apps Script Web App Push
   const gasUrl = getGasUrl();
   if (gasUrl && gasPayload) {
     try {
-      fetch(gasUrl, {
+      const resp = await fetch(gasUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify(gasPayload)
-      }).catch(e => console.warn('Background Google Apps Script push notice:', e));
-    } catch (e) {}
+      });
+      if (resp.ok) {
+        gasResult = await resp.json();
+      }
+    } catch (e) {
+      console.warn('Background Google Apps Script push notice:', e);
+    }
   }
 
   // 2. Local Python Server (if active)
@@ -905,6 +944,7 @@ async function postToCloudOrLocal(localEndpoint, localMethod, localBody, gasPayl
       console.log('Local server sync notice:', e);
     }
   }
+  return gasResult;
 }
 
 async function handleComplaintSubmit(e) {
@@ -930,6 +970,26 @@ async function handleComplaintSubmit(e) {
 
   const finalTicketId = ticketId || getNextTicketId();
   const isClosed = (status === 'Closed' || status === 'Resolved');
+
+  // Check for uploaded CCFR file
+  const ccfrFileInput = document.getElementById('comp-ccfr-file');
+  let fileData = null;
+  if (ccfrFileInput && ccfrFileInput.files && ccfrFileInput.files.length > 0) {
+    const file = ccfrFileInput.files[0];
+    showToast('Uploading signed CCFR to Google Drive...', 'info');
+    try {
+      const base64 = await readFileAsBase64(file);
+      fileData = {
+        base64: base64,
+        mimeType: file.type || 'application/pdf',
+        fileName: file.name || 'CCFR_Document.pdf'
+      };
+    } catch (err) {
+      console.warn('Failed to read CCFR file:', err);
+    }
+  }
+
+  const existingCcfrUrl = document.getElementById('comp-ccfr-url')?.value.trim() || '';
 
   const ticket = {
     ticket_id: finalTicketId,
@@ -960,7 +1020,8 @@ async function handleComplaintSubmit(e) {
     status: status,
     closed_date: isClosed ? new Date().toISOString().split('T')[0] : '',
     turnaround_days: '',
-    remarks: 'Managed via PGP IT Register'
+    remarks: 'Managed via PGP IT Register',
+    ccfr_url: existingCcfrUrl
   };
 
   if (!appData.tickets) appData.tickets = [];
@@ -1004,10 +1065,20 @@ async function handleComplaintSubmit(e) {
     {
       action: isEdit ? 'update_ticket' : 'add_ticket',
       ticketId: finalTicketId,
+      assetId: assetId,
       sheet: 'Ticketing_System',
-      data: rowData
+      data: rowData,
+      fileData: fileData,
+      ccfrUrl: existingCcfrUrl
     }
-  );
+  ).then(res => {
+    if (res && res.ccfrUrl) {
+      ticket.ccfr_url = res.ccfrUrl;
+      try { localStorage.setItem('pgp_stock_data', JSON.stringify(appData)); } catch (e) {}
+      renderAll();
+      showToast('Signed CCFR attached to ticket!', 'success');
+    }
+  });
 }
 
 async function deleteTicket(ticketId) {
@@ -1053,6 +1124,16 @@ function openJobCardModal(ticketId) {
   document.getElementById('jc-work-done').innerText = t.resolution || t.solution || '____________________________________________________';
   document.getElementById('jc-parts').innerText = t.parts_replaced || '____________________________________________________';
   document.getElementById('jc-tech').innerText = t.technician_name ? `${t.technician_name} (${t.technician_phone || ''})` : '____________________________________________________';
+
+  const ccfrBtn = document.getElementById('jc-ccfr-btn');
+  if (ccfrBtn) {
+    if (t.ccfr_url) {
+      ccfrBtn.href = t.ccfr_url;
+      ccfrBtn.style.display = 'inline-flex';
+    } else {
+      ccfrBtn.style.display = 'none';
+    }
+  }
 
   openModal('job-card-modal');
 }
@@ -1996,7 +2077,8 @@ function parseCloudSpreadsheetData(cloudData) {
           status: String(row[17] || 'Open'),
           closed_date: String(row[18] || ''),
           turnaround_days: String(row[19] || ''),
-          remarks: String(row[20] || '')
+          remarks: String(row[20] || ''),
+          ccfr_url: String(row[21] || '')
         });
       }
     });

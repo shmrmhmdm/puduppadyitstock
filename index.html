@@ -1095,10 +1095,20 @@
             <label>Service Resolution Work Done / Remarks:</label>
             <textarea id="comp-solution" rows="2" placeholder="Details of diagnosis and solution provided by technician..."></textarea>
           </div>
+
+          <div class="form-group" style="background: rgba(59, 130, 246, 0.05); padding: 14px; border-radius: 8px; border: 1px dashed rgba(59, 130, 246, 0.3);">
+            <label style="color: #60a5fa; font-weight: 600;"><i class="fa-solid fa-file-arrow-up"></i> Upload Signed CCFR / Call Slip (PDF / Image):</label>
+            <input type="file" id="comp-ccfr-file" accept="image/*,application/pdf" style="margin-top: 6px; display: block; width: 100%;">
+            <small class="text-muted" style="display: block; margin-top: 4px;">Upload signed Customer Call Feedback Report from Keltron / Vendor (Saved to Google Drive)</small>
+            <input type="hidden" id="comp-ccfr-url" value="">
+            <div id="comp-ccfr-preview" style="display: none; margin-top: 8px;">
+              <a href="#" id="comp-ccfr-link" target="_blank" class="btn btn-sm btn-outline" style="color: var(--color-success); border-color: var(--color-success);"><i class="fa-solid fa-paperclip"></i> View Existing Signed CCFR</a>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline" onclick="closeModal('complaint-modal')">Cancel</button>
-          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Save & Sync Ticket</button>
+          <button type="submit" class="btn btn-primary" id="btn-save-ticket"><i class="fa-solid fa-floppy-disk"></i> Save & Sync Ticket</button>
         </div>
       </form>
     </div>
@@ -1183,6 +1193,7 @@
         </div>
       </div>
       <div class="modal-footer">
+        <a id="jc-ccfr-btn" href="#" target="_blank" class="btn btn-outline" style="display: none; color: var(--color-success); border-color: var(--color-success); margin-right: auto;"><i class="fa-solid fa-paperclip"></i> View Signed CCFR</a>
         <button type="button" class="btn btn-outline" onclick="closeModal('job-card-modal')">Close</button>
         <button type="button" class="btn btn-primary" onclick="printJobCard()"><i class="fa-solid fa-print"></i> Print Job Card</button>
       </div>
