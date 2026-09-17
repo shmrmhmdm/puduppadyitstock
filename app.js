@@ -28,9 +28,11 @@ function isLocalServer() {
 }
 
 function getGasUrl() {
-  return (document.getElementById('cfg-gas-url')?.value.trim()) || 
-         localStorage.getItem('pgp_gas_url') || 
-         DEFAULT_GAS_URL;
+  const inputVal = document.getElementById('cfg-gas-url')?.value?.trim();
+  const localVal = localStorage.getItem('pgp_gas_url')?.trim();
+  if (inputVal && inputVal.startsWith('http')) return inputVal;
+  if (localVal && localVal.startsWith('http')) return localVal;
+  return DEFAULT_GAS_URL;
 }
 
 // 1. Initialization
@@ -944,6 +946,15 @@ async function postToCloudOrLocal(localEndpoint, localMethod, localBody, gasPayl
       });
       if (resp.ok) {
         gasResult = await resp.json();
+        if (gasResult && gasResult.status === 'success') {
+          const nowStr = new Date().toLocaleString();
+          const lastSyncedEl = document.getElementById('cfg-last-synced');
+          if (lastSyncedEl) lastSyncedEl.innerText = nowStr;
+          try { localStorage.setItem('pgp_last_synced', nowStr); } catch (e) {}
+        } else if (gasResult && gasResult.status === 'error') {
+          console.warn('Cloud Sync Error:', gasResult.message);
+          showToast('Google Sheet Sync Notice: ' + gasResult.message, 'warning');
+        }
       }
     } catch (e) {
       console.warn('Background Google Apps Script push notice:', e);

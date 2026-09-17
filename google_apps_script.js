@@ -199,7 +199,7 @@ function doPost(e) {
 
 /**
  * Helper to safely write stock items into Google Sheets without breaking existing formulas
- * and without appending below empty formula template rows.
+ * and without crashing on protected cells/ranges or formula columns.
  */
 function writeStockRowSafely(sheet, rowData, assetId) {
   const data = sheet.getDataRange().getValues();
@@ -233,14 +233,19 @@ function writeStockRowSafely(sheet, rowData, assetId) {
     targetRow = data.length + 1;
   }
 
-  // 4. Set values cell-by-cell, protecting formulas (VLOOKUP, etc.) from being overwritten
+  // 4. Set values cell-by-cell, protecting formulas (VLOOKUP, etc.) & protected ranges from throwing
   for (let col = 0; col < rowData.length; col++) {
     const val = rowData[col];
     if (val !== undefined && val !== null) {
-      const cell = sheet.getRange(targetRow, col + 1);
-      const formula = cell.getFormula();
-      if (!formula || formula === '') {
-        cell.setValue(val);
+      try {
+        const cell = sheet.getRange(targetRow, col + 1);
+        const formula = cell.getFormula();
+        if (!formula || formula === '') {
+          cell.setValue(val);
+        }
+      } catch (cellErr) {
+        // Silently skip locked/protected cells without failing the entire sync operation
+        Logger.log('Skipping protected/locked cell at row ' + targetRow + ', col ' + (col + 1) + ': ' + cellErr);
       }
     }
   }
@@ -258,12 +263,15 @@ function clearStockRowSafely(sheet, assetId) {
     const col0 = String(data[i][0] || '').trim().toUpperCase();
     if (col0 === searchId) {
       const rowNum = i + 1;
-      const numCols = data[i].length;
-      for (let col = 0; col < numCols; col++) {
-        const cell = sheet.getRange(rowNum, col + 1);
-        const formula = cell.getFormula();
-        if (!formula || formula === '') {
-          cell.setValue('');
+      for (let col = 1; col <= 25; col++) {
+        try {
+          const cell = sheet.getRange(rowNum, col);
+          const formula = cell.getFormula();
+          if (!formula || formula === '') {
+            cell.setValue('');
+          }
+        } catch (cellErr) {
+          // Ignore protected cells
         }
       }
       break;
@@ -271,9 +279,6 @@ function clearStockRowSafely(sheet, assetId) {
   }
 }
 
-/**
- * Helper to safely write tickets to Ticketing_System sheet
- */
 function writeTicketRowSafely(sheet, rowData, ticketId) {
   const data = sheet.getDataRange().getValues();
   let targetRow = -1;
@@ -289,14 +294,26 @@ function writeTicketRowSafely(sheet, rowData, ticketId) {
   }
 
   if (targetRow === -1) {
-    sheet.appendRow(rowData);
+    try {
+      sheet.appendRow(rowData);
+    } catch (e) {
+      Logger.log('appendRow error in Ticketing_System: ' + e);
+    }
     return;
   }
 
   for (let col = 0; col < rowData.length; col++) {
     const val = rowData[col];
     if (val !== undefined && val !== null) {
-      sheet.getRange(targetRow, col + 1).setValue(val);
+      try {
+        const cell = sheet.getRange(targetRow, col + 1);
+        const formula = cell.getFormula();
+        if (!formula || formula === '') {
+          cell.setValue(val);
+        }
+      } catch (cellErr) {
+        Logger.log('Protected cell skipped in Ticketing_System col ' + (col + 1) + ': ' + cellErr);
+      }
     }
   }
 }
@@ -374,10 +391,18 @@ function cleanClosedComplaintsInSheet(ss, assetId, isWorkingVal) {
 
     for (let i = 1; i < data.length; i++) {
       const col0 = String(data[i][0] || '').trim().toUpperCase();
-      if (col0 === searchId) {
+      const col1 = String(data[i][1] || '').trim().toUpperCase();
+      if (col0 === searchId || col1 === searchId) {
         // Clear Column A so the MATCH formula in Register-PC immediately turns FALSE/Working
-        compSheet.getRange(i + 1, 1).setValue('');
+        try {
+          compSheet.getRange(i + 1, 1).setValue('');
+        } catch (e) {}
+        try {
+          compSheet.getRange(i + 1, 9).setValue('Closed');
+        } catch (e) {}
       }
     }
-  } catch (e) {}
+  } catch (e) {
+    Logger.log('cleanClosedComplaintsInSheet warning: ' + e);
+  }
 }
