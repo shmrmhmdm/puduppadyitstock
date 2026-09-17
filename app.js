@@ -1472,11 +1472,128 @@ function getCategoryDisplayName(cat) {
   return map[cat] || 'Stock Item';
 }
 
+function buildSeatSelectHtml(selectedSeat = '') {
+  const employees = appData.employees || [];
+  let html = `<select id="form-seat" onchange="onSeatCodeSelect(this.value)">`;
+  html += `<option value="">-- Choose Assigned Seat --</option>`;
+  employees.forEach(emp => {
+    if (emp.seat) {
+      const isSel = (String(emp.seat).trim().toUpperCase() === String(selectedSeat).trim().toUpperCase()) ? 'selected' : '';
+      html += `<option value="${emp.seat}" ${isSel}>${emp.seat} - ${emp.name || 'Vacant'} (${emp.designation || emp.office || 'Staff'})</option>`;
+    }
+  });
+  html += `</select>`;
+  return html;
+}
+
+function buildConnectedPcSelectHtml(selectedPcId = '') {
+  const pcs = appData.pcs || [];
+  let html = `<select id="form-pc-id">`;
+  html += `<option value="">-- None / Standalone --</option>`;
+  pcs.forEach(p => {
+    const isSel = (String(p.asset_id).trim().toUpperCase() === String(selectedPcId).trim().toUpperCase()) ? 'selected' : '';
+    html += `<option value="${p.asset_id}" ${isSel}>${p.asset_id} - ${p.brand || ''} ${p.model || ''} (${p.seat || p.office_section || ''})</option>`;
+  });
+  html += `</select>`;
+  return html;
+}
+
+function onSeatCodeSelect(seatVal) {
+  if (!seatVal) return;
+  const emp = (appData.employees || []).find(e => String(e.seat).trim().toUpperCase() === String(seatVal).trim().toUpperCase());
+  if (emp) {
+    const empInput = document.getElementById('form-emp');
+    if (empInput) empInput.value = emp.name || '';
+    const secInput = document.getElementById('form-section');
+    if (secInput && emp.office) secInput.value = emp.office;
+  }
+}
+
 function buildModalFields(category, data = {}) {
   const container = document.getElementById('stock-modal-fields');
   container.innerHTML = '';
 
   let html = `
+    <!-- Global Combo Datalists -->
+    <datalist id="list-brand">
+      <option value="Acer">
+      <option value="Dell">
+      <option value="HP">
+      <option value="Lenovo">
+      <option value="Asus">
+      <option value="Logitech">
+      <option value="Epson">
+      <option value="Canon">
+      <option value="Brother">
+      <option value="Numeric">
+      <option value="Hykon">
+      <option value="APC">
+      <option value="D-Link">
+      <option value="TP-Link">
+    </datalist>
+
+    <datalist id="list-proc">
+      <option value="intel i3">
+      <option value="intel i5">
+      <option value="intel i7">
+      <option value="AMD Ryzen 3">
+      <option value="AMD Ryzen 5">
+      <option value="AMD Ryzen 7">
+      <option value="Intel Pentium">
+      <option value="Intel Celeron">
+      <option value="Core 2 Duo">
+    </datalist>
+
+    <datalist id="list-ram">
+      <option value="4 GB">
+      <option value="8 GB">
+      <option value="16 GB">
+      <option value="32 GB">
+      <option value="2 GB">
+      <option value="64 GB">
+    </datalist>
+
+    <datalist id="list-storage">
+      <option value="500 HDD">
+      <option value="1 TB HDD">
+      <option value="256 SSD">
+      <option value="512 SSD">
+      <option value="1 TB SSD">
+      <option value="128 SSD">
+      <option value="2 TB HDD">
+    </datalist>
+
+    <datalist id="list-os">
+      <option value="Win 10">
+      <option value="Win 11">
+      <option value="Win 7">
+      <option value="Ubuntu">
+      <option value="Boss Linux">
+      <option value="macOS">
+    </datalist>
+
+    <datalist id="list-section">
+      <option value="PGP OFFICE">
+      <option value="AE OFFICE">
+      <option value="NREGS OFFICE">
+      <option value="AGRI OFFICE">
+      <option value="VEO OFFICE">
+      <option value="ICDS OFFICE">
+      <option value="FHC PUTHUPPADY">
+      <option value="AYURVEDA HOSPITAL">
+      <option value="Buds School">
+      <option value="FRONT OFFICE">
+    </datalist>
+
+    <datalist id="list-agency">
+      <option value="Keltron">
+      <option value="Acer">
+      <option value="HP">
+      <option value="Dell">
+      <option value="OEM / Vendor">
+      <option value="Local Agency">
+    </datalist>
+
     <div class="form-row">
       <div class="form-group flex-1">
         <label>Asset ID (Auto-assigned if empty):</label>
@@ -1493,7 +1610,7 @@ function buildModalFields(category, data = {}) {
     <div class="form-row">
       <div class="form-group flex-1">
         <label>Brand Name *:</label>
-        <input type="text" id="form-brand" value="${data.brand || ''}" placeholder="Acer / HP / Dell / Logitech" required>
+        <input list="list-brand" type="text" id="form-brand" value="${data.brand || ''}" placeholder="Choose or type Brand (Acer, Dell, HP...)" required>
       </div>
       <div class="form-group flex-1">
         <label>Model Name / Number *:</label>
@@ -1512,22 +1629,22 @@ function buildModalFields(category, data = {}) {
     html += `
       <div class="form-group flex-1">
         <label>Processor (CPU) *:</label>
-        <input type="text" id="form-proc" value="${data.processor || ''}" placeholder="Intel i3 / Intel i5 / Ryzen 5" required>
+        <input list="list-proc" type="text" id="form-proc" value="${data.processor || ''}" placeholder="intel i3 / intel i5 / Ryzen 5" required>
       </div>
     </div>
 
     <div class="form-row">
       <div class="form-group flex-1">
         <label>RAM Capacity *:</label>
-        <input type="text" id="form-ram" value="${data.ram || ''}" placeholder="8 GB / 16 GB" required>
+        <input list="list-ram" type="text" id="form-ram" value="${data.ram || ''}" placeholder="4 GB / 8 GB / 16 GB" required>
       </div>
       <div class="form-group flex-1">
         <label>Storage (HDD / SSD) *:</label>
-        <input type="text" id="form-storage" value="${data.storage || ''}" placeholder="500 SSD / 1 TB HDD" required>
+        <input list="list-storage" type="text" id="form-storage" value="${data.storage || ''}" placeholder="500 HDD / 256 SSD / 1 TB HDD" required>
       </div>
       <div class="form-group flex-1">
         <label>Operating System:</label>
-        <input type="text" id="form-os" value="${data.os || 'Win 11'}" placeholder="Win 10 / Win 11 / Ubuntu">
+        <input list="list-os" type="text" id="form-os" value="${data.os || 'Win 11'}" placeholder="Win 10 / Win 11 / Ubuntu">
       </div>
     </div>
 
@@ -1537,19 +1654,19 @@ function buildModalFields(category, data = {}) {
         <input type="text" id="form-ip" value="${data.ip_address || ''}" placeholder="192.168.0.x">
       </div>
       <div class="form-group flex-1">
-        <label>Assigned Seat Code:</label>
-        <input type="text" id="form-seat" value="${data.seat || ''}" placeholder="e.g. SEC / AS / SC1 / FO">
+        <label>Assigned Seat Code (Auto-finds Staff) *:</label>
+        ${buildSeatSelectHtml(data.seat)}
       </div>
       <div class="form-group flex-1">
-        <label>Employee Name:</label>
-        <input type="text" id="form-emp" value="${data.employee_name || ''}" placeholder="Staff member name">
+        <label>Employee Name (Auto-filled):</label>
+        <input type="text" id="form-emp" value="${data.employee_name || ''}" placeholder="Auto-fills from Seat">
       </div>
     </div>
 
     <div class="form-row">
       <div class="form-group flex-1">
         <label>Office Section:</label>
-        <input type="text" id="form-section" value="${data.office_section || 'PGP OFFICE'}" placeholder="PGP OFFICE / AE OFFICE / NREGS">
+        <input list="list-section" type="text" id="form-section" value="${data.office_section || 'PGP OFFICE'}" placeholder="PGP OFFICE / AE OFFICE / NREGS">
       </div>
       <div class="form-group flex-1">
         <label>Maintenance Coverage:</label>
@@ -1561,7 +1678,7 @@ function buildModalFields(category, data = {}) {
       </div>
       <div class="form-group flex-1">
         <label>AMC / Warranty Agency:</label>
-        <input type="text" id="form-amc-agency" value="${data.amc_agency || 'Keltron'}" placeholder="Keltron / Acer">
+        <input list="list-agency" type="text" id="form-amc-agency" value="${data.amc_agency || 'Keltron'}" placeholder="Keltron / Acer / HP">
       </div>
     </div>
 
@@ -1584,34 +1701,34 @@ function buildModalFields(category, data = {}) {
     </div>
     <div class="form-row">
       <div class="form-group flex-1">
-        <label>Assigned Seat Code:</label>
-        <input type="text" id="form-seat" value="${data.assigned_seat || ''}" placeholder="e.g. SC1">
+        <label>Assigned Seat Code (Auto-finds Staff):</label>
+        ${buildSeatSelectHtml(data.assigned_seat)}
       </div>
       <div class="form-group flex-1">
-        <label>Employee Name:</label>
-        <input type="text" id="form-emp" value="${data.employee_name || ''}" placeholder="Employee name">
+        <label>Employee Name (Auto-filled):</label>
+        <input type="text" id="form-emp" value="${data.employee_name || ''}" placeholder="Auto-fills from Seat">
       </div>
       <div class="form-group flex-1">
-        <label>Connected PC Asset ID:</label>
-        <input type="text" id="form-pc-id" value="${data.connected_pc_id || ''}" placeholder="PGP-SYS-PC001">
+        <label>Connected Host PC Asset ID:</label>
+        ${buildConnectedPcSelectHtml(data.connected_pc_id)}
       </div>
     </div>
     `;
   } else if (category === 'peripherals') {
     html += `
       <div class="form-group flex-1">
-        <label>Connected PC Asset ID:</label>
-        <input type="text" id="form-pc-id" value="${data.connected_pc_id || ''}" placeholder="PGP-SYS-PC001">
+        <label>Connected Host PC Asset ID:</label>
+        ${buildConnectedPcSelectHtml(data.connected_pc_id)}
       </div>
     </div>
     <div class="form-row">
       <div class="form-group flex-1">
-        <label>Assigned Seat Code:</label>
-        <input type="text" id="form-seat" value="${data.assigned_seat || ''}" placeholder="e.g. SC1">
+        <label>Assigned Seat Code (Auto-finds Staff):</label>
+        ${buildSeatSelectHtml(data.assigned_seat)}
       </div>
       <div class="form-group flex-1">
-        <label>Employee Name:</label>
-        <input type="text" id="form-emp" value="${data.employee_name || ''}" placeholder="Employee name">
+        <label>Employee Name (Auto-filled):</label>
+        <input type="text" id="form-emp" value="${data.employee_name || ''}" placeholder="Auto-fills from Seat">
       </div>
     </div>
     `;
@@ -1624,16 +1741,16 @@ function buildModalFields(category, data = {}) {
     </div>
     <div class="form-row">
       <div class="form-group flex-1">
-        <label>Assigned Seat:</label>
-        <input type="text" id="form-seat" value="${data.assigned_seat || ''}" placeholder="FO / SC1">
+        <label>Assigned Seat (Auto-finds Staff):</label>
+        ${buildSeatSelectHtml(data.assigned_seat)}
       </div>
       <div class="form-group flex-1">
-        <label>Employee Name:</label>
-        <input type="text" id="form-emp" value="${data.employee_name || ''}" placeholder="Employee Name">
+        <label>Employee Name (Auto-filled):</label>
+        <input type="text" id="form-emp" value="${data.employee_name || ''}" placeholder="Auto-fills from Seat">
       </div>
       <div class="form-group flex-1">
         <label>Connected Host PC:</label>
-        <input type="text" id="form-pc-id" value="${data.connected_pc_id || ''}" placeholder="PGP-SYS-PC016">
+        ${buildConnectedPcSelectHtml(data.connected_pc_id)}
       </div>
     </div>
     `;
@@ -1646,8 +1763,8 @@ function buildModalFields(category, data = {}) {
     </div>
     <div class="form-row">
       <div class="form-group flex-1">
-        <label>Location / Section:</label>
-        <input type="text" id="form-section" value="${data.section || 'PGP OFFICE'}" placeholder="PGP OFFICE SF / GF">
+        <label>Location / Office Section:</label>
+        <input list="list-section" type="text" id="form-section" value="${data.section || 'PGP OFFICE'}" placeholder="PGP OFFICE / AE OFFICE / NREGS">
       </div>
       <div class="form-group flex-1">
         <label>Working Status:</label>
