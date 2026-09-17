@@ -238,7 +238,8 @@ function writeStockRowSafely(sheet, rowData, assetId) {
     const val = rowData[col];
     if (val !== undefined && val !== null) {
       const cell = sheet.getRange(targetRow, col + 1);
-      if (!cell.hasFormula()) {
+      const formula = cell.getFormula();
+      if (!formula || formula === '') {
         cell.setValue(val);
       }
     }
@@ -260,7 +261,8 @@ function clearStockRowSafely(sheet, assetId) {
       const numCols = data[i].length;
       for (let col = 0; col < numCols; col++) {
         const cell = sheet.getRange(rowNum, col + 1);
-        if (!cell.hasFormula()) {
+        const formula = cell.getFormula();
+        if (!formula || formula === '') {
           cell.setValue('');
         }
       }
