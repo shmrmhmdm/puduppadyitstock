@@ -99,99 +99,37 @@ function doPost(e) {
       }
     }
 
-    // 2. Add New Ticket
-    if (action === 'add_ticket') {
+    // 2. Add / Update Ticket
+    if (action === 'add_ticket' || action === 'update_ticket') {
       const ticketSheet = getOrCreateTicketingSheet(ss);
-      ticketSheet.appendRow(rowData);
-      return ContentService.createTextOutput(JSON.stringify({ status: 'success', message: 'Ticket added successfully to Google Sheet' }))
+      writeTicketRowSafely(ticketSheet, rowData, ticketId);
+      return ContentService.createTextOutput(JSON.stringify({ status: 'success', message: 'Ticket saved successfully in Google Sheet' }))
         .setMimeType(ContentService.MimeType.JSON);
     }
 
-    // 3. Update Existing Ticket
-    else if (action === 'update_ticket') {
-      const ticketSheet = getOrCreateTicketingSheet(ss);
-      const data = ticketSheet.getDataRange().getValues();
-      let updated = false;
-
-      for (let i = 1; i < data.length; i++) {
-        if (String(data[i][0]).trim() === String(ticketId).trim()) {
-          const rowNum = i + 1;
-          for (let col = 0; col < rowData.length; col++) {
-            if (rowData[col] !== undefined && rowData[col] !== null) {
-              ticketSheet.getRange(rowNum, col + 1).setValue(rowData[col]);
-            }
-          }
-          updated = true;
-          break;
-        }
-      }
-
-      if (!updated) {
-        ticketSheet.appendRow(rowData);
-      }
-
-      return ContentService.createTextOutput(JSON.stringify({ status: 'success', message: 'Ticket updated successfully in Google Sheet' }))
-        .setMimeType(ContentService.MimeType.JSON);
-    }
-
-    // 4. Standard Stock Add
-    else if (action === 'add') {
+    // 3. Add or Update Standard Stock Item (Formula-Protected & Smart Slot Finder)
+    else if (action === 'add' || action === 'update') {
       const sheet = ss.getSheetByName(sheetName);
       if (!sheet) throw new Error('Sheet not found: ' + sheetName);
-      sheet.appendRow(rowData);
-      return ContentService.createTextOutput(JSON.stringify({ status: 'success', message: 'Item added successfully' }))
-        .setMimeType(ContentService.MimeType.JSON);
-    } 
-
-    // 5. Standard Stock Update
-    else if (action === 'update') {
-      const sheet = ss.getSheetByName(sheetName);
-      if (!sheet) throw new Error('Sheet not found: ' + sheetName);
-      const data = sheet.getDataRange().getValues();
-      let updated = false;
-
-      for (let i = 1; i < data.length; i++) {
-        if (String(data[i][0]).trim() === String(assetId).trim() || String(data[i][1]).trim() === String(assetId).trim()) {
-          const rowNum = i + 1;
-          for (let col = 0; col < rowData.length; col++) {
-            const val = rowData[col];
-            if (val !== undefined && val !== null) {
-              const cell = sheet.getRange(rowNum, col + 1);
-              if (!cell.hasFormula()) {
-                cell.setValue(val);
-              }
-            }
-          }
-          updated = true;
-          break;
-        }
-      }
-
-      if (!updated) {
-        sheet.appendRow(rowData);
-      }
-
-      return ContentService.createTextOutput(JSON.stringify({ status: 'success', message: 'Item updated successfully' }))
-        .setMimeType(ContentService.MimeType.JSON);
+      
+      const targetRow = writeStockRowSafely(sheet, rowData, assetId);
+      return ContentService.createTextOutput(JSON.stringify({ 
+        status: 'success', 
+        message: 'Item synchronized successfully at row ' + targetRow 
+      })).setMimeType(ContentService.MimeType.JSON);
     }
 
-    // 6. Delete Stock Item
+    // 4. Delete Stock Item (Safely clears non-formula data so row can be reused without breaking VLOOKUP)
     else if (action === 'delete') {
       const sheet = ss.getSheetByName(sheetName);
       if (sheet && assetId) {
-        const data = sheet.getDataRange().getValues();
-        for (let i = 1; i < data.length; i++) {
-          if (String(data[i][0]).trim() === String(assetId).trim()) {
-            sheet.deleteRow(i + 1);
-            break;
-          }
-        }
+        clearStockRowSafely(sheet, assetId);
       }
-      return ContentService.createTextOutput(JSON.stringify({ status: 'success', message: 'Item deleted' }))
+      return ContentService.createTextOutput(JSON.stringify({ status: 'success', message: 'Item removed from Google Sheet' }))
         .setMimeType(ContentService.MimeType.JSON);
     }
 
-    // 7. Delete Ticket
+    // 5. Delete Ticket
     else if (action === 'delete_ticket') {
       const ticketSheet = getOrCreateTicketingSheet(ss);
       if (ticketSheet && ticketId) {
@@ -207,7 +145,7 @@ function doPost(e) {
         .setMimeType(ContentService.MimeType.JSON);
     }
 
-    // 8. Add Purchase
+    // 6. Add Purchase
     else if (action === 'add_purchase') {
       const purSheet = ss.getSheetByName('Purchases');
       if (purSheet && rowData) {
@@ -217,7 +155,7 @@ function doPost(e) {
         .setMimeType(ContentService.MimeType.JSON);
     }
 
-    // 9. Add Generator Log
+    // 7. Add Generator Log
     else if (action === 'add_generator') {
       const genSheet = ss.getSheetByName('Generator');
       if (genSheet && rowData) {
@@ -232,6 +170,108 @@ function doPost(e) {
   } catch (err) {
     return ContentService.createTextOutput(JSON.stringify({ status: 'error', message: err.toString() }))
       .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+/**
+ * Helper to safely write stock items into Google Sheets without breaking existing formulas
+ * and without appending below empty formula template rows.
+ */
+function writeStockRowSafely(sheet, rowData, assetId) {
+  const data = sheet.getDataRange().getValues();
+  let targetRow = -1;
+
+  // 1. Search for existing item by Asset ID -> Update that row
+  if (assetId) {
+    const searchId = String(assetId).trim().toUpperCase();
+    for (let i = 1; i < data.length; i++) {
+      const col0 = String(data[i][0] || '').trim().toUpperCase();
+      if (col0 === searchId) {
+        targetRow = i + 1;
+        break;
+      }
+    }
+  }
+
+  // 2. If new item, find the FIRST available row where Column A (Asset ID) is blank
+  if (targetRow === -1) {
+    for (let i = 1; i < data.length; i++) {
+      const col0 = String(data[i][0] || '').trim();
+      if (!col0 || col0 === '#N/A' || col0 === '') {
+        targetRow = i + 1;
+        break;
+      }
+    }
+  }
+
+  // 3. If no empty slot found, append at the end of sheet
+  if (targetRow === -1) {
+    targetRow = data.length + 1;
+  }
+
+  // 4. Set values cell-by-cell, protecting formulas (VLOOKUP, etc.) from being overwritten
+  for (let col = 0; col < rowData.length; col++) {
+    const val = rowData[col];
+    if (val !== undefined && val !== null) {
+      const cell = sheet.getRange(targetRow, col + 1);
+      if (!cell.hasFormula()) {
+        cell.setValue(val);
+      }
+    }
+  }
+
+  return targetRow;
+}
+
+/**
+ * Safely clears an item's data while keeping formulas intact for future re-use
+ */
+function clearStockRowSafely(sheet, assetId) {
+  const data = sheet.getDataRange().getValues();
+  const searchId = String(assetId).trim().toUpperCase();
+  for (let i = 1; i < data.length; i++) {
+    const col0 = String(data[i][0] || '').trim().toUpperCase();
+    if (col0 === searchId) {
+      const rowNum = i + 1;
+      const numCols = data[i].length;
+      for (let col = 0; col < numCols; col++) {
+        const cell = sheet.getRange(rowNum, col + 1);
+        if (!cell.hasFormula()) {
+          cell.setValue('');
+        }
+      }
+      break;
+    }
+  }
+}
+
+/**
+ * Helper to safely write tickets to Ticketing_System sheet
+ */
+function writeTicketRowSafely(sheet, rowData, ticketId) {
+  const data = sheet.getDataRange().getValues();
+  let targetRow = -1;
+
+  if (ticketId) {
+    const tid = String(ticketId).trim().toUpperCase();
+    for (let i = 1; i < data.length; i++) {
+      if (String(data[i][0] || '').trim().toUpperCase() === tid) {
+        targetRow = i + 1;
+        break;
+      }
+    }
+  }
+
+  if (targetRow === -1) {
+    sheet.appendRow(rowData);
+    return;
+  }
+
+  for (let col = 0; col < rowData.length; col++) {
+    const val = rowData[col];
+    if (val !== undefined && val !== null) {
+      sheet.getRange(targetRow, col + 1).setValue(val);
+    }
   }
 }
 
