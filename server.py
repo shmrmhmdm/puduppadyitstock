@@ -206,18 +206,39 @@ def parse_cloud_sheets_data(cloud_data):
     """Parses raw 2D sheet arrays from Google Apps Script into structured database."""
     db = load_db()
 
+    # 0. Collect Active / Open Complaints first
+    open_complaint_pcs = set()
+    if 'Complaint_Register' in cloud_data:
+        for row in cloud_data['Complaint_Register'][1:]:
+            pc_id = str(row[0] if len(row) > 0 and row[0] else (row[1] if len(row) > 1 else '')).strip().upper()
+            status = str(row[8] if len(row) > 8 else '').strip().lower()
+            if pc_id.startswith('PGP-SYS-PC') and status not in ['closed', 'resolved', '']:
+                open_complaint_pcs.add(pc_id)
+
+    if 'Ticketing_System' in cloud_data:
+        for row in cloud_data['Ticketing_System'][1:]:
+            pc_id = str(row[2] if len(row) > 2 else '').strip().upper()
+            status = str(row[17] if len(row) > 17 else '').strip().lower()
+            if pc_id.startswith('PGP-SYS-PC') and status not in ['closed', 'resolved', '']:
+                open_complaint_pcs.add(pc_id)
+
     # 1. Parse Register-PC
     if 'Register-PC' in cloud_data:
         pcs = []
         for row in cloud_data['Register-PC'][1:]:
             if len(row) > 0 and str(row[0]).startswith('PGP-SYS-PC'):
-                is_work = to_bool(row[15] if len(row) > 15 else True, default=True)
-                is_comp = to_bool(row[17] if len(row) > 17 else False, default=False)
-                status_val = str(row[16]) if len(row) > 16 and row[16] else ('Working' if is_work else 'Complaint')
+                pc_id = str(row[0]).strip().upper()
+                present_status = str(row[16] if len(row) > 16 else '').strip().lower()
                 
-                if status_val.lower() == 'complaint' or is_comp:
-                    is_work = False
-                    status_val = 'Complaint'
+                is_operational = True
+                if pc_id in open_complaint_pcs:
+                    is_operational = False
+                elif present_status == 'complaint':
+                    is_operational = False
+                else:
+                    is_operational = True
+
+                status_val = 'Working' if is_operational else 'Complaint'
 
                 pcs.append({
                     'asset_id': str(row[0]),
@@ -235,9 +256,9 @@ def parse_cloud_sheets_data(cloud_data):
                     'office_section': str(row[12]) if len(row) > 12 and row[12] else '',
                     'purchase_date': str(row[13]) if len(row) > 13 and row[13] else '',
                     'warranty_expiry': str(row[14]) if len(row) > 14 and row[14] else '',
-                    'is_working': is_work,
+                    'is_working': is_operational,
                     'status': status_val,
-                    'is_complaint': not is_work,
+                    'is_complaint': not is_operational,
                     'device_status': status_val,
                     'amc_type': str(row[19]) if len(row) > 19 and row[19] else '',
                     'amc_agency': str(row[20]) if len(row) > 20 and row[20] else ''
