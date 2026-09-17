@@ -113,6 +113,12 @@ function doPost(e) {
       if (!sheet) throw new Error('Sheet not found: ' + sheetName);
       
       const targetRow = writeStockRowSafely(sheet, rowData, assetId);
+
+      // If PC marked as Working, clean up stale closed complaint entries from Complaint_Register Column A
+      if (sheetName === 'Register-PC' && assetId) {
+        cleanClosedComplaintsInSheet(ss, assetId, rowData[15]);
+      }
+
       return ContentService.createTextOutput(JSON.stringify({ 
         status: 'success', 
         message: 'Item synchronized successfully at row ' + targetRow 
@@ -298,4 +304,28 @@ function getOrCreateTicketingSheet(ss) {
     sheet.setFrozenRows(1);
   }
   return sheet;
+}
+
+/**
+ * If a PC is marked Working, remove its Asset ID from Complaint_Register Column A
+ * so the MATCH formula in Register-PC Column 18 correctly returns FALSE.
+ */
+function cleanClosedComplaintsInSheet(ss, assetId, isWorkingVal) {
+  try {
+    const compSheet = ss.getSheetByName('Complaint_Register');
+    if (!compSheet) return;
+    const isWork = (isWorkingVal === 1 || isWorkingVal === true || isWorkingVal === '1' || String(isWorkingVal).toLowerCase() === 'working');
+    if (!isWork) return;
+
+    const data = compSheet.getDataRange().getValues();
+    const searchId = String(assetId).trim().toUpperCase();
+
+    for (let i = 1; i < data.length; i++) {
+      const col0 = String(data[i][0] || '').trim().toUpperCase();
+      if (col0 === searchId) {
+        // Clear Column A so the MATCH formula in Register-PC immediately turns FALSE/Working
+        compSheet.getRange(i + 1, 1).setValue('');
+      }
+    }
+  } catch (e) {}
 }

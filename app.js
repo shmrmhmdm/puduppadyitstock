@@ -1815,11 +1815,21 @@ function parseCloudSpreadsheetData(cloudData) {
     cloudData['Register-PC'].slice(1).forEach(row => {
       if (row[0] && String(row[0]).startsWith('PGP-SYS-PC')) {
         const isWork = parseBool(row[15], true);
+        const presentStatus = String(row[16] || '').trim();
         const isComp = parseBool(row[17], false);
-        let statusVal = String(row[16] || (isWork ? 'Working' : 'Complaint'));
-        if (statusVal.toLowerCase() === 'complaint' || isComp) {
-          statusVal = 'Complaint';
+
+        // If row[15] is explicitly true or row[16] is 'Working', the system is operational
+        let isOperational = isWork;
+        if (presentStatus.toLowerCase() === 'working') {
+          isOperational = true;
+        } else if (presentStatus.toLowerCase() === 'complaint') {
+          isOperational = false;
+        } else if (isComp && !isWork) {
+          isOperational = false;
         }
+
+        const statusVal = isOperational ? 'Working' : 'Complaint';
+
         pcs.push({
           asset_id: String(row[0]),
           category: String(row[1] || 'Desktop'),
@@ -1836,9 +1846,9 @@ function parseCloudSpreadsheetData(cloudData) {
           office_section: String(row[12] || ''),
           purchase_date: String(row[13] || ''),
           warranty_expiry: String(row[14] || ''),
-          is_working: isWork && statusVal !== 'Complaint',
+          is_working: isOperational,
           status: statusVal,
-          is_complaint: !isWork || statusVal === 'Complaint',
+          is_complaint: !isOperational,
           device_status: statusVal,
           amc_type: String(row[19] || ''),
           amc_agency: String(row[20] || '')
