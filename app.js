@@ -757,6 +757,10 @@ function onComplaintPcSelect(assetId) {
     document.getElementById('comp-item-name').value = `${oe.brand} ${oe.model} (${oe.category || oe.item_name})`;
     document.getElementById('comp-section').value = oe.section || '';
     document.getElementById('comp-amc').value = 'In-House / OEM';
+    document.getElementById('comp-category').value = 'Power / UPS';
+  }
+}
+
 // Helper: Recalculate IP allocations locally
 function recalculateClientIps() {
   const assignedIps = {};
