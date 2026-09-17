@@ -1372,8 +1372,18 @@
           </div>
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline" onclick="closeQrScannerModal()">Close Scanner</button>
+  <!-- MODAL: IP ADDRESS ALLOCATION DETAIL -->
+  <div class="modal-overlay" id="ip-detail-modal">
+    <div class="modal-card" style="max-width: 540px;">
+      <div class="modal-header">
+        <h3 id="ip-modal-title"><i class="fa-solid fa-network-wired"></i> IP Allocation Details</h3>
+        <button class="icon-btn" onclick="closeModal('ip-detail-modal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body" id="ip-modal-body">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+      <div class="modal-footer" id="ip-modal-footer">
+        <!-- Buttons rendered dynamically by app.js -->
       </div>
     </div>
   </div>

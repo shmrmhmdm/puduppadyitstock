@@ -789,7 +789,18 @@ function recalculateClientIps() {
   const assignedIps = {};
   (appData.pcs || []).forEach(p => {
     if (p.ip_address && String(p.ip_address).startsWith('192.168.0.')) {
-      assignedIps[p.ip_address] = { asset_id: p.asset_id, employee_name: p.employee_name || '', seat: p.seat || '' };
+      assignedIps[p.ip_address] = {
+        asset_id: p.asset_id,
+        employee_name: p.employee_name || '',
+        seat: p.seat || '',
+        office_section: p.office_section || '',
+        brand: p.brand || '',
+        model: p.model || '',
+        processor: p.processor || '',
+        ram: p.ram || '',
+        os: p.os || '',
+        status: p.status || 'Working'
+      };
     }
   });
   const allocs = [];
@@ -802,7 +813,14 @@ function recalculateClientIps() {
       is_assigned: !!assign,
       assigned_to: assign ? assign.asset_id : null,
       employee_name: assign ? assign.employee_name : null,
-      seat: assign ? assign.seat : null
+      seat: assign ? assign.seat : null,
+      office_section: assign ? assign.office_section : null,
+      brand: assign ? assign.brand : null,
+      model: assign ? assign.model : null,
+      processor: assign ? assign.processor : null,
+      ram: assign ? assign.ram : null,
+      os: assign ? assign.os : null,
+      status: assign ? assign.status : null
     });
   }
   appData.ip_allocations = allocs;
@@ -1353,7 +1371,88 @@ function renderPurchasesAndGenerator() {
   }
 }
 
-// 14. IP Address Grid
+// 14. IP Address Grid & Detailed Viewer
+function openIpDetail(ipStr) {
+  const ipObj = (appData.ip_allocations || []).find(i => (i.ip === ipStr || i.ip_address === ipStr));
+  if (!ipObj) return;
+
+  const titleEl = document.getElementById('ip-modal-title');
+  const bodyEl = document.getElementById('ip-modal-body');
+  const footerEl = document.getElementById('ip-modal-footer');
+
+  if (ipObj.is_assigned && ipObj.assigned_to) {
+    const pc = appData.pcs.find(p => p.asset_id === ipObj.assigned_to) || {};
+    const empName = ipObj.employee_name || pc.employee_name || 'Unassigned Staff';
+    const seatCode = ipObj.seat || pc.seat || 'N/A';
+    const section = ipObj.office_section || pc.office_section || 'PGP OFFICE';
+    const isWorking = (pc.is_working !== false && pc.is_complaint !== true && pc.status !== 'Complaint');
+
+    titleEl.innerHTML = `<i class="fa-solid fa-network-wired" style="color: #10b981;"></i> IP: ${ipStr} (Allocated)`;
+    bodyEl.innerHTML = `
+      <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 8px; padding: 14px; margin-bottom: 12px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 16px; font-weight: 700; color: #10b981; font-family: monospace;"><i class="fa-solid fa-server"></i> ${ipStr}</span>
+          <span class="status-tag ${isWorking ? 'working' : 'complaint'}">${isWorking ? 'Active / Working' : 'In Complaint'}</span>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div style="background: var(--bg-input); padding: 12px; border-radius: 6px; border: 1px solid var(--border-color);">
+          <small class="text-muted" style="display: block; font-size: 11px; text-transform: uppercase; margin-bottom: 4px;">Assigned Staff / User</small>
+          <strong style="font-size: 14.5px; color: var(--text-primary);"><i class="fa-solid fa-user" style="color: var(--primary);"></i> ${empName}</strong>
+        </div>
+
+        <div style="background: var(--bg-input); padding: 12px; border-radius: 6px; border: 1px solid var(--border-color);">
+          <small class="text-muted" style="display: block; font-size: 11px; text-transform: uppercase; margin-bottom: 4px;">Assigned Seat Code</small>
+          <strong style="font-size: 14.5px; color: var(--text-primary);"><i class="fa-solid fa-chair" style="color: var(--warning);"></i> ${seatCode}</strong>
+        </div>
+
+        <div style="background: var(--bg-input); padding: 12px; border-radius: 6px; border: 1px solid var(--border-color);">
+          <small class="text-muted" style="display: block; font-size: 11px; text-transform: uppercase; margin-bottom: 4px;">Office Section / Branch</small>
+          <strong style="font-size: 14.5px; color: var(--text-primary);"><i class="fa-solid fa-building" style="color: #60a5fa;"></i> ${section}</strong>
+        </div>
+
+        <div style="background: var(--bg-input); padding: 12px; border-radius: 6px; border: 1px solid var(--border-color);">
+          <small class="text-muted" style="display: block; font-size: 11px; text-transform: uppercase; margin-bottom: 4px;">Host Computer Asset ID</small>
+          <strong style="font-size: 14.5px; color: var(--text-primary);"><i class="fa-solid fa-desktop" style="color: var(--primary);"></i> ${ipObj.assigned_to}</strong>
+        </div>
+      </div>
+
+      ${pc.brand || pc.model ? `
+      <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 6px; border: 1px solid var(--border-color); margin-top: 12px; font-size: 13px;">
+        <strong>Hardware Model:</strong> ${pc.brand || ''} ${pc.model || ''} | ${pc.processor || 'CPU'} | ${pc.ram || 'RAM'} | ${pc.os || 'OS'}
+      </div>
+      ` : ''}
+    `;
+
+    footerEl.innerHTML = `
+      <button type="button" class="btn btn-outline" onclick="closeModal('ip-detail-modal')">Close</button>
+      <button type="button" class="btn btn-primary" onclick="closeModal('ip-detail-modal'); openAssetPassport('${ipObj.assigned_to}')"><i class="fa-solid fa-qrcode"></i> Asset Passport</button>
+      <button type="button" class="btn btn-secondary" onclick="closeModal('ip-detail-modal'); openEditModal('pcs', '${ipObj.assigned_to}')"><i class="fa-solid fa-pen"></i> Edit PC</button>
+    `;
+  } else {
+    titleEl.innerHTML = `<i class="fa-solid fa-network-wired" style="color: #94a3b8;"></i> IP: ${ipStr} (Available)`;
+    bodyEl.innerHTML = `
+      <div style="background: rgba(148, 163, 184, 0.08); border: 1px solid rgba(148, 163, 184, 0.25); border-radius: 8px; padding: 14px; margin-bottom: 12px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 16px; font-weight: 700; color: #94a3b8; font-family: monospace;">${ipStr}</span>
+          <span class="status-tag" style="background: rgba(148, 163, 184, 0.2); color: #cbd5e1;">Free / Unallocated</span>
+        </div>
+      </div>
+      <p style="font-size: 13.5px; color: var(--text-secondary); line-height: 1.5;">
+        This IP address is currently free in the <strong>192.168.0.0/24</strong> subnet and can be assigned to a new computer or server.
+      </p>
+    `;
+
+    footerEl.innerHTML = `
+      <button type="button" class="btn btn-outline" onclick="closeModal('ip-detail-modal')">Close</button>
+      <button type="button" class="btn btn-primary" onclick="closeModal('ip-detail-modal'); openAddModal('pcs'); setTimeout(() => { const ipInp = document.getElementById('form-ip'); if (ipInp) ipInp.value = '${ipStr}'; }, 100);"><i class="fa-solid fa-plus"></i> Assign to New PC</button>
+    `;
+  }
+
+  openModal('ip-detail-modal');
+}
+
 function renderIpMap() {
   const container = document.getElementById('ip-grid-container');
   if (!container) return;
@@ -1365,15 +1464,17 @@ function renderIpMap() {
     cell.className = `ip-cell ${ipObj.is_assigned ? 'used' : 'free'}`;
     const ipLast = ipStr.includes('.') ? ipStr.split('.').pop() : ipStr;
     cell.innerHTML = `.${ipLast}`;
-    cell.title = ipObj.is_assigned 
-      ? `IP: ${ipStr} (Assigned to: ${ipObj.assigned_to || 'Equipment'})`
-      : `IP: ${ipStr} (Available)`;
 
     if (ipObj.is_assigned && ipObj.assigned_to) {
-      cell.addEventListener('click', () => {
-        openAssetPassport(ipObj.assigned_to);
-      });
+      cell.title = `IP: ${ipStr}\nAssigned to: ${ipObj.assigned_to}\nStaff: ${ipObj.employee_name || 'Staff'}\nSeat: ${ipObj.seat || '-'}\nSection: ${ipObj.office_section || '-'}\n(Click to view details)`;
+    } else {
+      cell.title = `IP: ${ipStr} (Free / Available - Click to assign)`;
     }
+
+    cell.style.cursor = 'pointer';
+    cell.addEventListener('click', () => {
+      openIpDetail(ipStr);
+    });
 
     container.appendChild(cell);
   });
@@ -2260,7 +2361,18 @@ function parseCloudSpreadsheetData(cloudData) {
   const assignedIps = {};
   (appData.pcs || []).forEach(p => {
     if (p.ip_address && String(p.ip_address).startsWith('192.168.0.')) {
-      assignedIps[p.ip_address] = { asset_id: p.asset_id, employee_name: p.employee_name || '', seat: p.seat || '' };
+      assignedIps[p.ip_address] = {
+        asset_id: p.asset_id,
+        employee_name: p.employee_name || '',
+        seat: p.seat || '',
+        office_section: p.office_section || '',
+        brand: p.brand || '',
+        model: p.model || '',
+        processor: p.processor || '',
+        ram: p.ram || '',
+        os: p.os || '',
+        status: p.status || 'Working'
+      };
     }
   });
   for (let i = 1; i <= 254; i++) {
@@ -2272,7 +2384,14 @@ function parseCloudSpreadsheetData(cloudData) {
       is_assigned: !!assign,
       assigned_to: assign ? assign.asset_id : null,
       employee_name: assign ? assign.employee_name : null,
-      seat: assign ? assign.seat : null
+      seat: assign ? assign.seat : null,
+      office_section: assign ? assign.office_section : null,
+      brand: assign ? assign.brand : null,
+      model: assign ? assign.model : null,
+      processor: assign ? assign.processor : null,
+      ram: assign ? assign.ram : null,
+      os: assign ? assign.os : null,
+      status: assign ? assign.status : null
     });
   }
   appData.ip_allocations = allocs;
