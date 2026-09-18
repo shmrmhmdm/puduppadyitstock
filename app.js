@@ -112,6 +112,15 @@ function initEventListeners() {
   if (backdrop) {
     backdrop.addEventListener('click', closeMobileSidebar);
   }
+
+  // Close modals when clicking on the dark backdrop
+  document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) {
+        closeModal(overlay.id);
+      }
+    });
+  });
 }
 
 // 2. Fetch Data (Hybrid: Python Server / Google Sheets Live / LocalStorage Cache / Bundled JSON)
@@ -2799,12 +2808,23 @@ function exportData(category) {
 // 23. Modal Utilities
 function openModal(id) {
   const m = document.getElementById(id);
-  if (m) m.classList.add('active');
+  if (m) {
+    m.classList.add('active');
+    document.body.classList.add('modal-open');
+    document.body.style.overflow = 'hidden';
+  }
 }
 
 function closeModal(id) {
   const m = document.getElementById(id);
   if (m) m.classList.remove('active');
+  
+  // Check if any other modal is still active
+  const anyActive = document.querySelector('.modal-overlay.active');
+  if (!anyActive) {
+    document.body.classList.remove('modal-open');
+    document.body.style.overflow = '';
+  }
 }
 
 // 24. Toast Utility

@@ -856,19 +856,27 @@ body {
 }
 
 /* Modals */
+body.modal-open {
+  overflow: hidden !important;
+  touch-action: none;
+}
+
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(6px);
-  z-index: 100;
+  z-index: 1000;
   display: none;
   align-items: center;
   justify-content: center;
   padding: 20px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 
 .modal-overlay.active {
@@ -883,10 +891,12 @@ body {
   box-shadow: var(--shadow-lg);
   width: 100%;
   max-width: 680px;
-  max-height: 92vh;
+  max-height: 90vh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  position: relative;
+  margin: auto;
 }
 
 .modal-card > form,
@@ -913,12 +923,34 @@ body {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
-  flex: 1;
+  flex: 1 1 auto;
   min-height: 0;
-  max-height: calc(92vh - 130px);
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+/* Sleek styled scrollbar inside modals */
+.modal-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 4px;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+body.theme-light .modal-body::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.25);
 }
 
 .modal-footer {
