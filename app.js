@@ -3658,13 +3658,14 @@ function printAssetPassportSheet(assetId) {
 // 28. Log Complaint Pre-Filled from Asset Passport
 function logComplaintFromPassport(assetId) {
   closeModal('asset-passport-modal');
-  openAddTicketModal();
-  
-  const selectAsset = document.getElementById('tkt-asset-id');
-  if (selectAsset) {
-    selectAsset.value = assetId;
-    handleTicketAssetChange();
-  }
+  setTimeout(() => {
+    openTicketModal();
+    const selectAsset = document.getElementById('comp-pc-select');
+    if (selectAsset && assetId) {
+      selectAsset.value = assetId;
+      onComplaintPcSelect(assetId);
+    }
+  }, 100);
 }
 
 // 29. In-App Live Camera QR Code Scanner (`#qr-scanner-modal`)

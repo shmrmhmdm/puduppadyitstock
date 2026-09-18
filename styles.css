@@ -911,6 +911,8 @@ body {
 .modal-body {
   padding: 20px 24px;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
   flex: 1;
   min-height: 0;
   max-height: calc(92vh - 130px);
@@ -1941,6 +1943,49 @@ body {
     justify-content: center;
   }
 
+  /* Passport mobile ergonomics */
+  .modal-card.modal-lg {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .passport-hero {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+    padding: 16px 12px;
+  }
+
+  .passport-hero-badges {
+    justify-content: center;
+  }
+
+  .passport-hero-id {
+    justify-content: center;
+    font-size: 19px;
+  }
+
+  .passport-hero-meta {
+    justify-content: center;
+    font-size: 12px;
+  }
+
+  .passport-content-body {
+    padding: 14px 10px;
+    gap: 16px;
+  }
+
+  .passport-spec-tiles {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .passport-desk-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
   .form-row {
     flex-direction: column;
     gap: 12px;
@@ -2207,8 +2252,6 @@ body.theme-light .passport-meta-item {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  max-height: 68vh;
-  overflow-y: auto;
 }
 
 .passport-section-title {
