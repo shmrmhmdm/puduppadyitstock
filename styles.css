@@ -1487,7 +1487,7 @@ body {
 /* Print Stylesheet for Certificates & QR Stickers */
 @media print {
   @page {
-    margin: 10mm;
+    margin: 8mm 10mm;
     size: A4 portrait;
   }
 
@@ -1496,19 +1496,30 @@ body {
     text-shadow: none !important;
   }
 
-  html, body {
+  html, body, .main-content, .views-wrapper, .view-panel, #view-qr_stickers, .qr-stickers-grid {
     background: #ffffff !important;
     color: #000000 !important;
     width: 100% !important;
     height: auto !important;
-    min-height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
     margin: 0 !important;
     padding: 0 !important;
     display: block !important;
     overflow: visible !important;
+    overflow-x: visible !important;
+    overflow-y: visible !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
   }
 
-  /* Completely eliminate Sidebar, Navigation, Headers, Controls, and Modals */
+  html::-webkit-scrollbar, body::-webkit-scrollbar, .views-wrapper::-webkit-scrollbar, .main-content::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+
+  /* Completely eliminate Sidebar, Navigation, Headers, Controls, Filter Bars, and Modals */
   aside,
   .sidebar,
   #main-sidebar,
@@ -1519,6 +1530,11 @@ body {
   .top-header,
   .header-actions,
   .global-search-wrapper,
+  .view-header,
+  .view-title,
+  .view-subtitle,
+  .view-title-wrap,
+  .header-controls,
   .filter-bar,
   .handover-controls,
   .form-actions,
@@ -1540,6 +1556,9 @@ body {
     left: -9999px !important;
     top: -9999px !important;
     pointer-events: none !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   .main-content {
@@ -1557,10 +1576,12 @@ body {
     width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
+    overflow: visible !important;
   }
 
   .view-panel {
     display: none !important;
+    overflow: visible !important;
   }
   
   /* Print Handover */
@@ -1575,25 +1596,27 @@ body {
   #view-qr_stickers.active {
     display: block !important;
     width: 100% !important;
+    overflow: visible !important;
   }
 
   .qr-stickers-grid {
     display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 8mm !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 6mm !important;
     width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
+    overflow: visible !important;
   }
 
   .qr-sticker-card {
     page-break-inside: avoid !important;
     break-inside: avoid !important;
-    border: 2px solid #000000 !important;
-    border-radius: 6px !important;
+    border: 1.5px solid #000000 !important;
+    border-radius: 8px !important;
     background: #ffffff !important;
     color: #000000 !important;
-    padding: 10px 8px !important;
+    padding: 10px 12px !important;
     margin: 0 !important;
     width: 100% !important;
     box-sizing: border-box !important;
@@ -1601,26 +1624,29 @@ body {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
+    box-shadow: none !important;
   }
 
   .qr-sticker-header {
-    border-bottom: 2px solid #000000 !important;
+    border-bottom: 1.5px solid #000000 !important;
     padding-bottom: 3px !important;
-    margin-bottom: 5px !important;
+    margin-bottom: 6px !important;
     width: 100% !important;
+    text-align: center !important;
   }
 
   .qr-panchayath-name {
     color: #000000 !important;
-    font-size: 10px !important;
+    font-size: 11px !important;
     font-weight: 800 !important;
     text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
     line-height: 1.2 !important;
   }
 
   .qr-sub-header {
     color: #333333 !important;
-    font-size: 8px !important;
+    font-size: 8.5px !important;
     font-weight: 700 !important;
   }
 
@@ -1638,7 +1664,10 @@ body {
     height: 120px !important;
     margin: 4px auto !important;
     background: #ffffff !important;
-    padding: 3px !important;
+    padding: 4px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 
   .qr-code-box-large img,
@@ -1652,14 +1681,22 @@ body {
     color: #000000 !important;
     border: 1.5px solid #000000 !important;
     background: #ffffff !important;
-    font-size: 13px !important;
+    font-size: 14px !important;
     font-weight: 800 !important;
     font-family: 'JetBrains Mono', monospace !important;
-    margin: 5px 0 0 !important;
-    padding: 2px 6px !important;
+    margin: 6px 0 0 !important;
+    padding: 3px 8px !important;
     width: 100% !important;
     box-sizing: border-box !important;
     text-align: center !important;
+  }
+
+  .qr-sticker-footer {
+    display: none !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 0 !important;
   }
 
   .handover-certificate-card {
