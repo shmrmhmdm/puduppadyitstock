@@ -915,7 +915,7 @@
 
                   <div class="form-group">
                     <label>Google Apps Script Web App URL:</label>
-                    <input type="text" id="cfg-gas-url" placeholder="https://script.google.com/macros/s/.../exec">
+                    <input type="text" id="cfg-gas-url" value="https://script.google.com/macros/s/AKfycbz73R1P-6JtjMgYixFFd22mngGU4a-WbbXr_3UEXxYHwfI_fJLWal64SG3Nk5PDSPOz/exec" placeholder="https://script.google.com/macros/s/.../exec">
                     <small class="text-muted">Paste your deployed Web App URL here.</small>
                   </div>
 
@@ -926,7 +926,7 @@
 
                   <div class="form-actions mt-3">
                     <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Save Settings</button>
-                    <button type="button" class="btn btn-secondary" onclick="testSync()"><i class="fa-solid fa-arrows-rotate"></i> Test Sync Now</button>
+                    <button type="button" class="btn btn-secondary btn-test-sync" id="btn-test-sync-settings" onclick="testSync()"><i class="fa-solid fa-arrows-rotate"></i> Test Sync Now</button>
                   </div>
                 </form>
               </div>

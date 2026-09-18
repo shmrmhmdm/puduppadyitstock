@@ -1182,7 +1182,7 @@ body {
   transform: translateY(100px);
   opacity: 0;
   transition: var(--transition);
-  z-index: 1000;
+  z-index: 9999;
 }
 
 .toast.show {
@@ -1190,8 +1190,15 @@ body {
   opacity: 1;
 }
 
-.toast.success .toast-icon { color: var(--success); }
-.toast.error .toast-icon { color: var(--danger); }
+.toast.success { border-left: 4px solid #10b981; }
+.toast.error { border-left: 4px solid #ef4444; }
+.toast.info { border-left: 4px solid #3b82f6; }
+.toast.warning { border-left: 4px solid #f59e0b; }
+
+.toast.success .toast-icon { color: #10b981; }
+.toast.error .toast-icon { color: #ef4444; }
+.toast.info .toast-icon { color: #3b82f6; }
+.toast.warning .toast-icon { color: #f59e0b; }
 
 /* QR Code Stickers & Asset Passport Styles */
 .qr-stickers-grid {

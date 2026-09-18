@@ -128,7 +128,10 @@ async function loadData() {
   // 2. Local Python Server (if running on localhost)
   if (isLocalServer()) {
     try {
-      const res = await fetch(`${API_BASE}/api/data`);
+      const localCtrl = new AbortController();
+      const localTid = setTimeout(() => localCtrl.abort(), 1200);
+      const res = await fetch(`${API_BASE}/api/data`, { signal: localCtrl.signal });
+      clearTimeout(localTid);
       if (res.ok) {
         const json = await res.json();
         if (json.status === 'success' && json.data) {
@@ -139,7 +142,7 @@ async function loadData() {
         }
       }
     } catch (err) {
-      console.log('Local API not running, checking Google Sheets:', err.message);
+      console.log('Local API not running, checking direct Google Sheets Cloud:', err.message);
     }
   }
 
@@ -2411,39 +2414,70 @@ function parseCloudSpreadsheetData(cloudData) {
 }
 
 async function testSync() {
+  // 1. Manage loading state for all sync buttons
+  const syncButtons = [
+    document.getElementById('quick-sync-btn'),
+    document.getElementById('btn-test-sync-settings'),
+    ...document.querySelectorAll('.btn-test-sync')
+  ].filter(Boolean);
+
+  const originalStates = syncButtons.map(btn => ({
+    btn,
+    html: btn.innerHTML,
+    disabled: btn.disabled
+  }));
+
+  syncButtons.forEach(btn => {
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>Syncing...</span>';
+    btn.disabled = true;
+  });
+
   showToast('Connecting to Google Sheets...', 'info');
 
   const gasUrl = (document.getElementById('cfg-gas-url')?.value.trim()) || 
                  localStorage.getItem('pgp_gas_url') ||
-                 'https://script.google.com/macros/s/AKfycbz73R1P-6JtjMgYixFFd22mngGU4a-WbbXr_3UEXxYHwfI_fJLWal64SG3Nk5PDSPOz/exec';
+                 DEFAULT_GAS_URL;
 
-  // 1. Try local server first if on localhost
-  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-    try {
-      const res = await fetch(`${API_BASE}/api/sync`, { method: 'POST' });
-      if (res.ok) {
-        const result = await res.json();
-        if (result.status === 'success') {
-          showToast('Successfully synced with Google Sheets!', 'success');
-          if (result.data) {
-            appData = result.data;
-          } else {
-            await loadData();
-          }
-          renderAll();
-          loadConfig();
-          return;
-        }
-      }
-    } catch (e) {
-      console.log('Local API sync fallback to direct Google Sheets:', e);
-    }
-  }
-
-  // 2. Direct Cloud Fetch from Google Apps Script Web App (works seamlessly on GitHub Pages)
   try {
-    const cloudRes = await fetch(gasUrl);
-    if (!cloudRes.ok) throw new Error(`HTTP ${cloudRes.status}`);
+    // 2. Try local server first if on localhost (fast 1.2s timeout)
+    if (isLocalServer()) {
+      try {
+        const localController = new AbortController();
+        const localTimer = setTimeout(() => localController.abort(), 1200);
+        const res = await fetch(`${API_BASE}/api/sync`, { method: 'POST', signal: localController.signal });
+        clearTimeout(localTimer);
+        if (res.ok) {
+          const result = await res.json();
+          if (result.status === 'success') {
+            if (result.data) {
+              appData = result.data;
+            } else {
+              await loadData();
+            }
+            renderAll();
+            loadConfig();
+            const count = appData.pcs ? appData.pcs.length : 0;
+            showToast(`✅ Successfully synced ${count} systems via Local Server!`, 'success');
+            return;
+          }
+        }
+      } catch (e) {
+        console.log('Local API sync bypass -> Direct Google Apps Script Cloud sync...');
+      }
+    }
+
+    // 3. Direct Cloud Fetch from Google Apps Script Web App
+    const cloudController = new AbortController();
+    const cloudTimer = setTimeout(() => cloudController.abort(), 20000);
+    const cloudRes = await fetch(gasUrl, {
+      method: 'GET',
+      signal: cloudController.signal,
+      headers: { 'Accept': 'application/json' },
+      redirect: 'follow'
+    });
+    clearTimeout(cloudTimer);
+
+    if (!cloudRes.ok) throw new Error(`HTTP ${cloudRes.status}: Google Sheets connection failed`);
     const cloudJson = await cloudRes.json();
     if (cloudJson.status === 'success' && cloudJson.data) {
       parseCloudSpreadsheetData(cloudJson.data);
@@ -2454,17 +2488,30 @@ async function testSync() {
       try {
         localStorage.setItem('pgp_stock_data', JSON.stringify(appData));
         localStorage.setItem('pgp_last_synced', nowStr);
+        localStorage.setItem('pgp_gas_url', gasUrl);
       } catch (e) {}
 
       renderAll();
-      showToast('Successfully synchronized live data from Google Sheets!', 'success');
+      const pcCount = appData.pcs ? appData.pcs.length : 0;
+      const tktCount = appData.tickets ? appData.tickets.length : 0;
+      showToast(`✅ Successfully synced ${pcCount} Systems & ${tktCount} Tickets from Google Sheets!`, 'success');
       return;
     } else {
       throw new Error(cloudJson.message || 'Invalid response from Google Apps Script');
     }
   } catch (directErr) {
     console.error('Direct cloud sync error:', directErr);
-    showToast('Google Sheet Sync error: ' + directErr.message, 'error');
+    let errMsg = directErr.message;
+    if (directErr.name === 'AbortError') {
+      errMsg = 'Connection timed out. Please check your internet connection.';
+    }
+    showToast('Google Sheet Sync Error: ' + errMsg, 'error');
+  } finally {
+    // Restore button states
+    originalStates.forEach(({ btn, html, disabled }) => {
+      btn.innerHTML = html;
+      btn.disabled = disabled;
+    });
   }
 }
 
@@ -2533,14 +2580,28 @@ function closeModal(id) {
 }
 
 // 24. Toast Utility
+let toastTimer = null;
 function showToast(message, type = 'success') {
   const toast = document.getElementById('toast');
   const msgEl = document.getElementById('toast-message');
+  const iconEl = toast ? toast.querySelector('.toast-icon') : null;
+  if (!toast || !msgEl) return;
+
   msgEl.innerText = message;
+  if (iconEl) {
+    iconEl.className = 'toast-icon fa-solid ' + (
+      type === 'success' ? 'fa-circle-check' :
+      type === 'error' ? 'fa-circle-xmark' :
+      type === 'warning' ? 'fa-triangle-exclamation' :
+      type === 'info' ? 'fa-spinner fa-spin' : 'fa-circle-info'
+    );
+  }
+
   toast.className = `toast show ${type}`;
-  setTimeout(() => {
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
     toast.classList.remove('show');
-  }, 3500);
+  }, type === 'info' ? 6000 : 4000);
 }
 
 // ==========================================
