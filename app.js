@@ -2900,15 +2900,14 @@ function renderQrStickers() {
 
 // 28. Print Stickers
 function printAllStickers() {
-  document.body.className = 'printing-stickers';
+  document.body.classList.add('printing-stickers');
   window.print();
   setTimeout(() => {
-    document.body.className = 'theme-dark';
+    document.body.classList.remove('printing-stickers');
   }, 1000);
 }
 
 function printSingleSticker(assetId) {
-  // Filter only this sticker, trigger print
   switchView('qr_stickers');
   const searchInput = document.getElementById('qr-filter-search');
   if (searchInput) {
@@ -2916,7 +2915,7 @@ function printSingleSticker(assetId) {
     renderQrStickers();
     setTimeout(() => {
       printAllStickers();
-    }, 300);
+    }, 250);
   }
 }
 
