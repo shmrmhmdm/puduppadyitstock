@@ -2868,14 +2868,17 @@ function renderQrStickers() {
     card.innerHTML = `
       <div class="qr-sticker-header">
         <div class="qr-panchayath-name">Puthuppadi Grama Panchayath</div>
-        <div class="qr-sub-header">IT Asset</div>
+        <div class="qr-sub-header">IT Asset Management</div>
       </div>
       <div class="qr-sticker-body-clean">
         <div class="qr-code-box-large" id="qr-box-${index}"></div>
+        <div class="qr-asset-id-large">${aid}</div>
+        <div class="qr-seat-badge">${seat !== 'N/A' && seat !== '' ? seat + ' • ' + emp : emp}</div>
+        <div class="qr-office-tag">${sec}${item.brand ? ' | ' + item.brand : ''}</div>
       </div>
       <div class="qr-sticker-footer">
-        <button class="btn btn-sm btn-outline" style="padding: 3px 8px; font-size: 11px;" onclick="printSingleSticker('${aid}')"><i class="fa-solid fa-print"></i> Print</button>
-        <button class="btn btn-sm btn-primary" style="padding: 3px 8px; font-size: 11px;" onclick="openAssetPassport('${aid}')"><i class="fa-solid fa-circle-info"></i> Passport</button>
+        <button class="btn btn-sm btn-outline" style="padding: 4px 10px; font-size: 11px;" onclick="printSingleSticker('${aid}')"><i class="fa-solid fa-print"></i> Print</button>
+        <button class="btn btn-sm btn-primary" style="padding: 4px 10px; font-size: 11px;" onclick="openAssetPassport('${aid}')"><i class="fa-solid fa-circle-info"></i> Passport</button>
       </div>
     `;
 
