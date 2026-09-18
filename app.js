@@ -2809,7 +2809,7 @@ function openAssetPassport(assetId) {
 }
 
 // 27. Render Batch QR Asset Stickers View (`#view-qr_stickers`)
-function renderQrStickers() {
+function renderQrStickers(forceDuplicateSingle = false) {
   const grid = document.getElementById('qr-stickers-grid');
   if (!grid) return;
 
@@ -2844,6 +2844,14 @@ function renderQrStickers() {
       const str = `${i.asset_id || ''} ${i.brand || ''} ${i.model || ''} ${i.employee_name || ''} ${i.seat || i.assigned_seat || ''} ${i.ip_address || ''}`.toLowerCase();
       return str.includes(query);
     });
+  }
+
+  // If printing a single asset or only 1 item matched, render 2 copies aligned side-by-side
+  if (itemsToRender.length === 1 && (forceDuplicateSingle || query)) {
+    itemsToRender = [
+      { ...itemsToRender[0], _duplicateKey: 1 },
+      { ...itemsToRender[0], _duplicateKey: 2 }
+    ];
   }
 
   grid.innerHTML = '';
