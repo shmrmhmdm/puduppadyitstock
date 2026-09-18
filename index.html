@@ -76,9 +76,6 @@
         <button class="nav-item" data-view="purchases_gen">
           <i class="fa-solid fa-file-invoice-dollar"></i> <span>Purchases & Generator</span>
         </button>
-        <button class="nav-item" data-view="qr_stickers">
-          <i class="fa-solid fa-qrcode"></i> <span>QR Asset Stickers</span>
-        </button>
 
         <div class="menu-section">System</div>
         <button class="nav-item" data-view="sync_settings">
@@ -841,54 +838,6 @@
                 </div>
               </div>
             </div>
-          </div>
-        </section>
-
-        <!-- 12. QR ASSET STICKER LABELS VIEW -->
-        <section id="view-qr_stickers" class="view-panel">
-          <div class="view-header">
-            <div>
-              <h1 class="view-title"><i class="fa-solid fa-qrcode" style="color: var(--primary);"></i> QR Asset Sticker Labels</h1>
-              <p class="view-subtitle">Generate, scan, and batch print official Panchayath QR Code labels for all IT equipment</p>
-            </div>
-            <div class="header-controls">
-              <button class="btn btn-secondary" onclick="openQrScannerModal()"><i class="fa-solid fa-camera"></i> Live Camera Scan</button>
-              <button class="btn btn-primary" onclick="printAllStickers()"><i class="fa-solid fa-print"></i> Print Filtered Stickers (A4)</button>
-            </div>
-          </div>
-
-          <!-- Filters -->
-          <div class="filter-bar">
-            <div class="filter-group">
-              <label>Equipment Type:</label>
-              <select id="qr-filter-type" onchange="renderQrStickers()">
-                <option value="all">All IT Equipment</option>
-                <option value="pcs" selected>Computers & Servers</option>
-                <option value="monitors">Monitors</option>
-                <option value="printers">Printers & Scanners</option>
-                <option value="peripherals">Keyboards & Mice</option>
-                <option value="other_equipments">Power & Network (UPS/Modem)</option>
-              </select>
-            </div>
-            <div class="filter-group">
-              <label>Office Section:</label>
-              <select id="qr-filter-section" onchange="renderQrStickers()">
-                <option value="all">All Sections</option>
-                <option value="PGP OFFICE">PGP Main Office</option>
-                <option value="FRONT OFFICE">Front Office</option>
-                <option value="AE OFFICE">AE Office</option>
-                <option value="NREGS OFFICE">NREGS Office</option>
-                <option value="AYURVEDA">Ayurveda</option>
-              </select>
-            </div>
-            <div class="filter-group flex-1">
-              <input type="text" id="qr-filter-search" placeholder="Search Asset ID, Employee, Seat..." oninput="renderQrStickers()">
-            </div>
-          </div>
-
-          <!-- Sticker Grid Container -->
-          <div id="qr-stickers-grid" class="qr-stickers-grid">
-            <!-- Rendered dynamically by app.js -->
           </div>
         </section>
 

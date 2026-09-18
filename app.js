@@ -272,7 +272,6 @@ function renderAll() {
   renderPurchasesAndGenerator();
   renderIpMap();
   populateHandoverSelect();
-  renderQrStickers();
   checkUrlForAsset();
 }
 
@@ -2800,123 +2799,11 @@ function openAssetPassport(assetId) {
   // Footer Actions
   const footer = document.getElementById('passport-footer-actions');
   footer.innerHTML = `
-    <button class="btn btn-outline" onclick="printSingleSticker('${item.asset_id}')"><i class="fa-solid fa-print"></i> Print QR Sticker</button>
     <button class="btn btn-secondary" onclick="logComplaintFromPassport('${item.asset_id}')"><i class="fa-solid fa-triangle-exclamation" style="color: var(--warning);"></i> Report Complaint / Ticket</button>
     <button class="btn btn-primary" onclick="openEditModal('${category}', '${item.asset_id}')"><i class="fa-solid fa-pen"></i> Edit Hardware</button>
   `;
 
   openModal('asset-passport-modal');
-}
-
-// 27. Render Batch QR Asset Stickers View (`#view-qr_stickers`)
-function renderQrStickers(forceDuplicateSingle = false) {
-  const grid = document.getElementById('qr-stickers-grid');
-  if (!grid) return;
-
-  const typeFilter = (document.getElementById('qr-filter-type')?.value) || 'pcs';
-  const sectionFilter = (document.getElementById('qr-filter-section')?.value) || 'all';
-  const query = (document.getElementById('qr-filter-search')?.value || '').toLowerCase();
-
-  let itemsToRender = [];
-  if (typeFilter === 'all') {
-    itemsToRender = [
-      ...appData.pcs.map(i => ({ ...i, _cat: 'pcs', _type: 'Desktop / Server' })),
-      ...appData.monitors.map(i => ({ ...i, _cat: 'monitors', _type: 'Monitor' })),
-      ...appData.printers.map(i => ({ ...i, _cat: 'printers', _type: 'Printer' })),
-      ...appData.peripherals.map(i => ({ ...i, _cat: 'peripherals', _type: 'Peripheral' })),
-      ...appData.other_equipments.map(i => ({ ...i, _cat: 'other_equipments', _type: 'Power/Network' }))
-    ];
-  } else if (appData[typeFilter]) {
-    itemsToRender = appData[typeFilter].map(i => ({ ...i, _cat: typeFilter, _type: typeFilter }));
-  }
-
-  // Filter by section
-  if (sectionFilter !== 'all') {
-    itemsToRender = itemsToRender.filter(i => {
-      const s = (i.office_section || i.section || 'PGP OFFICE').toUpperCase();
-      return s.includes(sectionFilter.toUpperCase());
-    });
-  }
-
-  // Filter by search query
-  if (query) {
-    itemsToRender = itemsToRender.filter(i => {
-      const str = `${i.asset_id || ''} ${i.brand || ''} ${i.model || ''} ${i.employee_name || ''} ${i.seat || i.assigned_seat || ''} ${i.ip_address || ''}`.toLowerCase();
-      return str.includes(query);
-    });
-  }
-
-  grid.innerHTML = '';
-
-  if (itemsToRender.length === 0) {
-    grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">No equipment matches the selected sticker filters.</div>';
-    return;
-  }
-
-  itemsToRender.forEach((item, index) => {
-    const aid = item.asset_id;
-    const card = document.createElement('div');
-    card.className = 'qr-sticker-card';
-    card.id = `sticker-${aid}`;
-
-    const seat = item.seat || item.assigned_seat || 'N/A';
-    const emp = item.employee_name || 'Unassigned';
-    const sec = item.office_section || item.section || 'PGP OFFICE';
-    const spec = item.processor || item.specifications || item.details || item.toner_cartridge || '';
-
-    card.innerHTML = `
-      <div class="qr-sticker-header">
-        <div class="qr-panchayath-name">Puthuppadi Grama Panchayath</div>
-        <div class="qr-sub-header">IT Asset ID</div>
-      </div>
-      <div class="qr-sticker-body-clean">
-        <div class="qr-code-box-large" id="qr-box-${index}"></div>
-        <div class="qr-asset-id-large">${aid}</div>
-      </div>
-      <div class="qr-sticker-footer">
-        <button class="btn btn-sm btn-outline" style="padding: 4px 10px; font-size: 11px;" onclick="printSingleSticker('${aid}')"><i class="fa-solid fa-print"></i> Print</button>
-        <button class="btn btn-sm btn-primary" style="padding: 4px 10px; font-size: 11px;" onclick="openAssetPassport('${aid}')"><i class="fa-solid fa-circle-info"></i> Details</button>
-      </div>
-    `;
-
-    grid.appendChild(card);
-
-    // Generate QR Code containing ONLY the Asset ID
-    setTimeout(() => {
-      const qrEl = document.getElementById(`qr-box-${index}`);
-      if (qrEl && typeof QRCode !== 'undefined') {
-        new QRCode(qrEl, {
-          text: aid,
-          width: 130,
-          height: 130,
-          colorDark: "#000000",
-          colorLight: "#ffffff",
-          correctLevel: QRCode.CorrectLevel.M
-        });
-      }
-    }, 40);
-  });
-}
-
-// 28. Print Stickers
-function printAllStickers() {
-  document.body.classList.add('printing-stickers');
-  window.print();
-  setTimeout(() => {
-    document.body.classList.remove('printing-stickers');
-  }, 1000);
-}
-
-function printSingleSticker(assetId) {
-  switchView('qr_stickers');
-  const searchInput = document.getElementById('qr-filter-search');
-  if (searchInput) {
-    searchInput.value = assetId;
-    renderQrStickers();
-    setTimeout(() => {
-      printAllStickers();
-    }, 250);
-  }
 }
 
 // 29. Log Complaint Pre-Filled from Asset Passport
