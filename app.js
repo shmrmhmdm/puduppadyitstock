@@ -2846,14 +2846,6 @@ function renderQrStickers(forceDuplicateSingle = false) {
     });
   }
 
-  // If printing a single asset or only 1 item matched, render 2 copies aligned side-by-side
-  if (itemsToRender.length === 1 && (forceDuplicateSingle || query)) {
-    itemsToRender = [
-      { ...itemsToRender[0], _duplicateKey: 1 },
-      { ...itemsToRender[0], _duplicateKey: 2 }
-    ];
-  }
-
   grid.innerHTML = '';
 
   if (itemsToRender.length === 0) {
