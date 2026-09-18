@@ -256,6 +256,9 @@ function switchView(viewName) {
   if (viewName === 'handover') {
     populateHandoverSelect();
   }
+  if (viewName === 'qr_stickers') {
+    renderQrStickers();
+  }
 }
 
 // 4. Render All Modules
@@ -272,6 +275,7 @@ function renderAll() {
   renderPurchasesAndGenerator();
   renderIpMap();
   populateHandoverSelect();
+  renderQrStickers();
   checkUrlForAsset();
 }
 
@@ -1555,7 +1559,216 @@ function populateHandoverSheet(pcAssetId) {
   document.getElementById('cert-sig-emp').innerText = `${pc.employee_name || 'Staff Member'} (${pc.seat || ''})`;
 }
 
-// 16. Dynamic Modal Builder for Stock CRUD
+// 16. QR Asset Stickers Generator & Printing
+function getAllHardwareItems() {
+  const all = [];
+  (appData.pcs || []).forEach(x => all.push({ ...x, categoryKey: 'pcs', categoryLabel: 'PC / Server' }));
+  (appData.monitors || []).forEach(x => all.push({ ...x, categoryKey: 'monitors', categoryLabel: 'Monitor' }));
+  (appData.printers || []).forEach(x => all.push({ ...x, categoryKey: 'printers', categoryLabel: 'Printer / Scanner' }));
+  (appData.peripherals || []).forEach(x => all.push({ ...x, categoryKey: 'peripherals', categoryLabel: 'Keyboard / Mouse' }));
+  (appData.other_equipments || []).forEach(x => all.push({ ...x, categoryKey: 'other_equipments', categoryLabel: 'Power & Network' }));
+  return all;
+}
+
+function renderQrStickers() {
+  const container = document.getElementById('qr-stickers-grid');
+  if (!container) return;
+
+  const filterCat = document.getElementById('qr-filter-cat')?.value || 'all';
+  const filterSection = document.getElementById('qr-filter-section')?.value || 'all';
+  const filterSearch = (document.getElementById('qr-filter-search')?.value || '').toLowerCase().trim();
+
+  let items = getAllHardwareItems();
+
+  if (filterCat !== 'all') {
+    items = items.filter(i => i.categoryKey === filterCat);
+  }
+
+  if (filterSection !== 'all') {
+    items = items.filter(i => (i.office_section || i.office || '').toUpperCase().includes(filterSection.toUpperCase()));
+  }
+
+  if (filterSearch) {
+    items = items.filter(i => {
+      const text = `${i.asset_id || ''} ${i.seat || ''} ${i.employee_name || ''} ${i.brand || ''} ${i.model || ''} ${i.serial_number || ''}`.toLowerCase();
+      return text.includes(filterSearch);
+    });
+  }
+
+  if (items.length === 0) {
+    container.innerHTML = `
+      <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">
+        <i class="fa-solid fa-qrcode" style="font-size: 32px; margin-bottom: 12px; opacity: 0.5;"></i>
+        <p>No asset stickers found matching current filters.</p>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = '';
+
+  items.forEach((item, idx) => {
+    const safeId = (item.asset_id || `item_${idx}`).replace(/[^a-zA-Z0-9_-]/g, '_');
+    const card = document.createElement('div');
+    card.className = 'qr-sticker-card';
+    card.id = `sticker-${safeId}`;
+    card.innerHTML = `
+      <div class="qr-sticker-header">
+        <span class="qr-panchayath-name">PUDUPPADY GP</span>
+      </div>
+      <div class="qr-sticker-body">
+        <div class="qr-code-box" id="qr-target-${safeId}"></div>
+      </div>
+      <div class="qr-asset-id">${item.asset_id}</div>
+      <div class="qr-sticker-footer no-print">
+        <button class="btn btn-xs btn-outline" onclick="printSingleSticker('${item.asset_id}')" title="Print Sticker">
+          <i class="fa-solid fa-print"></i> Print
+        </button>
+        <button class="btn btn-xs btn-secondary" onclick="openAssetPassport('${item.asset_id}')" title="View Details">
+          <i class="fa-solid fa-eye"></i> Details
+        </button>
+      </div>
+    `;
+    container.appendChild(card);
+
+    setTimeout(() => {
+      const qrEl = document.getElementById(`qr-target-${safeId}`);
+      if (qrEl) {
+        qrEl.innerHTML = '';
+        if (typeof QRCode !== 'undefined') {
+          new QRCode(qrEl, {
+            text: String(item.asset_id).trim(),
+            width: 120,
+            height: 120,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.M
+          });
+        }
+      }
+    }, 20);
+  });
+}
+
+function printAllStickers() {
+  document.body.classList.add('printing-stickers');
+  window.print();
+  setTimeout(() => {
+    document.body.classList.remove('printing-stickers');
+  }, 1000);
+}
+
+function printSingleSticker(assetId) {
+  const item = getAllHardwareItems().find(x => x.asset_id === assetId);
+  if (!item) {
+    showToast('Asset not found: ' + assetId, 'error');
+    return;
+  }
+
+  const printWindow = window.open('', '_blank', 'width=450,height=520');
+  if (!printWindow) {
+    showToast('Please allow popups to print individual sticker', 'warning');
+    return;
+  }
+
+  const stickerHtml = [
+    '<!DOCTYPE html>',
+    '<html lang="en">',
+    '<head>',
+    '  <meta charset="UTF-8">',
+    '  <title>QR Sticker - ' + item.asset_id + '</title>',
+    '  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=JetBrains+Mono:wght@700;800&display=swap" rel="stylesheet">',
+    '  <style>',
+    '    @page { size: auto; margin: 4mm; }',
+    '    * { box-sizing: border-box; margin: 0; padding: 0; }',
+    '    body {',
+    '      font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;',
+    '      background: #ffffff;',
+    '      display: flex;',
+    '      align-items: center;',
+    '      justify-content: center;',
+    '      min-height: 100vh;',
+    '      padding: 10px;',
+    '    }',
+    '    .sticker-card {',
+    '      width: 220px;',
+    '      border: 2px solid #000000;',
+    '      border-radius: 8px;',
+    '      padding: 12px 10px;',
+    '      text-align: center;',
+    '      background: #ffffff;',
+    '      display: flex;',
+    '      flex-direction: column;',
+    '      align-items: center;',
+    '      justify-content: center;',
+    '    }',
+    '    .sticker-header {',
+    '      font-size: 14px;',
+    '      font-weight: 800;',
+    '      letter-spacing: 0.5px;',
+    '      text-transform: uppercase;',
+    '      color: #000000;',
+    '      border-bottom: 2px solid #000000;',
+    '      padding-bottom: 6px;',
+    '      margin-bottom: 8px;',
+    '      width: 100%;',
+    '    }',
+    '    .qr-box {',
+    '      width: 140px;',
+    '      height: 140px;',
+    '      margin: 4px auto;',
+    '      display: flex;',
+    '      align-items: center;',
+    '      justify-content: center;',
+    '    }',
+    '    .qr-box img, .qr-box canvas {',
+    '      width: 100% !important;',
+    '      height: 100% !important;',
+    '      display: block;',
+    '    }',
+    '    .sticker-id {',
+    '      font-family: "JetBrains Mono", monospace;',
+    '      font-size: 15px;',
+    '      font-weight: 800;',
+    '      letter-spacing: 0.5px;',
+    '      color: #000000;',
+    '      border-top: 2px solid #000000;',
+    '      padding-top: 6px;',
+    '      margin-top: 8px;',
+    '      width: 100%;',
+    '    }',
+    '  </style>',
+    '  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"><\/script>',
+    '</head>',
+    '<body>',
+    '  <div class="sticker-card">',
+    '    <div class="sticker-header">PUDUPPADY GP</div>',
+    '    <div class="qr-box" id="qr-single-target"></div>',
+    '    <div class="sticker-id">' + item.asset_id + '</div>',
+    '  </div>',
+    '  <script>',
+    '    new QRCode(document.getElementById("qr-single-target"), {',
+    '      text: ' + JSON.stringify(item.asset_id) + ',',
+    '      width: 140,',
+    '      height: 140,',
+    '      colorDark: "#000000",',
+    '      colorLight: "#ffffff",',
+    '      correctLevel: QRCode.CorrectLevel.M',
+    '    });',
+    '    setTimeout(function() {',
+    '      window.print();',
+    '      window.close();',
+    '    }, 400);',
+    '  <\/script>',
+    '</body>',
+    '</html>'
+  ].join('\n');
+
+  printWindow.document.write(stickerHtml);
+  printWindow.document.close();
+}
+
+// 17. Dynamic Modal Builder for Stock CRUD
 function openAddModal(category = 'pcs') {
   editMode = false;
   currentCategory = category;
@@ -2799,6 +3012,7 @@ function openAssetPassport(assetId) {
   // Footer Actions
   const footer = document.getElementById('passport-footer-actions');
   footer.innerHTML = `
+    <button class="btn btn-outline" onclick="printSingleSticker('${item.asset_id}')"><i class="fa-solid fa-print"></i> Print QR Sticker</button>
     <button class="btn btn-secondary" onclick="logComplaintFromPassport('${item.asset_id}')"><i class="fa-solid fa-triangle-exclamation" style="color: var(--warning);"></i> Report Complaint / Ticket</button>
     <button class="btn btn-primary" onclick="openEditModal('${category}', '${item.asset_id}')"><i class="fa-solid fa-pen"></i> Edit Hardware</button>
   `;

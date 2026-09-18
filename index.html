@@ -67,6 +67,9 @@
         <button class="nav-item" data-view="handover">
           <i class="fa-solid fa-file-signature"></i> <span>Asset Handover (RT)</span>
         </button>
+        <button class="nav-item" data-view="qr_stickers">
+          <i class="fa-solid fa-qrcode"></i> <span>QR Asset Stickers</span>
+        </button>
         <button class="nav-item" data-view="ip_map">
           <i class="fa-solid fa-network-wired"></i> <span>IP Address Map</span>
         </button>
@@ -841,7 +844,54 @@
           </div>
         </section>
 
-        <!-- 13. GOOGLE SHEET SYNC SETTINGS -->
+        <!-- 13. QR ASSET STICKERS (LABEL PRINTING) -->
+        <section id="view-qr_stickers" class="view-panel">
+          <div class="view-header">
+            <div>
+              <h1 class="view-title">QR Asset Stickers (ഒട്ടിക്കാനുള്ള QR കോഡുകൾ)</h1>
+              <p class="view-subtitle">Printable equipment label stickers with Panchayath header, QR code, and Asset ID</p>
+            </div>
+            <div class="header-controls">
+              <button class="btn btn-primary" onclick="printAllStickers()"><i class="fa-solid fa-print"></i> Print Labels (A4 Sheet)</button>
+            </div>
+          </div>
+
+          <!-- Filters -->
+          <div class="filter-bar">
+            <div class="filter-group">
+              <label>Equipment Type:</label>
+              <select id="qr-filter-cat" onchange="renderQrStickers()">
+                <option value="all">All IT Equipment</option>
+                <option value="pcs" selected>Computers & Servers</option>
+                <option value="monitors">Monitors</option>
+                <option value="printers">Printers & Scanners</option>
+                <option value="peripherals">Keyboards & Mice</option>
+                <option value="other_equipments">Power & Network (UPS/Modem)</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label>Office Section:</label>
+              <select id="qr-filter-section" onchange="renderQrStickers()">
+                <option value="all">All Sections</option>
+                <option value="PGP OFFICE">PGP Main Office</option>
+                <option value="FRONT OFFICE">Front Office</option>
+                <option value="AE OFFICE">AE Office</option>
+                <option value="NREGS OFFICE">NREGS Office</option>
+                <option value="AYURVEDA">Ayurveda</option>
+              </select>
+            </div>
+            <div class="filter-group flex-1">
+              <input type="text" id="qr-filter-search" placeholder="Search Asset ID, Seat, Employee, Brand..." oninput="renderQrStickers()">
+            </div>
+          </div>
+
+          <!-- Stickers Grid -->
+          <div id="qr-stickers-grid" class="qr-stickers-grid">
+            <!-- Rendered dynamically by app.js -->
+          </div>
+        </section>
+
+        <!-- 14. GOOGLE SHEET SYNC SETTINGS -->
         <section id="view-sync_settings" class="view-panel">
           <div class="view-header">
             <div>
@@ -1321,6 +1371,9 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
   <!-- MODAL: IP ADDRESS ALLOCATION DETAIL -->
   <div class="modal-overlay" id="ip-detail-modal">
     <div class="modal-card" style="max-width: 540px;">

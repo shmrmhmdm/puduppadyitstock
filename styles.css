@@ -1200,6 +1200,102 @@ body {
 .toast.info .toast-icon { color: #3b82f6; }
 .toast.warning .toast-icon { color: #f59e0b; }
 
+/* QR Code Stickers Styling */
+.qr-stickers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.qr-sticker-card {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  transition: var(--transition);
+}
+
+.qr-sticker-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary);
+}
+
+.qr-sticker-header {
+  text-align: center;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.qr-panchayath-name {
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--primary);
+  line-height: 1.2;
+}
+
+.qr-sticker-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.qr-code-box {
+  width: 130px;
+  height: 130px;
+  background: #ffffff;
+  padding: 5px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 4px 0;
+}
+
+.qr-code-box img, .qr-code-box canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.qr-asset-id {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text-primary);
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  padding: 4px 10px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  margin: 8px 0 6px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.qr-sticker-footer {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--border-color);
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+}
+
 /* Asset Passport Modal Styling */
 .passport-header-title {
   display: flex;
@@ -1453,6 +1549,115 @@ body {
   #view-handover.active {
     display: block !important;
     width: 100% !important;
+  }
+
+  /* Print QR Stickers */
+  body.printing-stickers #view-qr_stickers,
+  #view-qr_stickers.active {
+    display: block !important;
+    width: 100% !important;
+    overflow: visible !important;
+  }
+
+  body.printing-stickers .filter-bar,
+  #view-qr_stickers.active .filter-bar,
+  .no-print {
+    display: none !important;
+  }
+
+  .qr-stickers-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 6mm 8mm !important;
+    width: 100% !important;
+    max-width: 190mm !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
+  }
+
+  .qr-sticker-card {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    border: 2px solid #000000 !important;
+    border-radius: 6px !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    padding: 10px 8px !important;
+    margin: 0 auto !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: none !important;
+  }
+
+  .qr-sticker-header {
+    border-bottom: 2px solid #000000 !important;
+    padding-bottom: 4px !important;
+    margin-bottom: 6px !important;
+    width: 100% !important;
+    text-align: center !important;
+  }
+
+  .qr-panchayath-name {
+    color: #000000 !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    display: block !important;
+    line-height: 1.2 !important;
+  }
+
+  .qr-sticker-body {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+  }
+
+  .qr-code-box {
+    border: none !important;
+    width: 120px !important;
+    height: 120px !important;
+    margin: 2px auto !important;
+    background: #ffffff !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .qr-code-box img,
+  .qr-code-box canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+  }
+
+  .qr-asset-id {
+    color: #000000 !important;
+    border-top: 2px solid #000000 !important;
+    background: #ffffff !important;
+    font-size: 13.5px !important;
+    font-weight: 800 !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    margin: 6px 0 0 !important;
+    padding: 4px 0 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    text-align: center !important;
+    letter-spacing: 0.5px !important;
+  }
+
+  .qr-sticker-footer {
+    display: none !important;
   }
 
   .handover-certificate-card {
