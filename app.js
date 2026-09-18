@@ -3386,20 +3386,11 @@ function openAssetPassport(assetId) {
   // Footer Action Buttons
   const footer = document.getElementById('passport-footer-actions');
   footer.innerHTML = `
-    <button class="btn btn-outline" onclick="printAssetPassportSheet('${item.asset_id}')" title="Print Official A4 Asset Passport Record">
-      <i class="fa-solid fa-file-pdf"></i> Print Asset Sheet (A4)
-    </button>
-    <button class="btn btn-outline" onclick="printSingleSticker('${item.asset_id}')" title="Print Barcode QR Sticker">
-      <i class="fa-solid fa-print"></i> Print QR Sticker
-    </button>
     <button class="btn btn-secondary" onclick="logComplaintFromPassport('${item.asset_id}')" title="Report breakdown ticket">
-      <i class="fa-solid fa-triangle-exclamation" style="color: var(--warning);"></i> Report Complaint
+      <i class="fa-solid fa-triangle-exclamation" style="color: var(--warning);"></i> Report Complaint / കംപ്ലയിന്റ് നൽകുക
     </button>
-    <button class="btn btn-outline" onclick="copyToClipboard('${assetUrl}', 'Asset Passport Link Copied!')" title="Copy shareable link">
-      <i class="fa-solid fa-share-nodes"></i> Share Link
-    </button>
-    <button class="btn btn-primary" onclick="openEditModal('${category}', '${item.asset_id}')" title="Edit Hardware Record">
-      <i class="fa-solid fa-pen"></i> Edit Hardware
+    <button class="btn btn-primary" onclick="closeModal('asset-passport-modal')">
+      <i class="fa-solid fa-xmark"></i> Close / ക്ലോസ് ചെയ്യുക
     </button>
   `;
 
