@@ -1352,22 +1352,30 @@
   <div class="modal-overlay" id="qr-scanner-modal">
     <div class="modal-card">
       <div class="modal-header">
-        <h3><i class="fa-solid fa-camera"></i> Scan Equipment QR Code</h3>
+        <div>
+          <h3><i class="fa-solid fa-qrcode"></i> Scan QR Code / ക്യൂആർ സ്കാനർ</h3>
+          <span class="text-muted" style="font-size: 11px;">ക്യാമറ ഉപയോഗിച്ച് ഉപകരണത്തിലെ QR കോഡ് സ്കാൻ ചെയ്യുക</span>
+        </div>
         <button class="icon-btn" onclick="closeQrScannerModal()"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="modal-body">
         <div class="scanner-container">
           <div id="qr-camera-stream"></div>
-          <div class="scanner-guide-text">
-            <i class="fa-solid fa-qrcode"></i> Point your camera at the QR code sticker on the CPU, Monitor, or Printer.
+          <div class="scanner-viewfinder-overlay">
+            <div class="scanner-target-box">
+              <div class="scanner-laser-line"></div>
+            </div>
           </div>
+        </div>
+        <div class="scanner-guide-text">
+          <i class="fa-solid fa-camera" style="color: var(--primary);"></i> ക്യാമറ CPU, മോണിറ്റർ, പ്രിന്റർ എന്നിവയിലുള്ള സ്റ്റിക്കറിന് നേരെ കാണിക്കുക.
         </div>
 
         <div class="scanner-manual-box">
-          <span class="text-muted" style="font-size: 12px; font-weight: 600;">Or enter Asset ID manually:</span>
-          <div style="display: flex; gap: 8px; margin-top: 6px;">
-            <input type="text" id="manual-scan-input" placeholder="e.g. PGP-SYS-PC001" style="flex: 1; text-transform: uppercase;">
-            <button class="btn btn-primary" onclick="handleManualScanLookup()"><i class="fa-solid fa-arrow-right"></i> Open</button>
+          <span class="text-muted" style="font-size: 12px; font-weight: 600;">അല്ലെങ്കിൽ Asset ID നേരിട്ട് നൽകുക (Manual Search):</span>
+          <div style="display: flex; gap: 8px; margin-top: 8px;">
+            <input type="text" id="manual-scan-input" placeholder="e.g. PGP-SYS-PC001" style="flex: 1; text-transform: uppercase;" onkeydown="if(event.key==='Enter') handleManualScanLookup()">
+            <button class="btn btn-primary" onclick="handleManualScanLookup()"><i class="fa-solid fa-magnifying-glass"></i> കണ്ടെത്തുക</button>
           </div>
         </div>
       </div>

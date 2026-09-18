@@ -1612,19 +1612,24 @@ function renderQrStickers() {
     const card = document.createElement('div');
     card.className = 'qr-sticker-card';
     card.id = `sticker-${safeId}`;
+    
+    const assignedUser = item.employee_name ? `${item.employee_name} (${item.seat || item.assigned_seat || ''})` : (item.seat || item.assigned_seat || 'PGP GP');
+    const qrUrl = getAssetPassportUrl(item.asset_id);
+
     card.innerHTML = `
       <div class="qr-sticker-header">
         <span class="qr-panchayath-name">PUDUPPADY GP</span>
       </div>
       <div class="qr-sticker-body">
-        <div class="qr-code-box" id="qr-target-${safeId}"></div>
+        <div class="qr-code-box" id="qr-target-${safeId}" title="Scan to view complete stock details"></div>
       </div>
       <div class="qr-asset-id">${item.asset_id}</div>
+      <div class="qr-sticker-meta">${item.brand || ''} ${item.model || ''} • ${assignedUser}</div>
       <div class="qr-sticker-footer no-print">
         <button class="btn btn-xs btn-outline" onclick="printSingleSticker('${item.asset_id}')" title="Print Sticker">
           <i class="fa-solid fa-print"></i> Print
         </button>
-        <button class="btn btn-xs btn-secondary" onclick="openAssetPassport('${item.asset_id}')" title="View Details">
+        <button class="btn btn-xs btn-secondary" onclick="openAssetPassport('${item.asset_id}')" title="View Full Details">
           <i class="fa-solid fa-eye"></i> Details
         </button>
       </div>
@@ -1637,9 +1642,9 @@ function renderQrStickers() {
         qrEl.innerHTML = '';
         if (typeof QRCode !== 'undefined') {
           new QRCode(qrEl, {
-            text: String(item.asset_id).trim(),
-            width: 95,
-            height: 95,
+            text: qrUrl,
+            width: 100,
+            height: 100,
             colorDark: "#000000",
             colorLight: "#ffffff",
             correctLevel: QRCode.CorrectLevel.M
@@ -1671,6 +1676,10 @@ function printSingleSticker(assetId) {
     return;
   }
 
+  const qrUrl = getAssetPassportUrl(item.asset_id);
+  const seatInfo = item.seat || item.assigned_seat || 'OFFICE';
+  const staffInfo = item.employee_name ? `${item.employee_name} (${seatInfo})` : seatInfo;
+
   const stickerHtml = [
     '<!DOCTYPE html>',
     '<html lang="en">',
@@ -1691,8 +1700,8 @@ function printSingleSticker(assetId) {
     '      padding: 10px;',
     '    }',
     '    .sticker-card {',
-    '      width: 220px;',
-    '      border: 2px solid #000000;',
+    '      width: 230px;',
+    '      border: 2.5px solid #000000;',
     '      border-radius: 8px;',
     '      padding: 12px 10px;',
     '      text-align: center;',
@@ -1709,9 +1718,15 @@ function printSingleSticker(assetId) {
     '      text-transform: uppercase;',
     '      color: #000000;',
     '      border-bottom: 2px solid #000000;',
-    '      padding-bottom: 6px;',
-    '      margin-bottom: 8px;',
+    '      padding-bottom: 5px;',
+    '      margin-bottom: 6px;',
     '      width: 100%;',
+    '    }',
+    '    .sticker-sub {',
+    '      font-size: 10.5px;',
+    '      font-weight: 700;',
+    '      color: #333333;',
+    '      margin-bottom: 6px;',
     '    }',
     '    .qr-box {',
     '      width: 140px;',
@@ -1733,22 +1748,30 @@ function printSingleSticker(assetId) {
     '      letter-spacing: 0.5px;',
     '      color: #000000;',
     '      border-top: 2px solid #000000;',
-    '      padding-top: 6px;',
-    '      margin-top: 8px;',
+    '      padding-top: 5px;',
+    '      margin-top: 6px;',
     '      width: 100%;',
+    '    }',
+    '    .sticker-staff {',
+    '      font-size: 10.5px;',
+    '      font-weight: 700;',
+    '      color: #444444;',
+    '      margin-top: 3px;',
     '    }',
     '  </style>',
     '  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"><\/script>',
     '</head>',
     '<body>',
     '  <div class="sticker-card">',
-    '    <div class="sticker-header">PUDUPPADY GP</div>',
+    '    <div class="sticker-header">PUTHUPPADI GP</div>',
+    '    <div class="sticker-sub">IT ASSET MANAGEMENT</div>',
     '    <div class="qr-box" id="qr-single-target"></div>',
     '    <div class="sticker-id">' + item.asset_id + '</div>',
+    '    <div class="sticker-staff">' + staffInfo + '</div>',
     '  </div>',
     '  <script>',
     '    new QRCode(document.getElementById("qr-single-target"), {',
-    '      text: ' + JSON.stringify(item.asset_id) + ',',
+    '      text: ' + JSON.stringify(qrUrl) + ',',
     '      width: 140,',
     '      height: 140,',
     '      colorDark: "#000000",',
@@ -1763,6 +1786,10 @@ function printSingleSticker(assetId) {
     '</body>',
     '</html>'
   ].join('\n');
+
+  printWindow.document.write(stickerHtml);
+  printWindow.document.close();
+}
 
   printWindow.document.write(stickerHtml);
   printWindow.document.close();
@@ -2816,25 +2843,151 @@ function showToast(message, type = 'success') {
 let html5QrScannerInstance = null;
 let hasCheckedUrlAsset = false;
 
-// Helper: Find item by Asset ID across all categories
+// Web Audio API feedback for QR Scan
+function playScanSuccessSound() {
+  try {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+    const ctx = new AudioContext();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(880, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(1760, ctx.currentTime + 0.12);
+    
+    gain.gain.setValueAtTime(0.3, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
+    
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.15);
+  } catch (e) {
+    // AudioContext not allowed before user interaction
+  }
+}
+
+// Clipboard copy helper
+function copyToClipboard(text, msg = 'Copied to clipboard!') {
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(() => {
+      showToast(msg, 'success');
+    }).catch(() => fallbackCopy(text, msg));
+  } else {
+    fallbackCopy(text, msg);
+  }
+}
+
+function fallbackCopy(text, msg) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try {
+    document.execCommand('copy');
+    showToast(msg, 'success');
+  } catch (e) {
+    showToast('Failed to copy', 'error');
+  }
+  document.body.removeChild(ta);
+}
+
+// Helper: Find item by Asset ID across all categories + find connected ecosystem devices
 function findItemByAssetId(assetId) {
   if (!assetId) return null;
   const aid = String(assetId).trim().toUpperCase();
   
   let found = appData.pcs.find(p => String(p.asset_id).toUpperCase() === aid);
-  if (found) return { item: found, category: 'pcs', typeLabel: 'Computer / Server', icon: 'fa-desktop' };
+  if (found) {
+    const seat = found.seat || '';
+    // Find connected monitors, peripherals, printers, power
+    const connectedMonitors = (appData.monitors || []).filter(m => 
+      String(m.connected_pc_id || '').toUpperCase() === aid || (seat && String(m.assigned_seat || '').toUpperCase() === seat.toUpperCase())
+    );
+    const connectedPeripherals = (appData.peripherals || []).filter(k => 
+      String(k.connected_pc_id || '').toUpperCase() === aid || (seat && String(k.assigned_seat || '').toUpperCase() === seat.toUpperCase())
+    );
+    const connectedPrinters = (appData.printers || []).filter(p => 
+      String(p.connected_pc_id || '').toUpperCase() === aid || (seat && String(p.assigned_seat || '').toUpperCase() === seat.toUpperCase())
+    );
+    const connectedEquipments = (appData.other_equipments || []).filter(o => 
+      seat && String(o.assigned_seat || o.seat || '').toUpperCase() === seat.toUpperCase()
+    );
+
+    return { 
+      item: found, 
+      category: 'pcs', 
+      typeLabel: 'Computer / Server', 
+      typeLabelMl: 'കംപ്യൂട്ടർ സിസ്റ്റം (Desktop / Server)',
+      icon: 'fa-desktop',
+      connectedMonitors,
+      connectedPeripherals,
+      connectedPrinters,
+      connectedEquipments
+    };
+  }
 
   found = appData.monitors.find(m => String(m.asset_id).toUpperCase() === aid);
-  if (found) return { item: found, category: 'monitors', typeLabel: 'Monitor / Display', icon: 'fa-display' };
+  if (found) {
+    const parentPc = (appData.pcs || []).find(p => 
+      String(p.asset_id).toUpperCase() === String(found.connected_pc_id || '').toUpperCase() ||
+      (found.assigned_seat && String(p.seat || '').toUpperCase() === String(found.assigned_seat).toUpperCase())
+    );
+    return { 
+      item: found, 
+      category: 'monitors', 
+      typeLabel: 'Monitor / Display', 
+      typeLabelMl: 'മോണിറ്റർ ഡിസ്‌പ്ലേ (LED Monitor)',
+      icon: 'fa-display',
+      parentPc
+    };
+  }
 
   found = appData.peripherals.find(k => String(k.asset_id).toUpperCase() === aid);
-  if (found) return { item: found, category: 'peripherals', typeLabel: 'Keyboard / Mouse', icon: 'fa-keyboard' };
+  if (found) {
+    const parentPc = (appData.pcs || []).find(p => 
+      String(p.asset_id).toUpperCase() === String(found.connected_pc_id || '').toUpperCase() ||
+      (found.assigned_seat && String(p.seat || '').toUpperCase() === String(found.assigned_seat).toUpperCase())
+    );
+    return { 
+      item: found, 
+      category: 'peripherals', 
+      typeLabel: 'Keyboard / Mouse', 
+      typeLabelMl: 'കീബോർഡ് & മൗസ് (Peripherals)',
+      icon: 'fa-keyboard',
+      parentPc
+    };
+  }
 
   found = appData.printers.find(p => String(p.asset_id).toUpperCase() === aid);
-  if (found) return { item: found, category: 'printers', typeLabel: 'Printer / Scanner', icon: 'fa-print' };
+  if (found) {
+    const parentPc = (appData.pcs || []).find(p => 
+      String(p.asset_id).toUpperCase() === String(found.connected_pc_id || '').toUpperCase() ||
+      (found.assigned_seat && String(p.seat || '').toUpperCase() === String(found.assigned_seat).toUpperCase())
+    );
+    return { 
+      item: found, 
+      category: 'printers', 
+      typeLabel: 'Printer / Scanner', 
+      typeLabelMl: 'പ്രിന്റർ / സ്കാനർ (Printer)',
+      icon: 'fa-print',
+      parentPc
+    };
+  }
 
   found = appData.other_equipments.find(o => String(o.asset_id).toUpperCase() === aid);
-  if (found) return { item: found, category: 'other_equipments', typeLabel: 'Power & Network Device', icon: 'fa-plug-circle-bolt' };
+  if (found) {
+    return { 
+      item: found, 
+      category: 'other_equipments', 
+      typeLabel: 'Power & Network Device', 
+      typeLabelMl: 'പവർ & നെറ്റ്വർക്ക് ഉപകരണം (Network / UPS)',
+      icon: 'fa-plug-circle-bolt'
+    };
+  }
 
   return null;
 }
@@ -2853,94 +3006,273 @@ function openAssetPassport(assetId) {
     return;
   }
 
-  const { item, category, typeLabel, icon } = result;
+  const { item, category, typeLabel, typeLabelMl, icon, connectedMonitors, connectedPeripherals, connectedPrinters, connectedEquipments, parentPc } = result;
+  
   const modalTitle = document.getElementById('passport-asset-title');
-  if (modalTitle) modalTitle.innerText = `${item.asset_id} - ${item.brand || ''} ${item.model || ''}`;
+  if (modalTitle) modalTitle.innerText = `${item.asset_id} • ${item.brand || ''} ${item.model || ''}`;
 
   const isWorking = (item.is_working !== false && item.is_complaint !== true && item.status !== 'Complaint');
   const statusBadge = isWorking 
-    ? '<span class="status-tag working"><i class="fa-solid fa-check"></i> Operational / Working</span>'
-    : '<span class="status-tag complaint"><i class="fa-solid fa-triangle-exclamation"></i> Complaint / Fault Reported</span>';
+    ? '<span class="status-tag working"><i class="fa-solid fa-circle-check"></i> വർക്കിംഗ് (Operational)</span>'
+    : '<span class="status-tag complaint"><i class="fa-solid fa-triangle-exclamation"></i> കംപ്ലയിന്റ് (Fault Reported)</span>';
+
+  const amcBadge = (item.amc_type && item.amc_type !== 'NA' && item.amc_type !== 'None')
+    ? `<span class="passport-cat-badge" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border-color: rgba(16, 185, 129, 0.4);"><i class="fa-solid fa-shield-halved"></i> ${item.amc_type} (${item.amc_agency || 'Keltron'})</span>`
+    : `<span class="passport-cat-badge" style="background: rgba(100, 116, 139, 0.15); color: var(--text-muted); border-color: var(--border-color);"><i class="fa-solid fa-shield-slash"></i> Non-AMC / Expired</span>`;
 
   const assignedUser = item.employee_name || 'Unassigned';
   const assignedSeat = item.seat || item.assigned_seat || 'N/A';
-  const officeSec = item.office_section || item.section || 'PGP OFFICE';
+  const officeSec = item.office_section || item.section || 'PUTHUPPADI GP OFFICE';
+  const assetUrl = getAssetPassportUrl(item.asset_id);
 
-  // Build specifications list depending on equipment type
+  // Specifications Building
   let specTilesHtml = '';
   if (category === 'pcs') {
     specTilesHtml = `
       <div class="passport-tile">
-        <span class="tile-label"><i class="fa-solid fa-microchip"></i> Processor</span>
+        <span class="tile-label"><i class="fa-solid fa-microchip"></i> Processor (പ്രൊസസ്സർ)</span>
         <span class="tile-val">${item.processor || 'N/A'}</span>
       </div>
       <div class="passport-tile">
-        <span class="tile-label"><i class="fa-solid fa-memory"></i> RAM Memory</span>
+        <span class="tile-label"><i class="fa-solid fa-memory"></i> RAM Memory (റാം)</span>
         <span class="tile-val">${item.ram || 'N/A'}</span>
       </div>
       <div class="passport-tile">
-        <span class="tile-label"><i class="fa-solid fa-hard-drive"></i> Storage</span>
+        <span class="tile-label"><i class="fa-solid fa-hard-drive"></i> Storage Drive (സ്റ്റോറേജ്)</span>
         <span class="tile-val">${item.storage || 'N/A'}</span>
       </div>
       <div class="passport-tile">
-        <span class="tile-label"><i class="fa-brands fa-windows"></i> Operating System</span>
+        <span class="tile-label"><i class="fa-brands fa-windows"></i> Operating System (ഒ.എസ്)</span>
         <span class="tile-val">${item.os || 'N/A'}</span>
       </div>
       <div class="passport-tile">
-        <span class="tile-label"><i class="fa-solid fa-network-wired"></i> Static IP Address</span>
-        <span class="tile-val font-mono" style="color: var(--info);">${item.ip_address || 'DHCP / None'}</span>
+        <span class="tile-label"><i class="fa-solid fa-network-wired"></i> Static IP (ഐ.പി വിലാസം)</span>
+        <span class="tile-val font-mono" style="color: var(--info); display: flex; align-items: center; justify-content: space-between;">
+          <span>${item.ip_address || 'DHCP / None'}</span>
+          ${item.ip_address && item.ip_address !== 'NA' ? `<button class="copy-aid-btn" onclick="copyToClipboard('${item.ip_address}', 'IP Address Copied!')" title="Copy IP"><i class="fa-solid fa-copy"></i></button>` : ''}
+        </span>
+      </div>
+      <div class="passport-tile">
+        <span class="tile-label"><i class="fa-solid fa-barcode"></i> Serial Number (സീരിയൽ നമ്പർ)</span>
+        <span class="tile-val font-mono" style="display: flex; align-items: center; justify-content: space-between;">
+          <span>${item.serial_number || 'N/A'}</span>
+          ${item.serial_number && item.serial_number !== 'NA' ? `<button class="copy-aid-btn" onclick="copyToClipboard('${item.serial_number}', 'Serial Number Copied!')" title="Copy Serial"><i class="fa-solid fa-copy"></i></button>` : ''}
+        </span>
+      </div>
+      <div class="passport-tile">
+        <span class="tile-label"><i class="fa-solid fa-laptop-code"></i> Chassis / Type (വിഭാഗം)</span>
+        <span class="tile-val">${item.category || 'Desktop Workstation'}</span>
+      </div>
+      <div class="passport-tile">
+        <span class="tile-label"><i class="fa-solid fa-industry"></i> Make & Model (മോഡൽ)</span>
+        <span class="tile-val">${item.brand || ''} ${item.model || ''}</span>
+      </div>
+    `;
+  } else if (category === 'monitors') {
+    specTilesHtml = `
+      <div class="passport-tile">
+        <span class="tile-label"><i class="fa-solid fa-desktop"></i> Display Specifications</span>
+        <span class="tile-val">${item.specifications || 'Standard LED Monitor'}</span>
+      </div>
+      <div class="passport-tile">
+        <span class="tile-label"><i class="fa-solid fa-industry"></i> Brand & Model</span>
+        <span class="tile-val">${item.brand || ''} ${item.model || ''}</span>
       </div>
       <div class="passport-tile">
         <span class="tile-label"><i class="fa-solid fa-barcode"></i> Serial Number</span>
         <span class="tile-val font-mono">${item.serial_number || 'N/A'}</span>
       </div>
-    `;
-  } else if (category === 'monitors') {
-    specTilesHtml = `
-      <div class="passport-tile"><span class="tile-label">Display Specs</span><span class="tile-val">${item.specifications || 'Standard Monitor'}</span></div>
-      <div class="passport-tile"><span class="tile-label">Serial Number</span><span class="tile-val font-mono">${item.serial_number || 'N/A'}</span></div>
-      <div class="passport-tile"><span class="tile-label">Connected Computer</span><span class="tile-val font-mono">${item.connected_pc_id || 'N/A'}</span></div>
+      <div class="passport-tile">
+        <span class="tile-label"><i class="fa-solid fa-link"></i> Connected Computer ID</span>
+        <span class="tile-val font-mono">${item.connected_pc_id || 'N/A'}</span>
+      </div>
     `;
   } else if (category === 'printers') {
     specTilesHtml = `
-      <div class="passport-tile"><span class="tile-label">Cartridge / Toner</span><span class="tile-val">${item.toner_cartridge || item.specifications || 'N/A'}</span></div>
-      <div class="passport-tile"><span class="tile-label">Serial Number</span><span class="tile-val font-mono">${item.serial_number || 'N/A'}</span></div>
-      <div class="passport-tile"><span class="tile-label">Connected Computer</span><span class="tile-val font-mono">${item.connected_pc_id || 'N/A'}</span></div>
+      <div class="passport-tile">
+        <span class="tile-label"><i class="fa-solid fa-box-archive"></i> Cartridge / Toner Model (ടോണർ)</span>
+        <span class="tile-val" style="color: var(--warning); font-weight: 700;">${item.toner_cartridge || item.specifications || 'N/A'}</span>
+      </div>
+      <div class="passport-tile">
+        <span class="tile-label"><i class="fa-solid fa-industry"></i> Brand & Model</span>
+        <span class="tile-val">${item.brand || ''} ${item.model || ''}</span>
+      </div>
+      <div class="passport-tile">
+        <span class="tile-label"><i class="fa-solid fa-barcode"></i> Serial Number</span>
+        <span class="tile-val font-mono">${item.serial_number || 'N/A'}</span>
+      </div>
+      <div class="passport-tile">
+        <span class="tile-label"><i class="fa-solid fa-network-wired"></i> Network / Connection</span>
+        <span class="tile-val font-mono">${item.ip_address || 'USB Local / Network'}</span>
+      </div>
     `;
   } else {
     specTilesHtml = `
-      <div class="passport-tile"><span class="tile-label">Device Type</span><span class="tile-val">${item.category || item.item_name || 'Equipment'}</span></div>
-      <div class="passport-tile"><span class="tile-label">Details</span><span class="tile-val">${item.details || item.specifications || 'N/A'}</span></div>
-      <div class="passport-tile"><span class="tile-label">Serial Number</span><span class="tile-val font-mono">${item.serial_number || 'N/A'}</span></div>
+      <div class="passport-tile">
+        <span class="tile-label"><i class="fa-solid fa-cube"></i> Device Category</span>
+        <span class="tile-val">${item.category || item.item_name || 'Equipment'}</span>
+      </div>
+      <div class="passport-tile">
+        <span class="tile-label"><i class="fa-solid fa-industry"></i> Brand & Model</span>
+        <span class="tile-val">${item.brand || ''} ${item.model || ''}</span>
+      </div>
+      <div class="passport-tile">
+        <span class="tile-label"><i class="fa-solid fa-barcode"></i> Serial Number</span>
+        <span class="tile-val font-mono">${item.serial_number || 'N/A'}</span>
+      </div>
+      <div class="passport-tile">
+        <span class="tile-label"><i class="fa-solid fa-circle-info"></i> Technical Details</span>
+        <span class="tile-val">${item.details || item.specifications || 'N/A'}</span>
+      </div>
     `;
   }
 
-  // Find tickets for this asset
-  const relatedTickets = (appData.tickets || appData.complaints || []).filter(t => t.asset_id === item.asset_id || t.pc_asset_id === item.asset_id);
+  // Workstation Ecosystem (Connected Devices at this desk)
+  let workstationHtml = '';
+  if (category === 'pcs') {
+    const hasMonitors = connectedMonitors && connectedMonitors.length > 0;
+    const hasPeripherals = connectedPeripherals && connectedPeripherals.length > 0;
+    const hasPrinters = connectedPrinters && connectedPrinters.length > 0;
+    const hasEquipments = connectedEquipments && connectedEquipments.length > 0;
+
+    if (!hasMonitors && !hasPeripherals && !hasPrinters && !hasEquipments) {
+      workstationHtml = `
+        <div class="passport-desk-card" style="grid-column: 1/-1; text-align: center; padding: 18px; color: var(--text-muted);">
+          <i class="fa-solid fa-plug" style="font-size: 20px; margin-bottom: 6px; opacity: 0.5;"></i>
+          <p style="font-size: 12.5px;">No auxiliary peripherals linked specifically to seat ${assignedSeat}.</p>
+        </div>
+      `;
+    } else {
+      let cards = '';
+      if (hasMonitors) {
+        connectedMonitors.forEach(m => {
+          cards += `
+            <div class="passport-desk-card">
+              <div class="passport-desk-header">
+                <span class="passport-desk-type"><i class="fa-solid fa-display"></i> Monitor</span>
+                <span class="status-tag working" style="font-size: 10px; padding: 2px 6px;">${m.status || 'Working'}</span>
+              </div>
+              <div class="passport-desk-model">${m.brand || ''} ${m.model || ''}</div>
+              <div class="passport-desk-meta">ID: ${m.asset_id}</div>
+              <div class="passport-desk-meta">SN: ${m.serial_number || 'N/A'}</div>
+              <button class="passport-desk-link-btn" onclick="openAssetPassport('${m.asset_id}')">
+                <i class="fa-solid fa-qrcode"></i> View Monitor Details →
+              </button>
+            </div>
+          `;
+        });
+      }
+      if (hasPrinters) {
+        connectedPrinters.forEach(p => {
+          cards += `
+            <div class="passport-desk-card">
+              <div class="passport-desk-header">
+                <span class="passport-desk-type" style="color: var(--warning);"><i class="fa-solid fa-print"></i> Printer</span>
+                <span class="status-tag working" style="font-size: 10px; padding: 2px 6px;">${p.status || 'Working'}</span>
+              </div>
+              <div class="passport-desk-model">${p.brand || ''} ${p.model || ''}</div>
+              <div class="passport-desk-meta">ID: ${p.asset_id}</div>
+              <div class="passport-desk-meta">Toner: ${p.toner_cartridge || p.specifications || 'N/A'}</div>
+              <button class="passport-desk-link-btn" onclick="openAssetPassport('${p.asset_id}')">
+                <i class="fa-solid fa-qrcode"></i> View Printer Details →
+              </button>
+            </div>
+          `;
+        });
+      }
+      if (hasPeripherals) {
+        connectedPeripherals.forEach(k => {
+          cards += `
+            <div class="passport-desk-card">
+              <div class="passport-desk-header">
+                <span class="passport-desk-type" style="color: var(--info);"><i class="fa-solid fa-keyboard"></i> ${k.category || 'Peripheral'}</span>
+                <span class="status-tag working" style="font-size: 10px; padding: 2px 6px;">${k.status || 'Working'}</span>
+              </div>
+              <div class="passport-desk-model">${k.brand || ''} ${k.model || ''}</div>
+              <div class="passport-desk-meta">ID: ${k.asset_id}</div>
+              <div class="passport-desk-meta">SN: ${k.serial_number || 'N/A'}</div>
+              <button class="passport-desk-link-btn" onclick="openAssetPassport('${k.asset_id}')">
+                <i class="fa-solid fa-qrcode"></i> View Peripheral Details →
+              </button>
+            </div>
+          `;
+        });
+      }
+      if (hasEquipments) {
+        connectedEquipments.forEach(o => {
+          cards += `
+            <div class="passport-desk-card">
+              <div class="passport-desk-header">
+                <span class="passport-desk-type" style="color: #a855f7;"><i class="fa-solid fa-plug-circle-bolt"></i> Power/Network</span>
+              </div>
+              <div class="passport-desk-model">${o.brand || ''} ${o.model || o.item_name || 'Device'}</div>
+              <div class="passport-desk-meta">ID: ${o.asset_id}</div>
+              <button class="passport-desk-link-btn" onclick="openAssetPassport('${o.asset_id}')">
+                <i class="fa-solid fa-qrcode"></i> View Details →
+              </button>
+            </div>
+          `;
+        });
+      }
+      workstationHtml = cards;
+    }
+  } else if (parentPc) {
+    workstationHtml = `
+      <div class="passport-desk-card" style="grid-column: 1/-1;">
+        <div class="passport-desk-header">
+          <span class="passport-desk-type"><i class="fa-solid fa-desktop"></i> Host Workstation (പ്രധാന കമ്പ്യൂട്ടർ)</span>
+          <span class="status-tag working">${parentPc.status || 'Working'}</span>
+        </div>
+        <div class="passport-desk-model" style="font-size: 14px; margin-top: 4px;">${parentPc.asset_id} • ${parentPc.brand || ''} ${parentPc.model || ''}</div>
+        <div class="passport-desk-meta">User: ${parentPc.employee_name || 'Unassigned'} • Seat: ${parentPc.seat || 'N/A'} • IP: ${parentPc.ip_address || 'DHCP'}</div>
+        <button class="passport-desk-link-btn" style="margin-top: 8px;" onclick="openAssetPassport('${parentPc.asset_id}')">
+          <i class="fa-solid fa-arrow-right"></i> Open Host Computer Passport (${parentPc.asset_id}) →
+        </button>
+      </div>
+    `;
+  } else {
+    workstationHtml = `
+      <div class="passport-desk-card" style="grid-column: 1/-1; text-align: center; padding: 14px; color: var(--text-muted); font-size: 12.5px;">
+        Stand-alone Panchayath IT Asset • Registered under ${assignedSeat}
+      </div>
+    `;
+  }
+
+  // Find tickets & maintenance history
+  const relatedTickets = (appData.tickets || appData.complaints || []).filter(t => 
+    String(t.asset_id || '').toUpperCase() === item.asset_id.toUpperCase() || 
+    String(t.pc_asset_id || '').toUpperCase() === item.asset_id.toUpperCase()
+  );
+
   let ticketHistoryHtml = '';
   if (relatedTickets.length === 0) {
-    ticketHistoryHtml = '<p class="text-muted" style="font-size: 12.5px; font-style: italic;">No breakdown tickets logged for this asset.</p>';
+    ticketHistoryHtml = `
+      <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 16px; text-align: center; color: var(--text-muted); font-size: 12.5px;">
+        <i class="fa-solid fa-circle-check" style="color: var(--success); font-size: 18px; margin-bottom: 6px;"></i><br>
+        ഈ ഉപകരണത്തിന് നിലവിൽ കംപ്ലയിന്റുകളോ ബ്രേക്ക്ഡൗൺ സർവീസുകളോ റിപ്പോർട്ട് ചെയ്തിട്ടില്ല (No breakdown tickets logged).
+      </div>
+    `;
   } else {
     ticketHistoryHtml = `
-      <div class="table-responsive">
-        <table class="data-table" style="font-size: 12px;">
+      <div class="table-responsive" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden;">
+        <table class="data-table" style="font-size: 12px; margin: 0;">
           <thead>
             <tr>
               <th>Ticket ID</th>
-              <th>Date</th>
-              <th>Issue Reported</th>
+              <th>Date Logged</th>
+              <th>Fault / Issue Description</th>
               <th>Status</th>
-              <th>Work Done</th>
+              <th>Service / Resolution</th>
             </tr>
           </thead>
           <tbody>
             ${relatedTickets.map(t => `
               <tr>
-                <td><strong>${t.ticket_id || t.id}</strong></td>
+                <td><strong class="font-mono">${t.ticket_id || t.id}</strong></td>
                 <td>${t.date_logged || t.date || '-'}</td>
-                <td>${t.fault_description || t.complaint_details || '-'}</td>
+                <td><strong>${t.fault_description || t.complaint_details || '-'}</strong></td>
                 <td><span class="status-tag ${t.status === 'Closed' ? 'working' : 'complaint'}">${t.status}</span></td>
-                <td>${t.resolution || '-'}</td>
+                <td>${t.resolution || t.work_done || 'Pending Keltron Service'}</td>
               </tr>
             `).join('')}
           </tbody>
@@ -2949,43 +3281,89 @@ function openAssetPassport(assetId) {
     `;
   }
 
+  // Build Container Content
   const container = document.getElementById('passport-body-content');
   container.innerHTML = `
+    <!-- Top Hero Card -->
     <div class="passport-hero">
-      <div class="passport-qr-frame" id="modal-qr-container"></div>
+      <div class="passport-qr-frame" id="modal-qr-container" title="Scan this QR code to view live stock details">
+        <!-- Live QR Code -->
+      </div>
       <div class="passport-hero-info">
-        <div class="passport-hero-id">
-          <i class="fa-solid ${icon}"></i> ${item.asset_id}
-        </div>
-        <div class="passport-hero-model">${item.brand || ''} ${item.model || ''} (${typeLabel})</div>
-        <div class="passport-hero-meta">
-          <i class="fa-solid fa-user"></i> <strong>${assignedUser}</strong> | Seat: <strong>${assignedSeat}</strong> | ${officeSec}
-        </div>
-        <div style="margin-top: 4px;">
+        <div class="passport-hero-badges">
+          <span class="passport-cat-badge"><i class="fa-solid ${icon}"></i> ${typeLabel}</span>
+          ${amcBadge}
           ${statusBadge}
+        </div>
+        <div class="passport-hero-id">
+          <span>${item.asset_id}</span>
+          <button class="copy-aid-btn" onclick="copyToClipboard('${item.asset_id}', 'Asset ID Copied!')" title="Copy Asset ID"><i class="fa-solid fa-copy"></i> Copy ID</button>
+        </div>
+        <div class="passport-hero-model">${item.brand || ''} ${item.model || ''} <span class="malayalam-sub">(${typeLabelMl})</span></div>
+        <div class="passport-hero-meta">
+          <div class="passport-meta-item"><i class="fa-solid fa-user" style="color: var(--primary);"></i> <strong>${assignedUser}</strong></div>
+          <div class="passport-meta-item"><i class="fa-solid fa-chair" style="color: var(--warning);"></i> Seat: <strong>${assignedSeat}</strong></div>
+          <div class="passport-meta-item"><i class="fa-solid fa-building" style="color: var(--info);"></i> ${officeSec}</div>
         </div>
       </div>
     </div>
 
-    <div class="passport-grid-sections">
+    <!-- Main Content Body -->
+    <div class="passport-content-body">
+      <!-- 1. Technical Specifications -->
       <div>
-        <div class="passport-section-title"><i class="fa-solid fa-sliders"></i> Hardware & Network Specifications</div>
+        <div class="passport-section-title">
+          <i class="fa-solid fa-sliders"></i>
+          <span>Hardware & Network Specifications (സാങ്കേതിക വിവരങ്ങൾ)</span>
+        </div>
         <div class="passport-spec-tiles">
           ${specTilesHtml}
         </div>
       </div>
 
+      <!-- 2. Workstation Ecosystem / Connected Devices -->
       <div>
-        <div class="passport-section-title"><i class="fa-solid fa-shield-halved"></i> Maintenance & Coverage</div>
-        <div class="passport-spec-tiles">
-          <div class="passport-tile"><span class="tile-label">AMC / Warranty Type</span><span class="tile-val">${item.amc_type || 'Warranty'}</span></div>
-          <div class="passport-tile"><span class="tile-label">Service Agency</span><span class="tile-val">${item.amc_agency || 'Keltron AMC'}</span></div>
-          <div class="passport-tile"><span class="tile-label">Purchase Date</span><span class="tile-val">${item.purchase_date || 'N/A'}</span></div>
+        <div class="passport-section-title">
+          <i class="fa-solid fa-network-wired"></i>
+          <span>Workstation Ecosystem & Connected Hardware (ഈ സീറ്റിലെ മറ്റു ഉപകരണങ്ങൾ)</span>
+        </div>
+        <div class="passport-desk-grid">
+          ${workstationHtml}
         </div>
       </div>
 
+      <!-- 3. AMC & Warranty Details -->
       <div>
-        <div class="passport-section-title"><i class="fa-solid fa-clock-rotate-left"></i> Service & Maintenance History</div>
+        <div class="passport-section-title">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Maintenance & Commercial Inventory (മെയിന്റനൻസ് & സ്റ്റോക്ക് വിവരങ്ങൾ)</span>
+        </div>
+        <div class="passport-spec-tiles">
+          <div class="passport-tile">
+            <span class="tile-label"><i class="fa-solid fa-file-contract"></i> AMC / Warranty Coverage</span>
+            <span class="tile-val">${item.amc_type || 'Warranty'}</span>
+          </div>
+          <div class="passport-tile">
+            <span class="tile-label"><i class="fa-solid fa-headset"></i> Service Provider Agency</span>
+            <span class="tile-val">${item.amc_agency || 'Keltron AMC'}</span>
+          </div>
+          <div class="passport-tile">
+            <span class="tile-label"><i class="fa-solid fa-calendar-check"></i> Purchase / Induction Date</span>
+            <span class="tile-val">${item.purchase_date || 'In Active Use'}</span>
+          </div>
+          <div class="passport-tile">
+            <span class="tile-label"><i class="fa-solid fa-book-bookmark"></i> Stock Register Reference</span>
+            <span class="tile-val">Puduppady GP IT Register</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Ticket History -->
+      <div>
+        <div class="passport-section-title">
+          <i class="fa-solid fa-clock-rotate-left"></i>
+          <span>Service & Breakdown History (സർവീസ് & മെയിന്റനൻസ് ഹിസ്റ്ററി)</span>
+        </div>
         ${ticketHistoryHtml}
       </div>
     </div>
@@ -2998,29 +3376,299 @@ function openAssetPassport(assetId) {
       qrTarget.innerHTML = '';
       if (typeof QRCode !== 'undefined') {
         new QRCode(qrTarget, {
-          text: item.asset_id,
-          width: 94,
-          height: 94,
-          colorDark: "#0f172a",
+          text: assetUrl,
+          width: 95,
+          height: 95,
+          colorDark: "#000000",
           colorLight: "#ffffff",
           correctLevel: QRCode.CorrectLevel.M
         });
       }
     }
-  }, 50);
+  }, 40);
 
-  // Footer Actions
+  // Footer Action Buttons
   const footer = document.getElementById('passport-footer-actions');
   footer.innerHTML = `
-    <button class="btn btn-outline" onclick="printSingleSticker('${item.asset_id}')"><i class="fa-solid fa-print"></i> Print QR Sticker</button>
-    <button class="btn btn-secondary" onclick="logComplaintFromPassport('${item.asset_id}')"><i class="fa-solid fa-triangle-exclamation" style="color: var(--warning);"></i> Report Complaint / Ticket</button>
-    <button class="btn btn-primary" onclick="openEditModal('${category}', '${item.asset_id}')"><i class="fa-solid fa-pen"></i> Edit Hardware</button>
+    <button class="btn btn-outline" onclick="printAssetPassportSheet('${item.asset_id}')" title="Print Official A4 Asset Passport Record">
+      <i class="fa-solid fa-file-pdf"></i> Print Asset Sheet (A4)
+    </button>
+    <button class="btn btn-outline" onclick="printSingleSticker('${item.asset_id}')" title="Print Barcode QR Sticker">
+      <i class="fa-solid fa-print"></i> Print QR Sticker
+    </button>
+    <button class="btn btn-secondary" onclick="logComplaintFromPassport('${item.asset_id}')" title="Report breakdown ticket">
+      <i class="fa-solid fa-triangle-exclamation" style="color: var(--warning);"></i> Report Complaint
+    </button>
+    <button class="btn btn-outline" onclick="copyToClipboard('${assetUrl}', 'Asset Passport Link Copied!')" title="Copy shareable link">
+      <i class="fa-solid fa-share-nodes"></i> Share Link
+    </button>
+    <button class="btn btn-primary" onclick="openEditModal('${category}', '${item.asset_id}')" title="Edit Hardware Record">
+      <i class="fa-solid fa-pen"></i> Edit Hardware
+    </button>
   `;
 
   openModal('asset-passport-modal');
 }
 
-// 29. Log Complaint Pre-Filled from Asset Passport
+// 27. Print Official Kerala Panchayath A4 IT Asset Passport Certificate
+function printAssetPassportSheet(assetId) {
+  const result = findItemByAssetId(assetId);
+  if (!result) {
+    showToast('Asset not found: ' + assetId, 'error');
+    return;
+  }
+
+  const { item, category, typeLabel, typeLabelMl, connectedMonitors, connectedPeripherals, connectedPrinters } = result;
+  const qrUrl = getAssetPassportUrl(item.asset_id);
+  const printWindow = window.open('', '_blank', 'width=850,height=950');
+  if (!printWindow) {
+    showToast('Please allow popups to print Asset Passport Document', 'warning');
+    return;
+  }
+
+  const assignedUser = item.employee_name || 'Unassigned';
+  const assignedSeat = item.seat || item.assigned_seat || 'N/A';
+  const officeSec = item.office_section || item.section || 'PUTHUPPADI GP OFFICE';
+  const isWorking = (item.is_working !== false && item.is_complaint !== true && item.status !== 'Complaint');
+  const statusText = isWorking ? 'OPERATIONAL / WORKING (പ്രവർത്തനക്ഷമം)' : 'COMPLAINT REPORTED (തകരാർ)';
+
+  let accessoriesList = [];
+  if (connectedMonitors && connectedMonitors.length > 0) {
+    connectedMonitors.forEach(m => accessoriesList.push(`Monitor: ${m.brand || ''} ${m.model || ''} [${m.asset_id}]`));
+  }
+  if (connectedPrinters && connectedPrinters.length > 0) {
+    connectedPrinters.forEach(p => accessoriesList.push(`Printer: ${p.brand || ''} ${p.model || ''} [${p.asset_id}]`));
+  }
+  if (connectedPeripherals && connectedPeripherals.length > 0) {
+    connectedPeripherals.forEach(k => accessoriesList.push(`${k.category || 'Peripheral'}: ${k.brand || ''} ${k.model || ''} [${k.asset_id}]`));
+  }
+
+  const accessoriesHtml = accessoriesList.length > 0 
+    ? accessoriesList.map(a => `<li>${a}</li>`).join('') 
+    : '<li>Standard office hardware setup</li>';
+
+  const certHtml = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <title>IT Asset Passport - ${item.asset_id}</title>
+      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet">
+      <style>
+        @page { size: A4 portrait; margin: 12mm 15mm; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+          font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+          color: #0f172a;
+          background: #ffffff;
+          padding: 10px;
+          line-height: 1.4;
+        }
+        .passport-cert {
+          border: 2px solid #0f172a;
+          padding: 24px 28px;
+          border-radius: 8px;
+          max-width: 800px;
+          margin: 0 auto;
+        }
+        .cert-header {
+          text-align: center;
+          border-bottom: 2px solid #0f172a;
+          padding-bottom: 14px;
+          margin-bottom: 18px;
+        }
+        .cert-header h1 {
+          font-size: 20px;
+          font-weight: 800;
+          color: #0f172a;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+        .cert-header h2 {
+          font-size: 15px;
+          font-weight: 700;
+          color: #1e3a8a;
+          margin-top: 4px;
+        }
+        .cert-header p {
+          font-size: 12px;
+          color: #475569;
+          margin-top: 2px;
+        }
+        .cert-top-grid {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 18px;
+          background: #f8fafc;
+          border: 1px solid #cbd5e1;
+          border-radius: 6px;
+          padding: 14px 18px;
+        }
+        .cert-id-box {
+          flex: 1;
+        }
+        .cert-id-val {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 22px;
+          font-weight: 800;
+          color: #0f172a;
+        }
+        .cert-qr-frame {
+          width: 95px;
+          height: 95px;
+          background: #ffffff;
+          border: 1px solid #000000;
+          padding: 4px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .cert-qr-frame img, .cert-qr-frame canvas {
+          width: 100% !important;
+          height: 100% !important;
+        }
+        .cert-table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-bottom: 18px;
+          font-size: 12.5px;
+        }
+        .cert-table th, .cert-table td {
+          border: 1px solid #cbd5e1;
+          padding: 8px 12px;
+          text-align: left;
+        }
+        .cert-table th {
+          background: #f1f5f9;
+          font-weight: 700;
+          color: #1e293b;
+          width: 32%;
+        }
+        .cert-table td {
+          color: #0f172a;
+        }
+        .section-heading {
+          font-size: 13px;
+          font-weight: 800;
+          text-transform: uppercase;
+          color: #1e3a8a;
+          margin: 14px 0 6px 0;
+          border-bottom: 1px solid #cbd5e1;
+          padding-bottom: 3px;
+        }
+        .cert-footer {
+          margin-top: 40px;
+          display: flex;
+          justify-content: space-between;
+          text-align: center;
+          padding-top: 20px;
+        }
+        .sig-block {
+          width: 200px;
+          border-top: 1.5px dashed #0f172a;
+          padding-top: 6px;
+          font-size: 12px;
+          font-weight: 700;
+        }
+      </style>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"><\/script>
+    </head>
+    <body>
+      <div class="passport-cert">
+        <div class="cert-header">
+          <h1>PUTHUPPADI GRAMA PANCHAYATH</h1>
+          <h2>GOVERNMENT IT STOCK REGISTER & ASSET PASSPORT</h2>
+          <p>പുതുപ്പാടി ഗ്രാമപഞ്ചായത്ത് • ഐ.ടി ഹാർഡ്‌വെയർ രജിസ്റ്റർ</p>
+        </div>
+
+        <div class="cert-top-grid">
+          <div class="cert-id-box">
+            <div style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase;">Official Asset Identification No:</div>
+            <div class="cert-id-val">${item.asset_id}</div>
+            <div style="font-size: 13px; font-weight: 600; color: #1e293b; margin-top: 4px;">
+              ${item.brand || ''} ${item.model || ''} (${typeLabel})
+            </div>
+            <div style="font-size: 11.5px; color: #475569; margin-top: 3px;">
+              Status: <strong>${statusText}</strong>
+            </div>
+          </div>
+          <div class="cert-qr-frame" id="cert-qr-target"></div>
+        </div>
+
+        <div class="section-heading">1. Location & Custody Allocation (ഉപയോഗിക്കുന്ന വ്യക്തി & സെക്ഷൻ)</div>
+        <table class="cert-table">
+          <tr><th>Custodian / Employee Name</th><td><strong>${assignedUser}</strong></td></tr>
+          <tr><th>Designation & Seat Code</th><td><strong>${assignedSeat}</strong></td></tr>
+          <tr><th>Office Section / Department</th><td>${officeSec}</td></tr>
+          <tr><th>Network Static IP Address</th><td style="font-family: monospace; font-weight: 700;">${item.ip_address || 'DHCP / None'}</td></tr>
+        </table>
+
+        <div class="section-heading">2. Hardware Specifications (ഹാർഡ്‌വെയർ സാങ്കേതിക വിവരങ്ങൾ)</div>
+        <table class="cert-table">
+          <tr><th>Device Make & Model</th><td>${item.brand || ''} ${item.model || ''}</td></tr>
+          <tr><th>Hardware Serial Number</th><td style="font-family: monospace; font-weight: 700;">${item.serial_number || 'N/A'}</td></tr>
+          ${category === 'pcs' ? `
+            <tr><th>Processor</th><td>${item.processor || 'N/A'}</td></tr>
+            <tr><th>RAM Memory & Storage</th><td>${item.ram || 'N/A'} RAM • ${item.storage || 'N/A'}</td></tr>
+            <tr><th>Operating System</th><td>${item.os || 'N/A'}</td></tr>
+          ` : category === 'printers' ? `
+            <tr><th>Cartridge / Toner Model</th><td><strong>${item.toner_cartridge || item.specifications || 'N/A'}</strong></td></tr>
+          ` : `
+            <tr><th>Specifications</th><td>${item.details || item.specifications || 'N/A'}</td></tr>
+          `}
+        </table>
+
+        <div class="section-heading">3. Maintenance & Warranty Coverage (മെയിന്റനൻസ് കരാർ)</div>
+        <table class="cert-table">
+          <tr><th>AMC / Warranty Status</th><td><strong>${item.amc_type || 'Warranty'}</strong></td></tr>
+          <tr><th>Service Agency</th><td>${item.amc_agency || 'Keltron AMC'}</td></tr>
+          <tr><th>Date of Induction / Purchase</th><td>${item.purchase_date || 'In Active Use'}</td></tr>
+        </table>
+
+        <div class="section-heading">4. Connected Desk Accessories (ഈ സിസ്റ്റത്തിൽ ഉൾപ്പെട്ട ഉപകരണങ്ങൾ)</div>
+        <ul style="padding-left: 20px; font-size: 12px; color: #334155; margin-bottom: 20px;">
+          ${accessoriesHtml}
+        </ul>
+
+        <div class="cert-footer">
+          <div class="sig-block">
+            Custodian Signature<br>
+            <span style="font-size: 10px; font-weight: 400; color: #64748b;">(ഉദ്യോഗസ്ഥന്റെ ഒപ്പ്)</span>
+          </div>
+          <div class="sig-block">
+            IT Coordinator / Clerk<br>
+            <span style="font-size: 10px; font-weight: 400; color: #64748b;">(ഐ.ടി ചുമതലയുള്ള ഉദ്യോഗസ്ഥൻ)</span>
+          </div>
+          <div class="sig-block">
+            Secretary / Asst. Secretary<br>
+            <span style="font-size: 10px; font-weight: 400; color: #64748b;">(സെക്രട്ടറി / ഗ്രാമപഞ്ചായത്ത്)</span>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        new QRCode(document.getElementById("cert-qr-target"), {
+          text: ${JSON.stringify(qrUrl)},
+          width: 95,
+          height: 95,
+          colorDark: "#000000",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.M
+        });
+        setTimeout(function() {
+          window.print();
+        }, 400);
+      <\/script>
+    </body>
+    </html>
+  `;
+
+  printWindow.document.write(certHtml);
+  printWindow.document.close();
+}
+
+// 28. Log Complaint Pre-Filled from Asset Passport
 function logComplaintFromPassport(assetId) {
   closeModal('asset-passport-modal');
   openAddTicketModal();
@@ -3032,7 +3680,7 @@ function logComplaintFromPassport(assetId) {
   }
 }
 
-// 30. In-App Camera QR Code Scanner (`#qr-scanner-modal`)
+// 29. In-App Live Camera QR Code Scanner (`#qr-scanner-modal`)
 function openQrScannerModal() {
   openModal('qr-scanner-modal');
   
@@ -3046,23 +3694,24 @@ function openQrScannerModal() {
       html5QrScannerInstance.start(
         { facingMode: "environment" },
         {
-          fps: 10,
-          qrbox: { width: 220, height: 220 }
+          fps: 15,
+          qrbox: { width: 230, height: 230 }
         },
         (decodedText, decodedResult) => {
           console.log("QR Code Scanned:", decodedText);
+          playScanSuccessSound();
           handleQrScanSuccess(decodedText);
         },
         (errorMessage) => {
-          // parse error / scanning
+          // Scanning in progress
         }
       ).catch(err => {
         console.warn("Camera access warning:", err);
         streamEl.innerHTML = `
-          <div style="padding: 20px; text-align: center; color: var(--text-muted); font-size: 13px;">
-            <i class="fa-solid fa-video-slash" style="font-size: 28px; margin-bottom: 8px; color: var(--warning);"></i><br>
-            Camera access is not permitted or unavailable.<br>
-            Please use the manual Asset ID search below.
+          <div style="padding: 24px 16px; text-align: center; color: var(--text-muted); font-size: 13px;">
+            <i class="fa-solid fa-video-slash" style="font-size: 32px; margin-bottom: 10px; color: var(--warning);"></i><br>
+            <strong style="color: var(--text-primary); font-size: 14px;">Camera access is unavailable or not permitted.</strong><br>
+            <span style="font-size: 12px; margin-top: 4px; display: block;">ക്യാമറ അനുമതി നൽകുക അല്ലെങ്കിൽ താഴെയുള്ള ബോക്സിൽ Asset ID ടൈപ്പ് ചെയ്യുക.</span>
           </div>
         `;
       });
@@ -3090,7 +3739,7 @@ function closeQrScannerModal() {
 
 function handleQrScanSuccess(scannedText) {
   closeQrScannerModal();
-  showToast('QR Code Scanned Successfully!', 'success');
+  showToast('QR Code Scanned Successfully! വിവരങ്ങൾ കണ്ടെത്തുന്നു...', 'success');
 
   // Check if scannedText is a URL containing ?asset=...
   let assetId = scannedText.trim();
@@ -3106,13 +3755,13 @@ function handleQrScanSuccess(scannedText) {
 
   setTimeout(() => {
     openAssetPassport(assetId);
-  }, 200);
+  }, 250);
 }
 
 function handleManualScanLookup() {
   const input = document.getElementById('manual-scan-input');
   if (!input || !input.value.trim()) {
-    showToast('Please enter an Asset ID', 'error');
+    showToast('Please enter an Asset ID (e.g. PGP-SYS-PC001)', 'error');
     return;
   }
   const aid = input.value.trim().toUpperCase();
@@ -3120,21 +3769,29 @@ function handleManualScanLookup() {
   openAssetPassport(aid);
 }
 
-// 31. URL Deep Linking: Detect ?asset=PGP-SYS-PC001 on initial load
+// 30. URL Deep Linking: Detect ?asset=PGP-SYS-PC001 on initial load / mobile scan
 function checkUrlForAsset() {
-  if (hasCheckedUrlAsset) return;
-  hasCheckedUrlAsset = true;
-
   try {
     const urlParams = new URLSearchParams(window.location.search);
     const assetParam = urlParams.get('asset');
-    if (assetParam) {
+    if (assetParam && !hasCheckedUrlAsset) {
+      hasCheckedUrlAsset = true;
       console.log('Deep link Asset detected:', assetParam);
-      setTimeout(() => {
-        openAssetPassport(assetParam);
-      }, 300);
+
+      // Wait until appData is ready if loading asynchronously
+      let attempts = 0;
+      const interval = setInterval(() => {
+        attempts++;
+        if ((appData.pcs && appData.pcs.length > 0) || attempts > 20) {
+          clearInterval(interval);
+          setTimeout(() => {
+            openAssetPassport(assetParam);
+          }, 200);
+        }
+      }, 150);
     }
   } catch (e) {
     console.error('URL check notice:', e);
   }
 }
+

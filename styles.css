@@ -2032,3 +2032,537 @@ body {
     font-size: 10px;
   }
 }
+
+/* ==========================================================================
+   25. ADVANCED ASSET PASSPORT & QR CODE SYSTEM STYLES
+   ========================================================================== */
+
+/* Passport Modal Container */
+.modal-card.modal-lg {
+  max-width: 920px;
+  width: 96%;
+}
+
+.passport-header-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.passport-header-title h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* Passport Hero Banner */
+.passport-hero {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding: 24px;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.14) 0%, rgba(14, 21, 38, 0.8) 100%);
+  border-bottom: 1px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+}
+
+body.theme-light .passport-hero {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.12) 0%, rgba(241, 245, 249, 0.9) 100%);
+}
+
+.passport-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Passport QR Container inside Modal */
+.passport-qr-frame {
+  width: 110px;
+  height: 110px;
+  background: #ffffff;
+  padding: 8px;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: var(--transition);
+}
+
+.passport-qr-frame img, .passport-qr-frame canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+.passport-hero-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.passport-hero-badges {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.passport-cat-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: rgba(59, 130, 246, 0.2);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  border-radius: 20px;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+body.theme-light .passport-cat-badge {
+  background: rgba(59, 130, 246, 0.12);
+  color: #1d4ed8;
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.passport-hero-id {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.passport-hero-id .copy-aid-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  border-radius: var(--radius-sm);
+  padding: 3px 8px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.passport-hero-id .copy-aid-btn:hover {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+}
+
+.passport-hero-model {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+}
+
+.passport-hero-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.passport-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+}
+
+body.theme-light .passport-meta-item {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+/* Sections & Grid inside Passport */
+.passport-content-body {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-height: 68vh;
+  overflow-y: auto;
+}
+
+.passport-section-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.passport-section-title i {
+  color: var(--primary);
+  font-size: 14px;
+}
+
+.passport-spec-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+.passport-tile {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: var(--transition);
+}
+
+.passport-tile:hover {
+  background: var(--bg-card-hover);
+  border-color: rgba(59, 130, 246, 0.3);
+  transform: translateY(-1px);
+}
+
+.passport-tile .tile-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.passport-tile .tile-val {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-primary);
+  word-break: break-word;
+}
+
+/* Connected Devices Grid (All-in-One Workstation Setup) */
+.passport-desk-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 12px;
+}
+
+.passport-desk-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  transition: var(--transition);
+}
+
+.passport-desk-card:hover {
+  border-color: var(--primary);
+  background: var(--bg-card-hover);
+}
+
+.passport-desk-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.passport-desk-type {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.passport-desk-model {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.passport-desk-meta {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.passport-desk-link-btn {
+  font-size: 11.5px;
+  color: var(--primary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-weight: 600;
+  text-align: left;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.passport-desk-link-btn:hover {
+  text-decoration: underline;
+}
+
+/* Malayalam Subtext helper */
+.malayalam-sub {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+/* QR Code Stickers System Grid */
+.qr-stickers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.qr-sticker-card {
+  background: #ffffff;
+  color: #000000;
+  border: 2px solid #0f172a;
+  border-radius: var(--radius-md);
+  padding: 14px 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: var(--transition);
+}
+
+.qr-sticker-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.qr-sticker-header {
+  width: 100%;
+  border-bottom: 2px solid #000000;
+  padding-bottom: 6px;
+  margin-bottom: 10px;
+}
+
+.qr-panchayath-name {
+  font-size: 13.5px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #000000;
+  text-transform: uppercase;
+}
+
+.qr-sticker-body {
+  margin: 4px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr-code-box {
+  width: 105px;
+  height: 105px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr-code-box img, .qr-code-box canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+.qr-asset-id {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 800;
+  color: #000000;
+  border-top: 2px solid #000000;
+  padding-top: 6px;
+  margin-top: 8px;
+  width: 100%;
+  letter-spacing: 0.5px;
+}
+
+.qr-sticker-meta {
+  font-size: 11px;
+  font-weight: 600;
+  color: #475569;
+  margin-top: 3px;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.qr-sticker-footer {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.qr-sticker-footer .btn {
+  flex: 1;
+  padding: 5px 8px;
+  font-size: 11.5px;
+  justify-content: center;
+}
+
+/* Camera Live Scanner Modal Styles */
+.scanner-container {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: #000000;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+#qr-camera-stream {
+  width: 100% !important;
+  min-height: 260px;
+  position: relative;
+}
+
+#qr-camera-stream video {
+  width: 100% !important;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+}
+
+/* Viewfinder Laser Scan Effect */
+.scanner-viewfinder-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scanner-target-box {
+  width: 200px;
+  height: 200px;
+  border: 2px solid rgba(59, 130, 246, 0.7);
+  border-radius: 14px;
+  position: relative;
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.45);
+}
+
+.scanner-target-box::before {
+  content: '';
+  position: absolute;
+  top: -2px; left: -2px; right: -2px; bottom: -2px;
+  border: 3px solid #3b82f6;
+  border-radius: 14px;
+  clip-path: polygon(
+    0% 25px, 25px 25px, 25px 0%, 
+    calc(100% - 25px) 0%, calc(100% - 25px) 25px, 100% 25px,
+    100% calc(100% - 25px), calc(100% - 25px) calc(100% - 25px), calc(100% - 25px) 100%,
+    25px 100%, 25px calc(100% - 25px), 0% calc(100% - 25px)
+  );
+}
+
+.scanner-laser-line {
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #ef4444, #3b82f6, #10b981, transparent);
+  box-shadow: 0 0 8px #ef4444;
+  border-radius: 3px;
+  animation: scanLaser 2s ease-in-out infinite alternate;
+}
+
+@keyframes scanLaser {
+  0% { top: 8%; opacity: 0.9; }
+  100% { top: 90%; opacity: 0.9; }
+}
+
+.scanner-guide-text {
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  padding: 10px;
+}
+
+.scanner-manual-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  margin-top: 14px;
+}
+
+/* Printing Mode for Single Sticker & All Stickers */
+@media print {
+  body.printing-stickers {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  body.printing-stickers .sidebar,
+  body.printing-stickers .top-header,
+  body.printing-stickers .filter-bar,
+  body.printing-stickers .view-header,
+  body.printing-stickers .no-print,
+  body.printing-stickers .modal-overlay {
+    display: none !important;
+  }
+
+  body.printing-stickers .qr-stickers-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 12mm !important;
+    padding: 0 !important;
+  }
+
+  body.printing-stickers .qr-sticker-card {
+    box-shadow: none !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    border: 2px solid #000000 !important;
+  }
+}
