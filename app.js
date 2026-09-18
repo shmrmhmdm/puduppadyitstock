@@ -3321,6 +3321,11 @@ function openAssetPassport(assetId) {
           <div class="passport-meta-item"><i class="fa-solid fa-chair" style="color: var(--warning);"></i> Seat: <strong>${assignedSeat}</strong></div>
           <div class="passport-meta-item"><i class="fa-solid fa-building" style="color: var(--info);"></i> ${officeSec}</div>
         </div>
+        <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
+          <button class="btn btn-warning btn-sm" onclick="logComplaintFromPassport('${item.asset_id}')" style="font-weight: 700; box-shadow: 0 3px 12px rgba(245, 158, 11, 0.35);">
+            <i class="fa-solid fa-triangle-exclamation"></i> Report Complaint / കംപ്ലയിന്റ് നൽകുക
+          </button>
+        </div>
       </div>
     </div>
 
