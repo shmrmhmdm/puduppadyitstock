@@ -2908,58 +2908,15 @@ function printAllStickers() {
 }
 
 function printSingleSticker(assetId) {
-  const result = findItemByAssetId(assetId);
-  if (!result) return;
-  const item = result.item;
-  const aid = item.asset_id;
-
-  const grid = document.getElementById('qr-stickers-grid');
-  if (!grid) return;
-
-  const searchInput = document.getElementById('qr-filter-search');
-  const prevSearch = searchInput ? searchInput.value : '';
-
-  // Render 2 identical copies of this sticker aligned side-by-side for the print action
-  grid.innerHTML = '';
-  [0, 1].forEach(index => {
-    const card = document.createElement('div');
-    card.className = 'qr-sticker-card';
-    card.innerHTML = `
-      <div class="qr-sticker-header">
-        <div class="qr-panchayath-name">Puthuppadi Grama Panchayath</div>
-        <div class="qr-sub-header">IT Asset ID</div>
-      </div>
-      <div class="qr-sticker-body-clean">
-        <div class="qr-code-box-large" id="qr-print-box-${index}"></div>
-        <div class="qr-asset-id-large">${aid}</div>
-      </div>
-    `;
-    grid.appendChild(card);
-
-    if (typeof QRCode !== 'undefined') {
-      new QRCode(document.getElementById(`qr-print-box-${index}`), {
-        text: aid,
-        width: 130,
-        height: 130,
-        colorDark: "#000000",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.M
-      });
-    }
-  });
-
   switchView('qr_stickers');
-  document.body.classList.add('printing-stickers');
-
-  setTimeout(() => {
-    window.print();
+  const searchInput = document.getElementById('qr-filter-search');
+  if (searchInput) {
+    searchInput.value = assetId;
+    renderQrStickers();
     setTimeout(() => {
-      document.body.classList.remove('printing-stickers');
-      // Restore normal UI list with single cards
-      if (searchInput) searchInput.value = prevSearch;
-      renderQrStickers();
-    }, 500);
-  }, 300);
+      printAllStickers();
+    }, 250);
+  }
 }
 
 // 29. Log Complaint Pre-Filled from Asset Passport
