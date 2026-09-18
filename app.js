@@ -2456,8 +2456,9 @@ async function testSync() {
             }
             renderAll();
             loadConfig();
-            const count = appData.pcs ? appData.pcs.length : 0;
-            showToast(`✅ Successfully synced ${count} systems via Local Server!`, 'success');
+            const pcCount = appData.pcs ? appData.pcs.length : 0;
+            const tktCount = appData.tickets ? appData.tickets.length : 0;
+            showToast(`✅ Successfully synced ${pcCount} Systems & ${tktCount} Tickets from Google Sheets!`, 'success');
             return;
           }
         }
@@ -2466,16 +2467,8 @@ async function testSync() {
       }
     }
 
-    // 3. Direct Cloud Fetch from Google Apps Script Web App
-    const cloudController = new AbortController();
-    const cloudTimer = setTimeout(() => cloudController.abort(), 20000);
-    const cloudRes = await fetch(gasUrl, {
-      method: 'GET',
-      signal: cloudController.signal,
-      headers: { 'Accept': 'application/json' },
-      redirect: 'follow'
-    });
-    clearTimeout(cloudTimer);
+    // 3. Direct Cloud Fetch from Google Apps Script Web App (simple GET, no custom headers to prevent CORS issues)
+    const cloudRes = await fetch(gasUrl);
 
     if (!cloudRes.ok) throw new Error(`HTTP ${cloudRes.status}: Google Sheets connection failed`);
     const cloudJson = await cloudRes.json();
