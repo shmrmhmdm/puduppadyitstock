@@ -1791,10 +1791,6 @@ function printSingleSticker(assetId) {
   printWindow.document.close();
 }
 
-  printWindow.document.write(stickerHtml);
-  printWindow.document.close();
-}
-
 // 17. Dynamic Modal Builder for Stock CRUD
 function openAddModal(category = 'pcs') {
   editMode = false;
