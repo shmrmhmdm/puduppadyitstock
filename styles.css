@@ -1266,9 +1266,15 @@ body {
   margin: 4px 0;
 }
 
-.qr-code-box img, .qr-code-box canvas {
+.qr-code-box canvas {
+  display: none !important;
+}
+
+.qr-code-box img {
+  display: block !important;
   width: 100% !important;
   height: 100% !important;
+  object-fit: contain;
 }
 
 .qr-asset-id {
@@ -1624,21 +1630,31 @@ body {
 
   .qr-code-box {
     border: none !important;
-    width: 120px !important;
-    height: 120px !important;
+    width: 95px !important;
+    height: 95px !important;
+    max-width: 95px !important;
+    max-height: 95px !important;
     margin: 2px auto !important;
     background: #ffffff !important;
     padding: 0 !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    overflow: hidden !important;
   }
 
-  .qr-code-box img,
   .qr-code-box canvas {
-    width: 100% !important;
-    height: 100% !important;
+    display: none !important;
+  }
+
+  .qr-code-box img {
+    width: 95px !important;
+    height: 95px !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
     display: block !important;
+    margin: 0 auto !important;
+    object-fit: contain !important;
   }
 
   .qr-asset-id {

@@ -1638,8 +1638,8 @@ function renderQrStickers() {
         if (typeof QRCode !== 'undefined') {
           new QRCode(qrEl, {
             text: String(item.asset_id).trim(),
-            width: 120,
-            height: 120,
+            width: 95,
+            height: 95,
             colorDark: "#000000",
             colorLight: "#ffffff",
             correctLevel: QRCode.CorrectLevel.M
