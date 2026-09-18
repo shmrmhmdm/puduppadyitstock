@@ -2784,10 +2784,9 @@ function openAssetPassport(assetId) {
     const qrTarget = document.getElementById('modal-qr-container');
     if (qrTarget) {
       qrTarget.innerHTML = '';
-      const assetUrl = getAssetPassportUrl(item.asset_id);
       if (typeof QRCode !== 'undefined') {
         new QRCode(qrTarget, {
-          text: assetUrl,
+          text: item.asset_id,
           width: 94,
           height: 94,
           colorDark: "#0f172a",
@@ -2868,28 +2867,26 @@ function renderQrStickers() {
     card.innerHTML = `
       <div class="qr-sticker-header">
         <div class="qr-panchayath-name">Puthuppadi Grama Panchayath</div>
-        <div class="qr-sub-header">IT Asset Management</div>
+        <div class="qr-sub-header">IT Asset ID</div>
       </div>
       <div class="qr-sticker-body-clean">
         <div class="qr-code-box-large" id="qr-box-${index}"></div>
         <div class="qr-asset-id-large">${aid}</div>
-        <div class="qr-seat-badge">${seat !== 'N/A' && seat !== '' ? seat + ' • ' + emp : emp}</div>
-        <div class="qr-office-tag">${sec}${item.brand ? ' | ' + item.brand : ''}</div>
       </div>
       <div class="qr-sticker-footer">
         <button class="btn btn-sm btn-outline" style="padding: 4px 10px; font-size: 11px;" onclick="printSingleSticker('${aid}')"><i class="fa-solid fa-print"></i> Print</button>
-        <button class="btn btn-sm btn-primary" style="padding: 4px 10px; font-size: 11px;" onclick="openAssetPassport('${aid}')"><i class="fa-solid fa-circle-info"></i> Passport</button>
+        <button class="btn btn-sm btn-primary" style="padding: 4px 10px; font-size: 11px;" onclick="openAssetPassport('${aid}')"><i class="fa-solid fa-circle-info"></i> Details</button>
       </div>
     `;
 
     grid.appendChild(card);
 
-    // Generate QR Code inside box
+    // Generate QR Code containing ONLY the Asset ID
     setTimeout(() => {
       const qrEl = document.getElementById(`qr-box-${index}`);
       if (qrEl && typeof QRCode !== 'undefined') {
         new QRCode(qrEl, {
-          text: getAssetPassportUrl(aid),
+          text: aid,
           width: 130,
           height: 130,
           colorDark: "#000000",
