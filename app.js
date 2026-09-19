@@ -1654,7 +1654,7 @@ function renderQrStickers() {
             text: qrUrl,
             width: 100,
             height: 100,
-            colorDark: "#0c2340",
+            colorDark: "#1d4ed8",
             colorLight: "#ffffff",
             correctLevel: QRCode.CorrectLevel.M
           });
@@ -1783,7 +1783,7 @@ function printSingleSticker(assetId) {
     '      text: ' + JSON.stringify(qrUrl) + ',',
     '      width: 140,',
     '      height: 140,',
-    '      colorDark: "#000000",',
+    '      colorDark: "#1d4ed8",',
     '      colorLight: "#ffffff",',
     '      correctLevel: QRCode.CorrectLevel.M',
     '    });',
@@ -3403,7 +3403,7 @@ function openAssetPassport(assetId) {
           text: assetUrl,
           width: 95,
           height: 95,
-          colorDark: "#0c2340",
+          colorDark: "#1d4ed8",
           colorLight: "#ffffff",
           correctLevel: QRCode.CorrectLevel.M
         });
@@ -3667,7 +3667,7 @@ function printAssetPassportSheet(assetId) {
           text: ${JSON.stringify(qrUrl)},
           width: 95,
           height: 95,
-          colorDark: "#000000",
+          colorDark: "#1d4ed8",
           colorLight: "#ffffff",
           correctLevel: QRCode.CorrectLevel.M
         });
