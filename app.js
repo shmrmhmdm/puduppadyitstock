@@ -1622,8 +1622,8 @@ function renderQrStickers() {
     card.className = 'qr-sticker-card';
     card.id = `sticker-${safeId}`;
     
-    const assignedUser = item.employee_name ? `${item.employee_name} (${item.seat || item.assigned_seat || ''})` : (item.seat || item.assigned_seat || 'PGP GP');
     const qrUrl = getAssetPassportUrl(item.asset_id);
+    const deviceMeta = [item.brand, item.model].filter(Boolean).join(' ');
 
     card.innerHTML = `
       <div class="qr-sticker-header">
@@ -1633,7 +1633,7 @@ function renderQrStickers() {
         <div class="qr-code-box" id="qr-target-${safeId}" title="Scan to view complete stock details"></div>
       </div>
       <div class="qr-asset-id"><i class="fa-solid fa-barcode"></i> ${item.asset_id}</div>
-      <div class="qr-sticker-meta">${item.brand || ''} ${item.model || ''} • ${assignedUser}</div>
+      ${deviceMeta ? `<div class="qr-sticker-meta">${deviceMeta}</div>` : ''}
       <div class="qr-sticker-footer no-print">
         <button class="btn btn-xs btn-outline" onclick="printSingleSticker('${item.asset_id}')" title="Print Sticker">
           <i class="fa-solid fa-print"></i> Print
@@ -1686,8 +1686,7 @@ function printSingleSticker(assetId) {
   }
 
   const qrUrl = getAssetPassportUrl(item.asset_id);
-  const seatInfo = item.seat || item.assigned_seat || 'OFFICE';
-  const staffInfo = item.employee_name ? `${item.employee_name} (${seatInfo})` : seatInfo;
+  const deviceMeta = [item.brand, item.model].filter(Boolean).join(' ');
 
   const stickerHtml = [
     '<!DOCTYPE html>',
@@ -1761,11 +1760,11 @@ function printSingleSticker(assetId) {
     '      margin-top: 6px;',
     '      width: 100%;',
     '    }',
-    '    .sticker-staff {',
-    '      font-size: 10.5px;',
+    '    .sticker-meta {',
+    '      font-size: 11px;',
     '      font-weight: 700;',
-    '      color: #444444;',
-    '      margin-top: 3px;',
+    '      color: #334155;',
+    '      margin-top: 4px;',
     '    }',
     '  </style>',
     '  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"><\/script>',
@@ -1776,7 +1775,7 @@ function printSingleSticker(assetId) {
     '    <div class="sticker-sub">IT ASSET MANAGEMENT</div>',
     '    <div class="qr-box" id="qr-single-target"></div>',
     '    <div class="sticker-id">' + item.asset_id + '</div>',
-    '    <div class="sticker-staff">' + staffInfo + '</div>',
+    deviceMeta ? '    <div class="sticker-meta">' + deviceMeta + '</div>' : '',
     '  </div>',
     '  <script>',
     '    new QRCode(document.getElementById("qr-single-target"), {',
