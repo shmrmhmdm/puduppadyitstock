@@ -1632,7 +1632,7 @@ function renderQrStickers() {
       <div class="qr-sticker-body">
         <div class="qr-code-box" id="qr-target-${safeId}" title="Scan to view complete stock details"></div>
       </div>
-      <div class="qr-asset-id">${item.asset_id}</div>
+      <div class="qr-asset-id"><i class="fa-solid fa-barcode"></i> ${item.asset_id}</div>
       <div class="qr-sticker-meta">${item.brand || ''} ${item.model || ''} • ${assignedUser}</div>
       <div class="qr-sticker-footer no-print">
         <button class="btn btn-xs btn-outline" onclick="printSingleSticker('${item.asset_id}')" title="Print Sticker">
@@ -1654,7 +1654,7 @@ function renderQrStickers() {
             text: qrUrl,
             width: 100,
             height: 100,
-            colorDark: "#000000",
+            colorDark: "#0c2340",
             colorLight: "#ffffff",
             correctLevel: QRCode.CorrectLevel.M
           });
@@ -3312,7 +3312,10 @@ function openAssetPassport(assetId) {
           ${statusBadge}
         </div>
         <div class="passport-hero-id">
-          <span>${item.asset_id}</span>
+          <div class="passport-hero-id-chip">
+            <i class="fa-solid fa-barcode"></i>
+            <span>${item.asset_id}</span>
+          </div>
           <button class="copy-aid-btn" onclick="copyToClipboard('${item.asset_id}', 'Asset ID Copied!')" title="Copy Asset ID"><i class="fa-solid fa-copy"></i> Copy ID</button>
         </div>
         <div class="passport-hero-model">${item.brand || ''} ${item.model || ''} <span class="malayalam-sub">(${typeLabelMl})</span></div>
@@ -3400,7 +3403,7 @@ function openAssetPassport(assetId) {
           text: assetUrl,
           width: 95,
           height: 95,
-          colorDark: "#000000",
+          colorDark: "#0c2340",
           colorLight: "#ffffff",
           correctLevel: QRCode.CorrectLevel.M
         });
