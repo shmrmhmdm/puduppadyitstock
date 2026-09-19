@@ -3035,9 +3035,9 @@ function openAssetPassport(assetId) {
     ? `<span class="passport-cat-badge" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border-color: rgba(16, 185, 129, 0.4);"><i class="fa-solid fa-shield-halved"></i> ${item.amc_type} (${item.amc_agency || 'Keltron'})</span>`
     : `<span class="passport-cat-badge" style="background: rgba(100, 116, 139, 0.15); color: var(--text-muted); border-color: var(--border-color);"><i class="fa-solid fa-shield-slash"></i> Non-AMC / Expired</span>`;
 
-  const assignedUser = item.employee_name || 'Unassigned';
-  const assignedSeat = item.seat || item.assigned_seat || 'N/A';
-  const officeSec = item.office_section || item.section || 'PUTHUPPADI GP OFFICE';
+  const assignedUser = item.employee_name || (parentPc && parentPc.employee_name) || item.user || 'Unassigned (പൊതുവായത്)';
+  const assignedSeat = item.seat || item.assigned_seat || (parentPc && (parentPc.seat || parentPc.assigned_seat)) || 'Panchayath Office';
+  const officeSec = item.office_section || item.section || (parentPc && (parentPc.office_section || parentPc.section)) || item.department || 'Puduppady GP Main Office';
   const assetUrl = getAssetPassportUrl(item.asset_id);
 
   // Specifications Building
@@ -3319,9 +3319,9 @@ function openAssetPassport(assetId) {
         </div>
         <div class="passport-hero-model">${item.brand || ''} ${item.model || ''} <span class="malayalam-sub">(${typeLabelMl})</span></div>
         <div class="passport-hero-meta">
-          <div class="passport-meta-item"><i class="fa-solid fa-user" style="color: var(--primary);"></i> <strong>${assignedUser}</strong></div>
-          <div class="passport-meta-item"><i class="fa-solid fa-chair" style="color: var(--warning);"></i> Seat: <strong>${assignedSeat}</strong></div>
-          <div class="passport-meta-item"><i class="fa-solid fa-building" style="color: var(--info);"></i> ${officeSec}</div>
+          <div class="passport-meta-item"><i class="fa-solid fa-user-tie" style="color: #38bdf8;"></i> <strong>${assignedUser}</strong></div>
+          <div class="passport-meta-item"><i class="fa-solid fa-building-user" style="color: #c084fc;"></i> <strong>${officeSec}</strong></div>
+          <div class="passport-meta-item"><i class="fa-solid fa-chair" style="color: #fbbf24;"></i> Seat: <strong>${assignedSeat}</strong></div>
         </div>
         <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
           <button class="btn btn-warning btn-sm" onclick="logComplaintFromPassport('${item.asset_id}')" style="font-weight: 700; box-shadow: 0 3px 12px rgba(245, 158, 11, 0.35);">
@@ -3333,6 +3333,37 @@ function openAssetPassport(assetId) {
 
     <!-- Main Content Body -->
     <div class="passport-content-body">
+      <!-- 0. Live Custodian & Department Section Card -->
+      <div class="passport-custodian-box">
+        <div class="passport-custodian-item">
+          <div class="passport-custodian-icon custodian-icon-user">
+            <i class="fa-solid fa-user-tie"></i>
+          </div>
+          <div class="passport-custodian-info">
+            <span class="custodian-label">ഉപയോഗിക്കുന്ന ഉദ്യോഗസ്ഥൻ (Employee / User)</span>
+            <span class="custodian-val">${assignedUser}</span>
+          </div>
+        </div>
+        <div class="passport-custodian-item">
+          <div class="passport-custodian-icon custodian-icon-section">
+            <i class="fa-solid fa-building-user"></i>
+          </div>
+          <div class="passport-custodian-info">
+            <span class="custodian-label">സെക്ഷൻ / വിഭാഗം (Office Section)</span>
+            <span class="custodian-val">${officeSec}</span>
+          </div>
+        </div>
+        <div class="passport-custodian-item">
+          <div class="passport-custodian-icon custodian-icon-seat">
+            <i class="fa-solid fa-chair"></i>
+          </div>
+          <div class="passport-custodian-info">
+            <span class="custodian-label">സീറ്റ് നമ്പർ (Seat Location)</span>
+            <span class="custodian-val">${assignedSeat}</span>
+          </div>
+        </div>
+      </div>
+
       <!-- 1. Technical Specifications -->
       <div>
         <div class="passport-section-title">
