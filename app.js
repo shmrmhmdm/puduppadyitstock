@@ -656,22 +656,33 @@ function filterTickets() {
 }
 
 // 12. Open & Populate Ticket Modals
-function openTicketModal() {
-  document.getElementById('complaint-modal-title').innerHTML = '<i class="fa-solid fa-plus"></i> Create New Service Ticket';
-  document.getElementById('comp-id').value = '';
-  document.getElementById('comp-tkt-id').value = '';
-  document.getElementById('comp-date').value = new Date().toISOString().split('T')[0];
-  document.getElementById('comp-priority').value = 'High';
-  document.getElementById('comp-category').value = 'Hardware Fault';
-  document.getElementById('comp-details').value = '';
-  document.getElementById('comp-ticket').value = '';
-  document.getElementById('comp-vendor-date').value = '';
-  document.getElementById('comp-attended-date').value = '';
-  document.getElementById('comp-tech-name').value = '';
-  document.getElementById('comp-tech-phone').value = '';
-  document.getElementById('comp-parts').value = '';
-  document.getElementById('comp-solution').value = '';
-  document.getElementById('comp-status').value = 'Open';
+function openTicketModal(prefillAssetId = '') {
+  const titleEl = document.getElementById('complaint-modal-title');
+  if (titleEl) titleEl.innerHTML = '<i class="fa-solid fa-plus"></i> Create New Service Ticket / കംപ്ലയിന്റ് രജിസ്റ്റർ ചെയ്യുക';
+  
+  const setVal = (id, val) => {
+    const el = document.getElementById(id);
+    if (el) el.value = val;
+  };
+
+  setVal('comp-id', '');
+  setVal('comp-tkt-id', '');
+  setVal('comp-date', new Date().toISOString().split('T')[0]);
+  setVal('comp-priority', 'High');
+  setVal('comp-category', 'Hardware Fault');
+  setVal('comp-details', '');
+  setVal('comp-ticket', '');
+  setVal('comp-vendor-date', '');
+  setVal('comp-attended-date', '');
+  setVal('comp-tech-name', '');
+  setVal('comp-tech-phone', '');
+  setVal('comp-parts', '');
+  setVal('comp-solution', '');
+  setVal('comp-status', 'Open');
+  setVal('comp-item-name', '');
+  setVal('comp-section', '');
+  setVal('comp-reported-by', '');
+  setVal('comp-amc', '');
 
   const fileInput = document.getElementById('comp-ccfr-file');
   if (fileInput) fileInput.value = '';
@@ -680,7 +691,11 @@ function openTicketModal() {
   const previewDiv = document.getElementById('comp-ccfr-preview');
   if (previewDiv) previewDiv.style.display = 'none';
 
-  populateTicketAssetSelect();
+  populateTicketAssetSelect(prefillAssetId);
+  if (prefillAssetId) {
+    onComplaintPcSelect(prefillAssetId);
+  }
+
   openModal('complaint-modal');
 }
 
@@ -689,28 +704,35 @@ function openEditTicketModal(ticketId) {
   const t = tickets.find(tk => tk.ticket_id === ticketId || tk.id === ticketId);
   if (!t) return;
 
-  document.getElementById('complaint-modal-title').innerHTML = `<i class="fa-solid fa-pen-to-square"></i> Edit Ticket ${t.ticket_id || t.id}`;
-  document.getElementById('comp-id').value = t.ticket_id || t.id;
-  document.getElementById('comp-tkt-id').value = t.ticket_id || t.id;
+  const titleEl = document.getElementById('complaint-modal-title');
+  if (titleEl) titleEl.innerHTML = `<i class="fa-solid fa-pen-to-square"></i> Edit Ticket ${t.ticket_id || t.id}`;
+  
+  const setVal = (id, val) => {
+    const el = document.getElementById(id);
+    if (el) el.value = val;
+  };
+
+  setVal('comp-id', t.ticket_id || t.id);
+  setVal('comp-tkt-id', t.ticket_id || t.id);
   
   populateTicketAssetSelect(t.asset_id || t.pc_asset_id);
   
-  document.getElementById('comp-priority').value = t.priority || 'Medium';
-  document.getElementById('comp-item-name').value = t.item_name || '';
-  document.getElementById('comp-section').value = t.office_section || t.section_name || '';
-  document.getElementById('comp-reported-by').value = t.reported_by || '';
-  document.getElementById('comp-category').value = t.issue_category || 'Hardware Fault';
-  document.getElementById('comp-date').value = t.date_logged || t.date || '';
-  document.getElementById('comp-details').value = t.fault_description || t.complaint_details || '';
-  document.getElementById('comp-amc').value = t.service_provider || t.amc_details || '';
-  document.getElementById('comp-ticket').value = t.vendor_call_no || t.ticket_id || '';
-  document.getElementById('comp-vendor-date').value = t.vendor_call_date || '';
-  document.getElementById('comp-attended-date').value = t.attended_date || t.assisted_date || '';
-  document.getElementById('comp-tech-name').value = t.technician_name || '';
-  document.getElementById('comp-tech-phone').value = t.technician_phone || '';
-  document.getElementById('comp-parts').value = t.parts_replaced || '';
-  document.getElementById('comp-status').value = t.status || 'Open';
-  document.getElementById('comp-solution').value = t.resolution || t.solution || '';
+  setVal('comp-priority', t.priority || 'Medium');
+  setVal('comp-item-name', t.item_name || '');
+  setVal('comp-section', t.office_section || t.section_name || '');
+  setVal('comp-reported-by', t.reported_by || '');
+  setVal('comp-category', t.issue_category || 'Hardware Fault');
+  setVal('comp-date', t.date_logged || t.date || '');
+  setVal('comp-details', t.fault_description || t.complaint_details || '');
+  setVal('comp-amc', t.service_provider || t.amc_details || '');
+  setVal('comp-ticket', t.vendor_call_no || t.ticket_id || '');
+  setVal('comp-vendor-date', t.vendor_call_date || '');
+  setVal('comp-attended-date', t.attended_date || t.assisted_date || '');
+  setVal('comp-tech-name', t.technician_name || '');
+  setVal('comp-tech-phone', t.technician_phone || '');
+  setVal('comp-parts', t.parts_replaced || '');
+  setVal('comp-status', t.status || 'Open');
+  setVal('comp-solution', t.resolution || t.solution || '');
 
   const fileInput = document.getElementById('comp-ccfr-file');
   if (fileInput) fileInput.value = '';
@@ -732,72 +754,148 @@ function openEditTicketModal(ticketId) {
 
 function populateTicketAssetSelect(selectedId = '') {
   const pcSelect = document.getElementById('comp-pc-select');
+  if (!pcSelect) return;
   pcSelect.innerHTML = '<option value="">-- Choose Affected System / Equipment --</option>';
 
+  const selUpper = String(selectedId || '').toUpperCase().trim();
+
   // PCs
-  const pcGroup = document.createElement('optgroup');
-  pcGroup.label = 'Computers & Servers';
-  appData.pcs.forEach(p => {
-    const opt = document.createElement('option');
-    opt.value = p.asset_id;
-    opt.innerText = `${p.asset_id} - ${p.brand} ${p.model} (${p.seat || p.office_section} - ${p.employee_name || 'Vacant'})`;
-    if (p.asset_id === selectedId) opt.selected = true;
-    pcGroup.appendChild(opt);
-  });
-  pcSelect.appendChild(pcGroup);
+  if (appData.pcs && appData.pcs.length) {
+    const pcGroup = document.createElement('optgroup');
+    pcGroup.label = 'Computers & Workstations (കമ്പ്യൂട്ടറുകൾ)';
+    appData.pcs.forEach(p => {
+      const opt = document.createElement('option');
+      opt.value = p.asset_id;
+      opt.innerText = `${p.asset_id} - ${p.brand || ''} ${p.model || ''} (${p.seat || p.office_section || ''} - ${p.employee_name || 'General'})`;
+      if (selUpper && String(p.asset_id).toUpperCase().trim() === selUpper) opt.selected = true;
+      pcGroup.appendChild(opt);
+    });
+    pcSelect.appendChild(pcGroup);
+  }
+
+  // Monitors
+  if (appData.monitors && appData.monitors.length) {
+    const monGroup = document.createElement('optgroup');
+    monGroup.label = 'Monitors & Displays (മോണിറ്ററുകൾ)';
+    appData.monitors.forEach(m => {
+      const opt = document.createElement('option');
+      opt.value = m.asset_id;
+      opt.innerText = `${m.asset_id} - ${m.brand || ''} ${m.model || ''} (${m.assigned_seat || m.connected_pc_id || ''})`;
+      if (selUpper && String(m.asset_id).toUpperCase().trim() === selUpper) opt.selected = true;
+      monGroup.appendChild(opt);
+    });
+    pcSelect.appendChild(monGroup);
+  }
 
   // Printers
-  const ptrGroup = document.createElement('optgroup');
-  ptrGroup.label = 'Printers & Scanners';
-  appData.printers.forEach(pt => {
-    const opt = document.createElement('option');
-    opt.value = pt.asset_id;
-    opt.innerText = `${pt.asset_id} - ${pt.brand} ${pt.model} (${pt.assigned_seat || ''})`;
-    if (pt.asset_id === selectedId) opt.selected = true;
-    ptrGroup.appendChild(opt);
-  });
-  pcSelect.appendChild(ptrGroup);
+  if (appData.printers && appData.printers.length) {
+    const ptrGroup = document.createElement('optgroup');
+    ptrGroup.label = 'Printers & Scanners (പ്രിന്ററുകൾ)';
+    appData.printers.forEach(pt => {
+      const opt = document.createElement('option');
+      opt.value = pt.asset_id;
+      opt.innerText = `${pt.asset_id} - ${pt.brand || ''} ${pt.model || ''} (${pt.assigned_seat || ''})`;
+      if (selUpper && String(pt.asset_id).toUpperCase().trim() === selUpper) opt.selected = true;
+      ptrGroup.appendChild(opt);
+    });
+    pcSelect.appendChild(ptrGroup);
+  }
+
+  // Peripherals
+  if (appData.peripherals && appData.peripherals.length) {
+    const periGroup = document.createElement('optgroup');
+    periGroup.label = 'Keyboards & Peripherals (കീബോർഡ് & മൗസ്)';
+    appData.peripherals.forEach(k => {
+      const opt = document.createElement('option');
+      opt.value = k.asset_id;
+      opt.innerText = `${k.asset_id} - ${k.brand || ''} ${k.type || ''} (${k.assigned_seat || ''})`;
+      if (selUpper && String(k.asset_id).toUpperCase().trim() === selUpper) opt.selected = true;
+      periGroup.appendChild(opt);
+    });
+    pcSelect.appendChild(periGroup);
+  }
 
   // Other Equipments
-  const oeGroup = document.createElement('optgroup');
-  oeGroup.label = 'Power & Network';
-  appData.other_equipments.forEach(o => {
-    const opt = document.createElement('option');
-    opt.value = o.asset_id;
-    opt.innerText = `${o.asset_id} - ${o.category || o.item_name} (${o.section})`;
-    if (o.asset_id === selectedId) opt.selected = true;
-    oeGroup.appendChild(opt);
-  });
-  pcSelect.appendChild(oeGroup);
+  if (appData.other_equipments && appData.other_equipments.length) {
+    const oeGroup = document.createElement('optgroup');
+    oeGroup.label = 'Power & Network (UPS / Modem)';
+    appData.other_equipments.forEach(o => {
+      const opt = document.createElement('option');
+      opt.value = o.asset_id;
+      opt.innerText = `${o.asset_id} - ${o.brand || ''} ${o.category || o.item_name || ''} (${o.section || ''})`;
+      if (selUpper && String(o.asset_id).toUpperCase().trim() === selUpper) opt.selected = true;
+      oeGroup.appendChild(opt);
+    });
+    pcSelect.appendChild(oeGroup);
+  }
+
+  // If selectedId provided but not in any list, add as custom option
+  if (selectedId && !pcSelect.value) {
+    const customOpt = document.createElement('option');
+    customOpt.value = selectedId;
+    customOpt.innerText = `${selectedId} (Current Selected Hardware)`;
+    customOpt.selected = true;
+    pcSelect.appendChild(customOpt);
+  }
 }
 
 function onComplaintPcSelect(assetId) {
   if (!assetId) return;
-  const pc = appData.pcs.find(p => p.asset_id === assetId);
+  const aid = String(assetId).toUpperCase().trim();
+  
+  const setVal = (id, val) => {
+    const el = document.getElementById(id);
+    if (el) el.value = val;
+  };
+
+  const pc = (appData.pcs || []).find(p => String(p.asset_id).toUpperCase().trim() === aid);
   if (pc) {
-    document.getElementById('comp-item-name').value = `${pc.brand} ${pc.model} (${pc.processor || ''}, ${pc.ram || ''})`;
-    document.getElementById('comp-section').value = `${pc.office_section || ''} - Seat: ${pc.seat || ''}`;
-    document.getElementById('comp-reported-by').value = pc.employee_name || '';
-    document.getElementById('comp-amc').value = `${pc.amc_agency || 'Keltron'} (${pc.amc_type || 'AMC'})`;
+    setVal('comp-item-name', `${pc.brand || ''} ${pc.model || ''} (${pc.processor || ''}, ${pc.ram || ''})`.trim());
+    setVal('comp-section', `${pc.office_section || ''} - Seat: ${pc.seat || ''}`.trim());
+    setVal('comp-reported-by', pc.employee_name || '');
+    setVal('comp-amc', `${pc.amc_agency || 'Keltron'} (${pc.amc_type || 'AMC'})`);
     return;
   }
 
-  const ptr = appData.printers.find(p => p.asset_id === assetId);
+  const mon = (appData.monitors || []).find(m => String(m.asset_id).toUpperCase().trim() === aid);
+  if (mon) {
+    const parentPc = (appData.pcs || []).find(p => String(p.asset_id).toUpperCase().trim() === String(mon.connected_pc_id || '').toUpperCase().trim());
+    setVal('comp-item-name', `${mon.brand || ''} ${mon.model || ''} (${mon.size || 'LED Monitor'})`.trim());
+    setVal('comp-section', parentPc ? `${parentPc.office_section || ''} - Seat: ${parentPc.seat || ''}` : (mon.assigned_seat || ''));
+    setVal('comp-reported-by', (parentPc ? parentPc.employee_name : '') || mon.employee_name || '');
+    setVal('comp-amc', 'Keltron AMC / Warranty');
+    setVal('comp-category', 'Hardware Fault');
+    return;
+  }
+
+  const ptr = (appData.printers || []).find(p => String(p.asset_id).toUpperCase().trim() === aid);
   if (ptr) {
-    document.getElementById('comp-item-name').value = `${ptr.brand} ${ptr.model} (${ptr.category})`;
-    document.getElementById('comp-section').value = ptr.assigned_seat || '';
-    document.getElementById('comp-reported-by').value = ptr.employee_name || '';
-    document.getElementById('comp-amc').value = 'Keltron AMC';
-    document.getElementById('comp-category').value = 'Printer / Scanner';
+    const parentPc = (appData.pcs || []).find(p => String(p.asset_id).toUpperCase().trim() === String(ptr.connected_pc_id || '').toUpperCase().trim());
+    setVal('comp-item-name', `${ptr.brand || ''} ${ptr.model || ''} (${ptr.category || 'Printer'})`.trim());
+    setVal('comp-section', parentPc ? `${parentPc.office_section || ''} - Seat: ${parentPc.seat || ''}` : (ptr.assigned_seat || ''));
+    setVal('comp-reported-by', (parentPc ? parentPc.employee_name : '') || ptr.employee_name || '');
+    setVal('comp-amc', 'Keltron AMC');
+    setVal('comp-category', 'Printer / Scanner');
     return;
   }
 
-  const oe = appData.other_equipments.find(o => o.asset_id === assetId);
+  const kbd = (appData.peripherals || []).find(k => String(k.asset_id).toUpperCase().trim() === aid);
+  if (kbd) {
+    const parentPc = (appData.pcs || []).find(p => String(p.asset_id).toUpperCase().trim() === String(kbd.connected_pc_id || '').toUpperCase().trim());
+    setVal('comp-item-name', `${kbd.brand || ''} ${kbd.type || 'Keyboard / Mouse'}`.trim());
+    setVal('comp-section', parentPc ? `${parentPc.office_section || ''} - Seat: ${parentPc.seat || ''}` : (kbd.assigned_seat || ''));
+    setVal('comp-reported-by', (parentPc ? parentPc.employee_name : '') || '');
+    setVal('comp-amc', 'Keltron AMC / In-House');
+    setVal('comp-category', 'Hardware Fault');
+    return;
+  }
+
+  const oe = (appData.other_equipments || []).find(o => String(o.asset_id).toUpperCase().trim() === aid);
   if (oe) {
-    document.getElementById('comp-item-name').value = `${oe.brand} ${oe.model} (${oe.category || oe.item_name})`;
-    document.getElementById('comp-section').value = oe.section || '';
-    document.getElementById('comp-amc').value = 'In-House / OEM';
-    document.getElementById('comp-category').value = 'Power / UPS';
+    setVal('comp-item-name', `${oe.brand || ''} ${oe.model || ''} (${oe.category || oe.item_name || 'UPS / Network'})`.trim());
+    setVal('comp-section', oe.section || '');
+    setVal('comp-amc', 'In-House / OEM');
+    setVal('comp-category', 'Power / UPS');
   }
 }
 
@@ -3731,14 +3829,7 @@ function printAssetPassportSheet(assetId) {
 // 28. Log Complaint Pre-Filled from Asset Passport
 function logComplaintFromPassport(assetId) {
   closeModal('asset-passport-modal');
-  setTimeout(() => {
-    openTicketModal();
-    const selectAsset = document.getElementById('comp-pc-select');
-    if (selectAsset && assetId) {
-      selectAsset.value = assetId;
-      onComplaintPcSelect(assetId);
-    }
-  }, 100);
+  openTicketModal(assetId);
 }
 
 // 29. In-App Live Camera QR Code Scanner (`#qr-scanner-modal`)
