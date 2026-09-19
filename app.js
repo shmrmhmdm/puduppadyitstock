@@ -3364,6 +3364,21 @@ function openAssetPassport(assetId) {
         </div>
       </div>
 
+      <!-- Quick Complaint Action Banner -->
+      <div style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.18) 0%, rgba(217, 119, 6, 0.25) 100%); border: 1.5px solid rgba(245, 158, 11, 0.5); border-radius: var(--radius-md); padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; box-shadow: 0 4px 14px rgba(245, 158, 11, 0.2);">
+        <div>
+          <div style="font-weight: 800; font-size: 14.5px; color: #fbbf24; display: flex; align-items: center; gap: 8px;">
+            <i class="fa-solid fa-triangle-exclamation"></i> ഹാർഡ്‌വെയർ തകരാറുണ്ടോ? (Hardware Breakdown?)
+          </div>
+          <div style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">
+            ഈ സിസ്റ്റത്തിൽ കൽട്രോൺ സർവീസ് / കംപ്ലയിന്റ് നേരിട്ട് രജിസ്റ്റർ ചെയ്യാം
+          </div>
+        </div>
+        <button class="btn btn-warning" onclick="logComplaintFromPassport('${item.asset_id}')" style="font-weight: 800; padding: 10px 18px; font-size: 13.5px; box-shadow: 0 4px 14px rgba(245, 158, 11, 0.45); border-radius: 8px;">
+          <i class="fa-solid fa-triangle-exclamation"></i> Report Complaint / കംപ്ലയിന്റ് നൽകുക
+        </button>
+      </div>
+
       <!-- 1. Technical Specifications -->
       <div>
         <div class="passport-section-title">
@@ -3444,10 +3459,10 @@ function openAssetPassport(assetId) {
   // Footer Action Buttons
   const footer = document.getElementById('passport-footer-actions');
   footer.innerHTML = `
-    <button class="btn btn-secondary" onclick="logComplaintFromPassport('${item.asset_id}')" title="Report breakdown ticket">
-      <i class="fa-solid fa-triangle-exclamation" style="color: var(--warning);"></i> Report Complaint / കംപ്ലയിന്റ് നൽകുക
+    <button class="btn btn-warning" onclick="logComplaintFromPassport('${item.asset_id}')" title="Report breakdown ticket" style="font-weight: 800; font-size: 15px; box-shadow: 0 4px 16px rgba(245, 158, 11, 0.45); justify-content: center; width: 100%; border-radius: 8px; padding: 12px 16px;">
+      <i class="fa-solid fa-triangle-exclamation"></i> Report Complaint / കംപ്ലയിന്റ് നൽകുക
     </button>
-    <button class="btn btn-primary" onclick="closeModal('asset-passport-modal')">
+    <button class="btn btn-secondary" onclick="closeModal('asset-passport-modal')" style="justify-content: center; width: 100%; font-weight: 700; border-radius: 8px;">
       <i class="fa-solid fa-xmark"></i> Close / ക്ലോസ് ചെയ്യുക
     </button>
   `;
